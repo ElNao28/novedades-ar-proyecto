@@ -3,7 +3,6 @@
     <h2>Crear cuenta</h2>
     <h3 *ngIf="formValue">Paso 1: Datos personales</h3>
     <h3 *ngIf="!formValue">Paso 2: Datos virtuales</h3>
-
     <app-layout-form
       [formValue]="formValue"
       [datosFormDos]="datosFormDos"
@@ -13,6 +12,9 @@
       [cp]="cp"
       [municipios]="municipios"
       [estados]="estados"
+      (estadoSelect)="getMunicipios($event)"
+      (municipioSelect)="getCp($event)"
+      (cpSelect)="getColonia($event)"
       ></app-layout-form>
     <div *ngIf="!formValue" class="field col-12">
       <ngx-recaptcha2 class="" #captchaElem [siteKey]="key" (success)="handleSuccess($event)" [useGlobalDomain]="true"

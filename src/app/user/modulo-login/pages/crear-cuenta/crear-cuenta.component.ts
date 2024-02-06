@@ -98,7 +98,7 @@ export class CrearCuentaComponent {
     {
       label: "Codigo postal",
       formControlName: "cp",
-      type:"text",
+      type:"select",
     },
     {
       label: "Colonia",
@@ -165,7 +165,7 @@ export class CrearCuentaComponent {
     birthdate: ['', [Validators.required, this.validateAge.bind(this)]],
     estado:['',[Validators.required]],
     municipio:['',[Validators.required]],
-    cp:['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
+    cp:['', [Validators.required]],
     colonia:['',[Validators.required]],
     calle:['', [Validators.required, Validators.minLength(5)]],
     email:['', [Validators.required, Validators.pattern(this.emailPattern)]],
@@ -181,31 +181,31 @@ export class CrearCuentaComponent {
   })
 
   ngOnInit(): void {
-      // this.loginService.getEstado().subscribe(data =>{
-      //     console.log(data)
-      //     this.estados = data;
-      //   })
+    this.loginService.getEstado().subscribe(data =>{
+        console.log(data)
+        this.estados = data;
+      })
   }
-  getMunicipios(){
-    // if(this.myForm.controls['estado'].invalid) return
-    // this.userService.getMunicipio(this.myForm.controls['estado'].value).subscribe(data =>{
-    //   console.log(data)
-    //   this.municipios = data;
-    // })
+  getMunicipios(estado:string){
+     if(this.myForm.controls['estado'].invalid) return
+     this.loginService.getMunicipio(estado).subscribe(data =>{
+       this.municipios = data;
+       console.log(this.municipios)
+     })
   }
-  getCp(){
-    // if(this.myForm.controls['municipio'].invalid) return
-    // this.userService.getCp(this.myForm.controls['municipio'].value).subscribe(data =>{
-    //   console.log(data)
-    //   this.cp = data;
-    // })
+  getCp(municipio:string){
+    if(this.myForm.controls['municipio'].invalid) return
+    this.loginService.getCp(municipio).subscribe(data =>{
+      console.log(data)
+      this.cp = data;
+    })
   }
-  getColonia(){
-    // if(this.myForm.controls['cp'].invalid) return
-    // this.userService.getColonia(this.myForm.controls['cp'].value).subscribe(data =>{
-    //   console.log(data)
-    //   this.colonias = data;
-    // })
+  getColonia(cp:string){
+    if(this.myForm.controls['cp'].invalid) return
+    this.loginService.getColonia(cp).subscribe(data =>{
+      console.log(data)
+      this.colonias = data;
+    })
   }
 
   //Funcion que toma los datos del formulario y los envia mediante el metodo post al back para su registro

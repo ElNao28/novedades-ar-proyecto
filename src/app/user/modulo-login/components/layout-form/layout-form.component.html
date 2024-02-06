@@ -23,10 +23,11 @@
           name="{{data.formControlName}}"
           id="{{data.formControlName}}"
           formControlName="{{data.formControlName}}"
+          #selectOption
+          (click)="emitEstado(selectOption.value)"
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           >
           <option value="" disabled selected>Seleccione una opcion</option>
-          <option value="prueba">prueba</option>
           <option *ngFor="let opcion of estados.response.estado" value="{{opcion}}">{{ opcion }}</option>
         </select>
 
@@ -35,10 +36,11 @@
           name="{{data.formControlName}}"
           id="{{data.formControlName}}"
           formControlName="{{data.formControlName}}"
+          #selectOption
+          (click)="emitMunicipio(selectOption.value)"
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           >
           <option value="" disabled selected>Seleccione una opcion</option>
-          <option value="prueba">prueba</option>
           <option *ngFor="let opcion of municipios.response.municipios" value="{{opcion}}">{{ opcion }}</option>
         </select>
 
@@ -47,10 +49,12 @@
           name="{{data.formControlName}}"
           id="{{data.formControlName}}"
           formControlName="{{data.formControlName}}"
+          #selectOption
+          (click)="emitCp(selectOption.value)"
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           >
           <option value="" disabled selected>Seleccione una opcion</option>
-          <option value="prueba">{{12345}}</option>
+          <option value="92143">92143</option>
           <option *ngFor="let opcion of cp.response.cp" value="{{opcion}}">{{ opcion }}</option>
         </select>
 
@@ -59,10 +63,11 @@
           name="{{data.formControlName}}"
           id="{{data.formControlName}}"
           formControlName="{{data.formControlName}}"
+          #selectOption
+          (click)="emitColonia(selectOption.value)"
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           >
           <option value="" disabled selected>Seleccione una opcion</option>
-          <option value="prueba">prueba</option>
           <option *ngFor="let opcion of colonias.response.colonia" value="{{opcion}}">{{ opcion }}</option>
         </select>
 
