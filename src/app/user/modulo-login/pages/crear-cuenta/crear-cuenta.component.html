@@ -1,0 +1,33 @@
+<div class="m-3 flex justify-content-center">
+  <div class="xl:w-6 w-10 px-5 pb-5 bg-white shadow-6 border-round">
+    <h2>Crear cuenta</h2>
+    <h3 *ngIf="formValue">Paso 1: Datos personales</h3>
+    <h3 *ngIf="!formValue">Paso 2: Datos virtuales</h3>
+
+    <app-layout-form
+      [formValue]="formValue"
+      [datosFormDos]="datosFormDos"
+      [dataForm]="myForm"
+      [datosForm]="datosForm"
+      [colonias]="colonias"
+      [cp]="cp"
+      [municipios]="municipios"
+      [estados]="estados"
+      ></app-layout-form>
+    <div *ngIf="!formValue" class="field col-12">
+      <ngx-recaptcha2 class="" #captchaElem [siteKey]="key" (success)="handleSuccess($event)" [useGlobalDomain]="true"
+        (expire)="handleexpired($event)" [size]="'normal'" [hl]="'es'" [theme]="'light'" [type]="'image'">
+      </ngx-recaptcha2>
+    </div>
+    <div>
+      <p-button routerLink="/user/login" styleClass="p-button-warning" *ngIf="formValue"
+        label="Ya tengo una cuenta"></p-button>
+      <p-button type="submit" (click)="createNewUser()" styleClass="p-button-secondary" *ngIf="!formValue" [disabled]="validCreateButton()"
+        label="Crear cuenta"></p-button>
+      <button class="bg-blue-500 xl:ml-2 mt-1" (click)="formValueChangue()" pButton *ngIf="formValue"
+        [disabled]="validBtn()" label="Siguiente"></button>
+      <button class="bg-blue-500 xl:ml-2" (click)="formValueChangue()" pButton *ngIf="!formValue"
+        label="Anterior"></button>
+    </div>
+  </div>
+</div>

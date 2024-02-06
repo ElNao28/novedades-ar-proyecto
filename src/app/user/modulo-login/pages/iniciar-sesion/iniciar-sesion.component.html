@@ -1,0 +1,34 @@
+<div class="m-3 flex justify-content-center">
+  <div class="xl:w-4 px-5 pb-5 bg-white shadow-6 border-round">
+    <div class="xl:pl-5">
+      <h2 class="text-4xl">Iniciar sesion</h2>
+
+          <!--Se llama al componente layout-form y se le pasa los parametos que esta esperando(Dataform y datosForm)-->
+          <app-layout-form [dataForm]="myForm" [datosForm]="datosForm">
+          </app-layout-form>
+          <!---------------------------------------------------------------------------------------------------------->
+
+          <div class="field col-12 mt-3 ">
+            <!--Mediante el evento click se manda a llamar a la funcion que valida el acceso a la cuenta-->
+            <p-button type="submit" (click)="getData()" [disabled]="validButton" styleClass="mr-2 p-button-secondary" label="Ingresar"></p-button>
+            <p-button routerLink="/user/crear-cuenta" styleClass="mr-2" label="Crear una cuenta"></p-button>
+            <div class="mt-2">
+              <a class="text-blue-500 hover:text-blue-800" routerLink="/user/recuperar-password" style="text-decoration: none;">Olvide mi contraseña</a>
+            </div>
+          </div>
+          <div class="field col-12">
+            <!--Con este componente se hace la implementacion del  captcha en la propiedad [siteKey] se la pasa la variable que contiene la key-->
+            <ngx-recaptcha2 class="" #captchaElem
+              [siteKey]="key"
+              (success)="handleSuccess($event)"
+              [useGlobalDomain]="true"
+              [size]="'normal'"
+              [hl]="'es'"
+              [theme]="'light'"
+              [type]="'image'"
+              >
+            </ngx-recaptcha2>
+          </div>
+    </div>
+  </div>
+</div>
