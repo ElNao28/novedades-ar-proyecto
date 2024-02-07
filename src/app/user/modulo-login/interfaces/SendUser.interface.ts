@@ -23,3 +23,11 @@ export interface ResponseLogin{
   status:number;
   message:string;
 }
+export interface Email{
+  to: string;
+}
+export interface ResponseEmail{
+  status:number;
+  message:string;
+  codigo: string,
+}

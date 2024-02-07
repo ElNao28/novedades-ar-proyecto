@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ResponseLogin, ValidUser } from '../interfaces/ValidUser.intereface';
 import { Observable } from 'rxjs';
-import { User } from '../interfaces/SendUser.interface';
+import { Email, ResponseEmail, User } from '../interfaces/SendUser.interface';
 import { ColoniaData, CpData, EstadoData, MunicipioData } from '../interfaces/ApiCopo.interface';
 
 @Injectable({
@@ -34,5 +34,12 @@ export class MLoginService {
   getColonia(cp:string){
     return this.http.get<ColoniaData>("https://api.copomex.com/query/get_colonia_por_cp/"+cp+"?token="+this.tokenApiCopomex+"")
   }
+
+  getUser(email:string):Observable<User>{
+    return this.http.get<User>('http://localhost:3000/users/'+email);
+  }
+  sendCodePassword(email:Email){
+    return this.http.post<ResponseEmail>('http://localhost:3000/email',email) ;
+   }
 
 }

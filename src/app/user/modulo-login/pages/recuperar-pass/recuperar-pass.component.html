@@ -1,0 +1,36 @@
+<!--Este div engloba los formularios de correo, token y pregunta secreta-->
+<div class="m-3 flex justify-content-center">
+
+  <!--Primer formulario en el cual se ingresa el correo electronico-->
+  <div class="md:w-4 px-5 pb-5 bg-white shadow-6 border-round" *ngIf="!validStatus">
+    <h2>Recuperar contraseña</h2>
+    <app-layout-form [dataForm]="formEmail" [datosForm]="datosFormEmail"></app-layout-form>
+    <div class="mt-3">
+      <p-button (click)="getData()" [disabled]="validButton()" type="submit" styleClass="mr-2 p-button-secondary" label="Recuperar contraseña"></p-button>
+      <p-button routerLink="/user/login" styleClass="mr-2" label="Cancelar"></p-button>
+    </div>
+  </div>
+
+  <!-- Este div engloba el formulario de ingresar el codigo enviado por correo y la respuesta de la pregunta-->
+  <div *ngIf="validStatus" class="px-5 pb-5 bg-white shadow-6 border-round">
+    <h2>Recuperar contraseña</h2>
+
+      <app-layout-form *ngIf="!validCode" [dataForm]="formCode" [datosForm]="datosFormToken"></app-layout-form>
+        <div *ngIf="!validCode" class="mt-3">
+          <p-button (click)="validatedCode()" [disabled]="validButtonCode()" type="submit" styleClass="mr-2 p-button-secondary" label="Verificar"></p-button>
+        </div>
+
+
+      <app-layout-form *ngIf="validCode" [dataForm]="formQuestion" [datosForm]="datosFormRes"></app-layout-form>
+        <div *ngIf="validCode" class="mt-3">
+          <p-button (click)="validBtnQuestion()" [disabled]="formQuestion.invalid" type="submit" styleClass="mr-2 p-button-secondary" label="Enviar"></p-button>
+        </div>
+
+  </div>
+
+</div>
+
+<!--Este div engloba el formulario para ingresar la nueva contraseña-->
+<div class="m-3 flex justify-content-center">
+
+</div>
