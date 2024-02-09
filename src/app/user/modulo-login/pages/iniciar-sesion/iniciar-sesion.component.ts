@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ReCaptchaV3Service } from 'ngx-captcha';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { MLoginService } from '../../services/m-login.service';
 
@@ -32,6 +31,7 @@ export class IniciarSesionComponent {
   emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   //variable que contiene la clave para que el REcapcha funcione
   key:string="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u";
+  keyProd:string="6Le_PFspAAAAAFjAJ6f-wHhiaqlLLnstow9Bup-Z";
   //variable que manjea el estado en que se encuentra el boton de inciar sesion(activo o desactivado)
   public validButton: boolean = true;
   //variable que contiene los datos con los que cuenta el formulario y que son enviados al componente "layaut-form"

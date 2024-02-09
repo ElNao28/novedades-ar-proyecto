@@ -17,10 +17,10 @@ export class MLoginService {
 
   //funcion que sirve para enviar los datos del formulario al back y regresa un estatus dependiendo de la respuesta del back
   validUser(data:ValidUser){
-    return this.http.post<ResponseLogin>('http://localhost:3000/login', data);
+    return this.http.post<ResponseLogin>('https://back-novedadesar.up.railway.app/login', data);
   }
   createUser(user:User):Observable<User>{
-    return this.http.post<User>('http://localhost:3000/users', user);
+    return this.http.post<User>('https://back-novedadesar.up.railway.app/users', user);
   }
   getEstado(){
     return this.http.get<EstadoData>("https://api.copomex.com/query/get_estados?token="+this.tokenApiCopomex+"")
@@ -36,13 +36,13 @@ export class MLoginService {
   }
 
   getUser(email:string):Observable<User>{
-    return this.http.get<User>('http://localhost:3000/users/'+email);
+    return this.http.get<User>('https://back-novedadesar.up.railway.app/users/'+email);
   }
   sendCodePassword(email:Email){
-    return this.http.post<ResponseEmail>('http://localhost:3000/email',email) ;
+    return this.http.post<ResponseEmail>('https://back-novedadesar.up.railway.app/email',email) ;
    }
    updatePassword(id:number, password:PasswordSend){
-    return this.http.patch('http://localhost:3000/users/'+id,password)
+    return this.http.patch('https://back-novedadesar.up.railway.app/users/'+id,password)
   }
 
 }
