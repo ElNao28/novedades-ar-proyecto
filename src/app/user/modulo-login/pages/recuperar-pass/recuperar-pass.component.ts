@@ -116,7 +116,7 @@ export class RecuperarPassComponent {
         })
     }
 
-      //Funcion para validar que las contraseñas ingresadas en el formulario sean iguales
+  //Funcion para validar que las contraseñas ingresadas en el formulario sean iguales
   public isFieldOneEqualFieldTwo( field1: string, field2: string ) {
 
     return ( formGroup: AbstractControl ): ValidationErrors | null => {

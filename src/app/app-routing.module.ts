@@ -13,11 +13,11 @@ const routes: Routes = [
   },
   {
     path:'**',
-    redirectTo:'inicio'
+    redirectTo:'user'
   },
   {
     path: '',
-    redirectTo: 'inicio',
+    redirectTo: 'user',
     pathMatch: 'full'
   }
 

@@ -52,9 +52,16 @@ export class IniciarSesionComponent {
     this.loginService.validUser(this.myForm.value).subscribe(res=>{
       console.log(res)
       if(res.status === 200)
+      {
         this.router.navigate(['/inicio'])
+      }
+      else if(res.status === 409){
+        return alert("Haz alcanzado el numero maximo de intentos")
+      }
       else
+      {
         return console.log(false, "ola")
+      }
     })
   }
   //Funcion que controla el estado del boton de iniciar sesion(si re recpcha es resulto el boton se activa)

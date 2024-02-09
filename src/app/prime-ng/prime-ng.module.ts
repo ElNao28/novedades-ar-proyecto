@@ -48,7 +48,6 @@ import { DialogModule } from 'primeng/dialog';
     DividerModule,
     AutoCompleteModule,
     DialogModule,
-
   ]
 })
 export class PrimeNgModule { }
