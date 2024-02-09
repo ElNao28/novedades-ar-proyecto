@@ -6,3 +6,6 @@ export interface ResponseLogin{
   status:number;
   message:string;
 }
+export interface PasswordSend{
+  password:string;
+}

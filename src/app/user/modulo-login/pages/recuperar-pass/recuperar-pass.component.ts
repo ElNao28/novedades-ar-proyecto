@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Email, User } from '../../interfaces/SendUser.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MLoginService } from '../../services/m-login.service';
 import { DataForm } from '../../interfaces/FormData.interface';
+import { PasswordSend } from '../../interfaces/ValidUser.intereface';
 
 @Component({
   selector: 'app-recuperar-pass',
@@ -18,10 +19,11 @@ export class RecuperarPassComponent {
   user!:User;
   newPassword!:string;
   code!:string;
+  idUser!:number;
   validCode:boolean = false;
   validQuestion:boolean = true;
   yaquedo:boolean = true;
-
+  caseBtnRec:boolean = true;
   //--------------------Decaracion de todos los formularios-------------------//
  //Formulario donde se ingresa el correo electronico
  formEmail:FormGroup = this.fb.group({
@@ -34,6 +36,16 @@ export class RecuperarPassComponent {
   //Formulario donde se ingresa la respuesta de la pregunta secreta
   formQuestion:FormGroup = this.fb.group({
     respuesta:['', [Validators.required, Validators.minLength(3)]]
+  })
+  //Formulario donde se ingresa la nueva contraseña y su respectiva repeticion
+  formNewPassword:FormGroup = this.fb.group({
+      password:['',[Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/)]],
+      confirmPassword:['',[Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/)]]
+    },
+    {
+      validators: [
+        this.isFieldOneEqualFieldTwo('password','confirmPassword')
+      ]
   })
   //-----------------Fin de los formularios---------------------------------//
 
@@ -59,6 +71,18 @@ export class RecuperarPassComponent {
       type:"text",
     }
   ]
+  datosFormPassword:DataForm[] = [
+    {
+      label: "Contraseña",
+      formControlName: "password",
+      type:"password",
+    },
+    {
+      label: "Repita la contraseña",
+      formControlName: "confirmPassword",
+      type:"password",
+    }
+  ]
     //funcion que manda a llamar al servicio para hacer la peticion al API y validar que el correo introducido sea correcto
     public getData(){
       if(this.formEmail.invalid)
@@ -66,6 +90,8 @@ export class RecuperarPassComponent {
         this.formEmail.markAllAsTouched();
         return;
       }
+      this.disabledButtonSendCode();
+      console.log(this.caseBtnRec)
       //Se llama al servicio para obter los datos del usuario con el email ingresado
       this.loginService.getUser(this.formEmail.controls['email'].value).subscribe(data =>{
           this.user = data
@@ -74,6 +100,7 @@ export class RecuperarPassComponent {
           if(
               this.formEmail.controls['email'].value === this.user.email
             ){
+              this.idUser = data.id;
               const dataSend:Email = {
                 to:this.formEmail.controls['email'].value,
               }
@@ -89,11 +116,34 @@ export class RecuperarPassComponent {
         })
     }
 
+      //Funcion para validar que las contraseñas ingresadas en el formulario sean iguales
+  public isFieldOneEqualFieldTwo( field1: string, field2: string ) {
+
+    return ( formGroup: AbstractControl ): ValidationErrors | null => {
+
+      const fieldValue1 = formGroup.get(field1)?.value;
+      const fieldValue2 = formGroup.get(field2)?.value;
+
+      if ( fieldValue1 !== fieldValue2 ) {
+        formGroup.get(field2)?.setErrors({ notEqual: true });
+        return { notEqual: true }
+      }
+
+      formGroup.get(field2)?.setErrors(null);
+      return null;
+    }
+
+  }
+
     validButton():boolean{
       if(this.formEmail.invalid)
         return true
       else
-      return false
+        return false
+    }
+
+    disabledButtonSendCode(){
+        this.caseBtnRec = false
     }
 
     validatedCode(){
@@ -116,5 +166,21 @@ export class RecuperarPassComponent {
         this.validQuestion = false;
         this.yaquedo = false
       }
+    }
+
+    validUpdate(){
+      if(this.formNewPassword.invalid)
+        return true
+      else
+        return false
+    }
+
+    updatePassword(){
+      const password:PasswordSend = {
+        password: this.formNewPassword.controls['password'].value
+      }
+      this.loginService.updatePassword(this.idUser,password).subscribe(data =>{
+        this.router.navigate(['/user/Inicio'])
+      })
     }
 }

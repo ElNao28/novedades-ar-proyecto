@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ResponseLogin, ValidUser } from '../interfaces/ValidUser.intereface';
+import { PasswordSend, ResponseLogin, ValidUser } from '../interfaces/ValidUser.intereface';
 import { Observable } from 'rxjs';
 import { Email, ResponseEmail, User } from '../interfaces/SendUser.interface';
 import { ColoniaData, CpData, EstadoData, MunicipioData } from '../interfaces/ApiCopo.interface';
@@ -41,5 +41,8 @@ export class MLoginService {
   sendCodePassword(email:Email){
     return this.http.post<ResponseEmail>('http://localhost:3000/email',email) ;
    }
+   updatePassword(id:number, password:PasswordSend){
+    return this.http.patch('http://localhost:3000/users/'+id,password)
+  }
 
 }
