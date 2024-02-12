@@ -278,7 +278,7 @@ export class CrearCuentaComponent {
     this.validButton = true;
   }
   //Funcion que cambia el estado de la variable que controla el boton de crear cuenta, cambia cuando el recapcha es reiniciado
-  handlereset(response:any): void {
+  handlereset(response:string): void {
     this.validButton = true;
   }
   //Funcion que cambia el estado del boton de crear cuenta si se cumplen las sentencias dictadas
