@@ -4,6 +4,7 @@ import { PasswordSend, ResponseLogin, ValidUser } from '../interfaces/ValidUser.
 import { Observable } from 'rxjs';
 import { Email, ResponseEmail, User } from '../interfaces/SendUser.interface';
 import { ColoniaData, CpData, EstadoData, MunicipioData } from '../interfaces/ApiCopo.interface';
+import { RecoverPassword } from '../interfaces/RecoverPassword.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -39,11 +40,14 @@ export class MLoginService {
   getUser(email:string):Observable<User>{
     return this.http.get<User>(this.urlBack+'/users/'+email);
   }
+  verifEmail(email:string){
+    return this.http.post<RecoverPassword>(this.urlBack+'/check-email',email);
+  }
   sendCodePassword(email:Email){
     return this.http.post<ResponseEmail>(this.urlBack+'/email',email) ;
    }
-   updatePassword(id:number, password:PasswordSend){
-    return this.http.patch(this.urlBack+'/users/'+id,password)
+   updatePassword(email:string, password:PasswordSend){
+    return this.http.patch(this.urlBack+'/users/'+email,password)
   }
 
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MLoginService } from '../../services/m-login.service';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { PasswordSend } from '../../interfaces/ValidUser.intereface';
+import { RecoverPassword } from '../../interfaces/RecoverPassword.interface';
 
 @Component({
   selector: 'app-recuperar-pass',
@@ -16,14 +17,14 @@ export class RecuperarPassComponent {
 
   //variable que controla la visualizacion del primer formulario si esta en false el formulario se mostrara de lo contrario se ocultara
   validStatus:boolean = false;
-  user!:User;
+  responseVerEmail!:RecoverPassword;
   newPassword!:string;
   code!:string;
-  idUser!:number;
   validCode:boolean = false;
   validQuestion:boolean = true;
   yaquedo:boolean = true;
   caseBtnRec:boolean = true;
+  dataSend!:Email;
   //--------------------Decaracion de todos los formularios-------------------//
  //Formulario donde se ingresa el correo electronico
  formEmail:FormGroup = this.fb.group({
@@ -32,10 +33,6 @@ export class RecuperarPassComponent {
   //Formulario donde se ingresa el codigo enviado por correo
   formCode:FormGroup = this.fb.group({
     code:['',[Validators.required, Validators.minLength(10)]],
-  })
-  //Formulario donde se ingresa la respuesta de la pregunta secreta
-  formQuestion:FormGroup = this.fb.group({
-    respuesta:['', [Validators.required, Validators.minLength(3)]]
   })
   //Formulario donde se ingresa la nueva contraseña y su respectiva repeticion
   formNewPassword:FormGroup = this.fb.group({
@@ -84,35 +81,29 @@ export class RecuperarPassComponent {
     }
   ]
     //funcion que manda a llamar al servicio para hacer la peticion al API y validar que el correo introducido sea correcto
-    public getData(){
+    public verifEmail(){
       if(this.formEmail.invalid)
       {
         this.formEmail.markAllAsTouched();
         return;
       }
       this.disabledButtonSendCode();
-      console.log(this.caseBtnRec)
       //Se llama al servicio para obter los datos del usuario con el email ingresado
-      this.loginService.getUser(this.formEmail.controls['email'].value).subscribe(data =>{
-          this.user = data
-          if(!this.user) return console.log("No existe")
+      this.loginService.verifEmail(this.formEmail.controls['email'].value).subscribe(data =>{
+          this.responseVerEmail = data
+          if(this.responseVerEmail.status === 404) return console.log("No existe")
 
-          if(
-              this.formEmail.controls['email'].value === this.user.email
-            ){
-              this.idUser = data.id;
-              const dataSend:Email = {
-                to:this.formEmail.controls['email'].value,
-              }
-              this.loginService.sendCodePassword(dataSend).subscribe( data =>{
-                if(data.status === 200){
-                  this.validStatus = true;
-
-                  this.code = data.codigo;
-                  console.log(this.code)
-                }
-              })
+            this.dataSend =
+            {
+              to:this.formEmail.controls['email'].value,
             }
+            this.loginService.sendCodePassword(this.dataSend).subscribe( data =>{
+              if(data.status === 200){
+                this.validStatus = true;
+                this.code = data.codigo;
+                console.log(this.code)
+              }
+            })
         })
     }
 
@@ -160,14 +151,6 @@ export class RecuperarPassComponent {
         return false
     }
 
-    validBtnQuestion(){
-      if(this.formQuestion.invalid)return
-      if(this.user.answer === this.formQuestion.controls['respuesta'].value){
-        this.validQuestion = false;
-        this.yaquedo = false
-      }
-    }
-
     validUpdate(){
       if(this.formNewPassword.invalid)
         return true
@@ -175,12 +158,12 @@ export class RecuperarPassComponent {
         return false
     }
 
-    updatePassword(){
-      const password:PasswordSend = {
-        password: this.formNewPassword.controls['password'].value
-      }
-      this.loginService.updatePassword(this.idUser,password).subscribe(data =>{
-        this.router.navigate(['/user/Inicio'])
-      })
-    }
+     updatePassword(){
+       const password:PasswordSend = {
+         password: this.formNewPassword.controls['password'].value
+       }
+       this.loginService.updatePassword(this.dataSend.to,password).subscribe(data =>{
+         this.router.navigate(['/user/Inicio'])
+       })
+     }
 }

@@ -132,30 +132,6 @@ export class CrearCuentaComponent {
       formControlName: "password2",
       type:"password",
     },
-    {
-      label: "Eliga regunta secreta",
-      formControlName: "question",
-      type:"select",
-      typeSelect:[
-        {
-          option:"¿Nombre de mascota?"
-        },
-        {
-          option:"¿Color favorito?"
-        },
-        {
-          option:"¿Pelicula favorita?"
-        },
-        {
-          option:"¿Comida favorita?"
-        }
-      ]
-    },
-    {
-      label: "Respuesta",
-      formControlName: "answer",
-      type:"text",
-    },
   ]
   myForm:FormGroup = this.fb.group({
     name:['', [Validators.required, Validators.minLength(3)]],
@@ -172,8 +148,6 @@ export class CrearCuentaComponent {
     cellphone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
     password:['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/)]],
     password2: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/)],],
-    question:['',[Validators.required]],
-    answer:['', [Validators.required, Validators.minLength(3)]],
   }, {
     validators: [
       this.isFieldOneEqualFieldTwo('password','password2')

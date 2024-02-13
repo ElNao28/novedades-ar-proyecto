@@ -11,7 +11,7 @@
     <div class="mt-3">
       <p-button
       *ngIf="caseBtnRec"
-        (click)="getData()"
+        (click)="verifEmail()"
         [disabled]="validButton()"
         type="submit" styleClass="mr-2 p-button-secondary"
         label="Recuperar contraseña">
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <!-- Este div engloba el formulario de ingresar el codigo enviado por correo y la respuesta de la pregunta-->
+  <!-- Este div engloba el formulario de ingresar el codigo enviado por correo y la nueva contraseña-->
   <div *ngIf="validStatus" class="px-5 pb-5 bg-white shadow-6 border-round">
     <h2>Recuperar contraseña</h2>
 
@@ -46,39 +46,19 @@
         </p-button>
       </div>
 
-
-      <app-layout-form *ngIf="validCode"
-        [dataForm]="formQuestion"
-        [datosForm]="datosFormRes">
+      <app-layout-form
+      *ngIf="validCode"
+      [dataForm]="formNewPassword"
+      [datosForm]="datosFormPassword">
       </app-layout-form>
-      <div *ngIf="validCode" class="mt-3">
+      <div class="mt-3">
         <p-button
-          (click)="validBtnQuestion()"
-          [disabled]="formQuestion.invalid"
-          type="submit"
-          styleClass="mr-2 p-button-secondary"
-          label="Enviar">
+        type="submit"
+        styleClass="mr-2 p-button-secondary"
+        [disabled]="validUpdate()"
+        label="Actualizar contraseña"
+        (click)="updatePassword()">
         </p-button>
       </div>
-
   </div>
-
-</div>
-
-<!--Este div engloba el formulario para ingresar la nueva contraseña-->
-<div *ngIf="!yaquedo" class="m-3 flex justify-content-center">
-  <div *ngIf="validStatus" class="px-5 pb-5 bg-white shadow-6 border-round">
-  <app-layout-form
-  [dataForm]="formNewPassword"
-  [datosForm]="datosFormPassword">
-  </app-layout-form>
-  <div class="mt-3">
-    <p-button
-    type="submit"
-    styleClass="mr-2 p-button-secondary"
-    [disabled]="validUpdate()"
-    label="Actualizar contraseña"
-    (click)="updatePassword()"></p-button>
-  </div>
-</div>
 </div>
