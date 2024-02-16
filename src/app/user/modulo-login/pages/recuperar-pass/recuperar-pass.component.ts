@@ -80,6 +80,7 @@ export class RecuperarPassComponent {
       type:"password",
     }
   ]
+  styles:string = "w-full"
     //funcion que manda a llamar al servicio para hacer la peticion al API y validar que el correo introducido sea correcto
     public verifEmail(){
       if(this.formEmail.invalid)

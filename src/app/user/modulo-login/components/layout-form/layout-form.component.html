@@ -1,8 +1,8 @@
 <form [formGroup]="dataForm" >
   <div *ngIf="formValue" class="grid formgrid">
-    <div class="field col-12 md:col-6 w-full" *ngFor="let data of datosForm">
+    <div class="field col-12 md:col-6 {{styles}}" *ngFor="let data of datosForm">
       <label for="{{data.formControlName}}">{{data.label}}</label><br>
-      <input *ngIf="data.type != 'select'" formControlName="{{data.formControlName}}"
+      <input *ngIf="data.type != 'select' && data.type != 'password'" formControlName="{{data.formControlName}}"
         class="text-base text-color surface-overlay
         p-2 border-1 border-solid surface-border
         border-round appearance-none outline-none focus:border-primary w-full"
@@ -67,7 +67,7 @@
           <option *ngFor="let opcion of colonias.response.colonia" value="{{opcion}}">{{ opcion }}</option>
         </select>
         <br>
-        <span *ngIf="isValidField(data.formControlName)">Contraseña invalida</span>
+        <span *ngIf="isValidField(data.formControlName)">{{getFieldError(data.formControlName)}}</span>
     </div>
   </div>
 
@@ -76,9 +76,16 @@
   <div *ngIf="!formValue" class="grid formgrid">
   <div class="field col-12 md:col-6" *ngFor="let data of datosFormDos">
       <label for="{{data.formControlName}}">{{data.label}}</label><br>
-      <input *ngIf="data.type != 'select'" formControlName="{{data.formControlName}}"
+      <input  *ngIf="data.type != 'select' && data.type != 'password'" formControlName="{{data.formControlName}}"
       class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
       type="{{data.type}}">
+      <p-password *ngIf="data.type === 'password'"
+        formControlName="{{data.formControlName}}"
+        [feedback]="false"
+        (keyup)="evaluateStrength(userPassword)">
+      </p-password>
+      <div *ngIf="strengthMessage !== ''"><span>La contraseña es: {{ strengthMessage }}</span></div>
+
         <select
           *ngIf="data.type === 'select'"
           name="{{data.formControlName}}"

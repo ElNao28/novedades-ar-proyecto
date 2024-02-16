@@ -50,6 +50,8 @@ export class LayoutFormComponent {
     response: {
         colonia: "",
     }};
+  @Input()
+  styles:string = "";
 
   @Output()
   estadoSelect = new EventEmitter<string>();
@@ -79,5 +81,36 @@ export class LayoutFormComponent {
   isValidField( field: string ): boolean | null {
     return this.dataForm.controls[field].errors
       && this.dataForm.controls[field].touched;
+  }
+  getFieldError( field: string ): string | null {
+
+    if ( !this.dataForm.controls[field] ) return null;
+
+    const errors = this.dataForm.controls[field].errors || {};
+
+    for (const key of Object.keys(errors) ) {
+      switch( key ) {
+        case 'required':
+          return 'Este campo es requerido';
+
+        case 'minlength':
+          return `Mínimo ${ errors['minlength'].requiredLength } caracters.`;
+      }
+    }
+
+    return null;
+  }
+
+  strengthMessage: string = '';
+  userPassword: string = '';
+  // Función para evaluar la fortaleza de la contraseña y mostrar un mensaje personalizado
+  evaluateStrength(password: string) {
+    if (password.length < 6) {
+      this.strengthMessage = 'Débil';
+    } else if (password.length < 10) {
+      this.strengthMessage = 'Media';
+    } else {
+      this.strengthMessage = 'Fuerte';
+    }
   }
 }

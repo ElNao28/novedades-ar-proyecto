@@ -27,6 +27,7 @@ export class IniciarSesionComponent {
       type:"password",
     },
   ]
+  estilos:string = "w-full"
   //variable que contiene la exprecion regular para validar el correo electronico
   emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   //variable que contiene la clave para que el REcapcha funcione
@@ -69,6 +70,5 @@ export class IniciarSesionComponent {
     // Este método se ejecutará cuando reCAPTCHA se resuelva con éxito
     this.validButton = false; // Habilitar el botón una vez que reCAPTCHA se haya resuelto
   }
-
 
 }

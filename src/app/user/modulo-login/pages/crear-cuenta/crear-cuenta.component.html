@@ -22,14 +22,30 @@
       </ngx-recaptcha2>
     </div>
     <div>
-      <p-button routerLink="/user/login" styleClass="p-button-warning" *ngIf="formValue"
-        label="Ya tengo una cuenta"></p-button>
-      <p-button type="submit" (click)="createNewUser()" styleClass="p-button-secondary" *ngIf="!formValue" [disabled]="validCreateButton()"
-        label="Crear cuenta"></p-button>
-      <button class="ml-2 bg-blue-500 xl:ml-2 mt-1" (click)="formValueChangue()" pButton *ngIf="formValue"
-        [disabled]="validBtn()" label="Siguiente"></button>
-      <button class="ml-2 bg-blue-500 xl:ml-2" (click)="formValueChangue()" pButton *ngIf="!formValue"
-        label="Anterior"></button>
+      <p-button *ngIf="formValue"
+        routerLink="/user/login"
+        styleClass="p-button-warning"
+        label="Ya tengo una cuenta">
+      </p-button>
+      <p-button  *ngIf="!formValue"
+        (click)="createNewUser()"
+        styleClass="p-button-secondary"
+        [disabled]="validCreateButton()"
+        label="Crear cuenta">
+      </p-button>
+      <button *ngIf="formValue"
+        class="bg-blue-500 xl:ml-2 mt-1"
+        (click)="formValueChangue()"
+        pButton
+        [disabled]="validBtn()"
+        label="Siguiente">
+      </button>
+      <button *ngIf="!formValue"
+        class="bg-blue-500 xl:ml-2"
+        (click)="formValueChangue()"
+        pButton
+        label="Anterior">
+      </button>
     </div>
   </div>
 </div>

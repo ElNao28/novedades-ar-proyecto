@@ -15,7 +15,7 @@ export class CrearCuentaComponent {
   constructor(private fb:FormBuilder, private loginService:MLoginService){}
 
   validButton:boolean = true;
-  formValue:boolean = true;
+  formValue:boolean = false;
   key:string="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u";
   emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   newUser:User[] = [];
@@ -156,7 +156,6 @@ export class CrearCuentaComponent {
 
   ngOnInit(): void {
     this.loginService.getEstado().subscribe(data =>{
-        console.log(data)
         this.estados = data;
       })
   }
@@ -164,20 +163,17 @@ export class CrearCuentaComponent {
      if(this.myForm.controls['estado'].invalid) return
      this.loginService.getMunicipio(estado).subscribe(data =>{
        this.municipios = data;
-       console.log(this.municipios)
      })
   }
   getCp(municipio:string){
     if(this.myForm.controls['municipio'].invalid) return
     this.loginService.getCp(municipio).subscribe(data =>{
-      console.log(data)
       this.cp = data;
     })
   }
   getColonia(cp:string){
     if(this.myForm.controls['cp'].invalid) return
     this.loginService.getColonia(cp).subscribe(data =>{
-      console.log(data)
       this.colonias = data;
     })
   }
@@ -185,7 +181,6 @@ export class CrearCuentaComponent {
   //Funcion que toma los datos del formulario y los envia mediante el metodo post al back para su registro
   createNewUser(){
      if(this.myForm.valid){
-       console.log(this.myForm.value)
        const formData = this.myForm.value;
        this.loginService.createUser(formData).subscribe(data => console.log("Listo papu"))
      }
@@ -258,7 +253,6 @@ export class CrearCuentaComponent {
   //Funcion que cambia el estado del boton de crear cuenta si se cumplen las sentencias dictadas
   validCreateButton(){
     if(this.myForm.invalid === false && this.validButton === false){
-      console.log("3:", this.myForm.invalid, this.validButton)
       return false
     }
     else{
