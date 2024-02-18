@@ -7,6 +7,12 @@
         p-2 border-1 border-solid surface-border
         border-round appearance-none outline-none focus:border-primary w-full"
         type="{{data.type}}">
+        <p-password *ngIf="data.type === 'password'"
+          formControlName="{{data.formControlName}}"
+          [feedback]="true"
+          (keyup)="evaluateStrength(userPassword)"
+          [toggleMask]="true">
+        </p-password>
         <select
           *ngIf="data.type === 'select' && data.formControlName != 'estado' && data.formControlName != 'municipio' && data.formControlName != 'cp' && data.formControlName != 'colonia'"
           name="{{data.formControlName}}"
@@ -81,11 +87,10 @@
       type="{{data.type}}">
       <p-password *ngIf="data.type === 'password'"
         formControlName="{{data.formControlName}}"
-        [feedback]="false"
-        (keyup)="evaluateStrength(userPassword)">
+        [feedback]="true"
+        (keyup)="evaluateStrength(userPassword)"
+        [toggleMask]="true">
       </p-password>
-      <div *ngIf="strengthMessage !== ''"><span>La contraseña es: {{ strengthMessage }}</span></div>
-
         <select
           *ngIf="data.type === 'select'"
           name="{{data.formControlName}}"
@@ -97,7 +102,7 @@
           <option value="{{data.formControlName}}" *ngFor="let opcion of data.typeSelect">{{ opcion.option }}</option>
         </select>
         <br>
-        <span *ngIf="isValidField(data.formControlName)">Contraseña invalida</span>
+        <span *ngIf="isValidField(data.formControlName)">Campo Invalido</span>
     </div>
   </div>
 </form>

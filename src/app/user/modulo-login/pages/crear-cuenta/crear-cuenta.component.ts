@@ -4,6 +4,7 @@ import { MLoginService } from '../../services/m-login.service';
 import { ColoniaData, CpData, EstadoData, MunicipioData } from '../../interfaces/ApiCopo.interface';
 import { User } from '../../interfaces/SendUser.interface';
 import { DataForm } from '../../interfaces/FormData.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-cuenta',
@@ -12,10 +13,10 @@ import { DataForm } from '../../interfaces/FormData.interface';
 })
 export class CrearCuentaComponent {
 
-  constructor(private fb:FormBuilder, private loginService:MLoginService){}
+  constructor(private fb:FormBuilder, private loginService:MLoginService, private router:Router){}
 
   validButton:boolean = true;
-  formValue:boolean = false;
+  formValue:boolean = true;
   key:string="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u";
   emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   newUser:User[] = [];
@@ -182,7 +183,10 @@ export class CrearCuentaComponent {
   createNewUser(){
      if(this.myForm.valid){
        const formData = this.myForm.value;
-       this.loginService.createUser(formData).subscribe(data => console.log("Listo papu"))
+       this.loginService.createUser(formData).subscribe(data =>{
+        console.log("Listo papu")
+        this.router.navigate(['/inicio']);
+      })
      }
   }
 
