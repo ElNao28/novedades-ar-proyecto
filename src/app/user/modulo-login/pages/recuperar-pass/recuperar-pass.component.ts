@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Email, User } from '../../interfaces/SendUser.interface';
+import { CheckEmail, Email, User } from '../../interfaces/SendUser.interface';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MLoginService } from '../../services/m-login.service';
@@ -25,6 +25,7 @@ export class RecuperarPassComponent {
   yaquedo:boolean = true;
   caseBtnRec:boolean = true;
   dataSend!:Email;
+  checkEmail!:CheckEmail;
   //--------------------Decaracion de todos los formularios-------------------//
  //Formulario donde se ingresa el correo electronico
  formEmail:FormGroup = this.fb.group({
@@ -88,11 +89,18 @@ export class RecuperarPassComponent {
         this.formEmail.markAllAsTouched();
         return;
       }
-      this.disabledButtonSendCode();
+      this.caseBtnRec = false;
       //Se llama al servicio para obter los datos del usuario con el email ingresado
-      this.loginService.verifEmail(this.formEmail.controls['email'].value).subscribe(data =>{
-          this.responseVerEmail = data
-          if(this.responseVerEmail.status === 404) return console.log("No existe")
+      this.checkEmail = {
+        email:this.formEmail.controls['email'].value
+      }
+      this.loginService.verifEmail(this.checkEmail).subscribe(data =>{
+          this.responseVerEmail = data;
+          console.log(data)
+          if(this.responseVerEmail.status === 404){
+            this.caseBtnRec = true
+            return console.log("No existe")
+          }
 
             this.dataSend =
             {
@@ -132,10 +140,6 @@ export class RecuperarPassComponent {
         return true
       else
         return false
-    }
-
-    disabledButtonSendCode(){
-        this.caseBtnRec = false
     }
 
     validatedCode(){

@@ -64,19 +64,15 @@ export class LayoutFormComponent {
 
   emitEstado(estado:string){
     this.estadoSelect.emit(estado);
-    console.log(estado);
   }
   emitMunicipio(municipio:string){
     this.municipioSelect.emit(municipio);
-    console.log(municipio);
   }
   emitCp(cp:string){
     this.cpSelect.emit(cp);
-    console.log(cp);
   }
   emitColonia(colonia:string){
     this.coloniaSelect.emit(colonia);
-    console.log(colonia);
   }
   isValidField( field: string ): boolean | null {
     return this.dataForm.controls[field].errors

@@ -27,6 +27,9 @@ export interface ResponseLogin{
 export interface Email{
   to: string;
 }
+export interface CheckEmail{
+  email:string;
+}
 export interface ResponseEmail{
   status:number;
   message:string;

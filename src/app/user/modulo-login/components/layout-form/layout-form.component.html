@@ -1,24 +1,17 @@
 <form [formGroup]="dataForm" >
-  <div *ngIf="formValue" class="grid formgrid">
-    <div class="field col-12 md:col-6 {{styles}}" *ngFor="let data of datosForm">
+
+  <div *ngIf="formValue" class="grid {{styles}} gap-4">
+    <div *ngFor="let data of datosForm">
       <label for="{{data.formControlName}}">{{data.label}}</label><br>
-      <input *ngIf="data.type != 'select' && data.type != 'password'" formControlName="{{data.formControlName}}"
-        class="text-base text-color surface-overlay
-        p-2 border-1 border-solid surface-border
-        border-round appearance-none outline-none focus:border-primary w-full"
+      <input *ngIf="data.type != 'select'" formControlName="{{data.formControlName}}"
+        class="rounded-md w-full"
         type="{{data.type}}">
-        <p-password *ngIf="data.type === 'password'"
-          formControlName="{{data.formControlName}}"
-          [feedback]="true"
-          (keyup)="evaluateStrength(userPassword)"
-          [toggleMask]="true">
-        </p-password>
         <select
           *ngIf="data.type === 'select' && data.formControlName != 'estado' && data.formControlName != 'municipio' && data.formControlName != 'cp' && data.formControlName != 'colonia'"
           name="{{data.formControlName}}"
           id="{{data.formControlName}}"
           formControlName="{{data.formControlName}}"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          class="rounded-md w-full"
           >
           <option value="" disabled selected>Seleccione una opcion</option>
           <option value="{{data.formControlName}}" *ngFor="let opcion of data.typeSelect">{{ opcion.option }}</option>
@@ -30,7 +23,7 @@
           formControlName="{{data.formControlName}}"
           #selectOption
           (click)="emitEstado(selectOption.value)"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          class="rounded-md w-full"
           >
           <option value="" disabled selected>Seleccione una opcion</option>
           <option *ngFor="let opcion of estados.response.estado" value="{{opcion}}">{{ opcion }}</option>
@@ -42,7 +35,7 @@
           formControlName="{{data.formControlName}}"
           #selectOption
           (click)="emitMunicipio(selectOption.value)"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          class="rounded-md w-full"
           >
           <option value="" disabled selected>Seleccione una opcion</option>
           <option *ngFor="let opcion of municipios.response.municipios" value="{{opcion}}">{{ opcion }}</option>
@@ -54,7 +47,7 @@
           formControlName="{{data.formControlName}}"
           #selectOption
           (click)="emitCp(selectOption.value)"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          class="rounded-md w-full"
           >
           <option value="" disabled selected>Seleccione una opcion</option>
           <option value="92143">92143</option>
@@ -67,7 +60,7 @@
           formControlName="{{data.formControlName}}"
           #selectOption
           (click)="emitColonia(selectOption.value)"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          class="rounded-md w-full"
           >
           <option value="" disabled selected>Seleccione una opcion</option>
           <option *ngFor="let opcion of colonias.response.colonia" value="{{opcion}}">{{ opcion }}</option>
@@ -79,24 +72,18 @@
 
   <!--Esta parte del formulario solo se usa cuando el mismo formulario de divide en
   dos por ejemplo el formulario de crear cuenta-->
-  <div *ngIf="!formValue" class="grid formgrid">
-  <div class="field col-12 md:col-6" *ngFor="let data of datosFormDos">
+  <div *ngIf="!formValue" class="grid {{styles}} gap-4">
+  <div *ngFor="let data of datosFormDos">
       <label for="{{data.formControlName}}">{{data.label}}</label><br>
-      <input  *ngIf="data.type != 'select' && data.type != 'password'" formControlName="{{data.formControlName}}"
-      class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+      <input  *ngIf="data.type != 'select'" formControlName="{{data.formControlName}}"
+      class="rounded-md w-full"
       type="{{data.type}}">
-      <p-password *ngIf="data.type === 'password'"
-        formControlName="{{data.formControlName}}"
-        [feedback]="true"
-        (keyup)="evaluateStrength(userPassword)"
-        [toggleMask]="true">
-      </p-password>
         <select
           *ngIf="data.type === 'select'"
           name="{{data.formControlName}}"
           id="{{data.formControlName}}"
           formControlName="{{data.formControlName}}"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          class="rounded-md w-full"
           >
           <option value="" disabled selected>Seleccione una opcion</option>
           <option value="{{data.formControlName}}" *ngFor="let opcion of data.typeSelect">{{ opcion.option }}</option>
@@ -105,4 +92,5 @@
         <span *ngIf="isValidField(data.formControlName)">Campo Invalido</span>
     </div>
   </div>
+
 </form>
