@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { MLoginService } from '../../services/m-login.service';
+import { AlertType } from '../../interfaces/Alert.interface';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -12,7 +13,17 @@ import { MLoginService } from '../../services/m-login.service';
 export class IniciarSesionComponent {
 
   //Constructor en el cual se inyectan modulos o servicios que se ocuparan en el componente
-  constructor(private fb:FormBuilder, private router:Router, private loginService:MLoginService){}
+  constructor(
+    private fb:FormBuilder,
+    private router:Router,
+    private loginService:MLoginService,
+    ){}
+
+  alert:boolean = false;
+  tAlert:AlertType = {
+    type: 'ok',
+    message: ''
+  };;
 
   //Variable que contiene los campos que tendra el formulario y que se envian al componente "layout-form"
   datosForm:DataForm[] = [
@@ -51,13 +62,31 @@ export class IniciarSesionComponent {
     }
 
     this.loginService.validUser(this.myForm.value).subscribe(res=>{
-      console.log(res)
       if(res.status === 200)
       {
-        this.router.navigate(['/inicio'])
+        this.alert = true;
+        this.tAlert = {
+          type: 'ok',
+          message: 'Usuario y contraseña correcto'
+        }
+        setTimeout(() =>{
+          this.alert = false;
+          this.router.navigate(['/inicio'])
+        },1000)
+      }
+      else if(res.status === 400){
+        this.alert = true;
+        this.tAlert = {
+          type: 'warning',
+          message: 'Usuario o contraseña incorrectos'
+        }
       }
       else if(res.status === 409){
-        return alert("Haz alcanzado el numero maximo de intentos")
+        this.alert = true;
+        this.tAlert = {
+          type: 'error',
+          message: 'Haz alcanzado el numero maximo de intentos'
+        }
       }
       else
       {
@@ -70,5 +99,7 @@ export class IniciarSesionComponent {
     // Este método se ejecutará cuando reCAPTCHA se resuelva con éxito
     this.validButton = false; // Habilitar el botón una vez que reCAPTCHA se haya resuelto
   }
-
+  stateAlert(val:boolean){
+    this.alert = val
+  }
 }

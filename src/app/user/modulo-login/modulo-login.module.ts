@@ -9,6 +9,7 @@ import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { LayoutFormComponent } from './components/layout-form/layout-form.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 
 
@@ -18,7 +19,8 @@ import { LayoutFormComponent } from './components/layout-form/layout-form.compon
     CrearCuentaComponent,
     RecuperarPassComponent,
     LayoutComponent,
-    LayoutFormComponent
+    LayoutFormComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,

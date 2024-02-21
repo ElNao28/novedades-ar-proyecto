@@ -9,6 +9,7 @@
       <div
         class="mt-4 mb-1">
         <!--Mediante el evento click se manda a llamar a la funcion que valida el acceso a la cuenta-->
+        <app-alert *ngIf="alert" (alertState)="stateAlert($event)" [typeAlert]="tAlert"></app-alert>
         <p-button
           (click)="getData()"
           [disabled]="validButton"
@@ -25,7 +26,6 @@
         <a class="text-blue-600 hover:text-blue-800" routerLink="/user/recuperar-password"
           style="text-decoration: none;">Olvide mi contraseña</a>
       </div>
-
       <div>
         <!--Con este componente se hace la implementacion del  captcha en la propiedad [siteKey] se la pasa la variable que contiene la key-->
         <ngx-recaptcha2 #captchaElem siteKey="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u"

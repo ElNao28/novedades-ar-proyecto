@@ -8,6 +8,7 @@ import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './user/shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageService } from 'primeng/api';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,9 +20,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PrimeNgModule,
     HttpClientModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
