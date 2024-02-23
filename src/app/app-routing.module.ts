@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InicioComponent } from './user/shared/pages/inicio/inicio.component';
+import { InicioComponent } from './user/pages/inicio/inicio.component';
 
 const routes: Routes = [
   {
@@ -8,23 +8,20 @@ const routes: Routes = [
     component: InicioComponent
   },
   {
-    path: 'user',
-    loadChildren: () => import('./user/modulo-login/modulo-login.module').then(m => m.ModuloLoginModule)
-  },
-  {
-    path:'**',
-    redirectTo:'user'
-  },
-  {
     path: '',
     redirectTo: 'user',
     pathMatch: 'full'
-  }
+  },
+  { path: '', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+  {
+    path:'**',
+    redirectTo:'inicio'
+  },
 
   ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{useHash:true})],
+  imports: [RouterModule.forRoot(routes)],//{useHash:true}
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

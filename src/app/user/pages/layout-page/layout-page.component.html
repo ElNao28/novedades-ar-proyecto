@@ -1,0 +1,74 @@
+<div>
+
+  <nav class="bg-pink-200 py-2 flex flex-col sm:flex-row items-center px-4 gap-4">
+
+   <div class="w-full ">
+
+     <div  class="flex items-center flex-col sm:flex-row py-1 gap-5">
+      <img class="h-12" src="../../../../../assets/img/logo2.png" alt="logo">
+
+      <div class="w-full flex gap-4">
+         <div class="w-full flex bg-white items-center ring-1 ring-gray-500">
+          <input type="text" class="border-none rounded-e-none w-full h-10">
+             <p-button>
+               <i class="pi pi-search pb-1 pl-5" style="font-size: 1.2rem"></i>
+             </p-button>
+         </div>
+
+         <p-button class="flex items-center w-8">
+          <span>
+            <i class="pi pi-shopping-cart" style="font-size: 1.5rem"></i>
+          </span>
+        </p-button>
+        <p-button class="flex items-center">
+          <span>
+            <i class="pi pi-user" style="font-size: 1.5rem"></i>
+          </span>
+        </p-button>
+      </div>
+
+     </div>
+
+     <div class="grid text-sm md:pl-10">
+       <div class="grid grid-cols-3 md:grid-cols-6 col-start-2 text-center">
+        <p-button class="flex items-center">
+          <i class="pi pi-home" style="font-size: 1rem">
+            <span class="pl-1">Inicio</span>
+          </i>
+        </p-button>
+        <p-button class="flex items-center">
+          <i class="pi pi-tags" style="font-size: 1rem">
+            <span class="pl-1">Productos</span>
+          </i>
+        </p-button>
+        <p-button class="flex items-center">
+          <i class="pi pi-shopping-bag" style="font-size: 1rem">
+            <span class="pl-1">Mis compras</span>
+          </i>
+        </p-button>
+        <p-button routerLink="crear-cuenta" class="flex items-center">
+          <i class="pi pi-user-plus" style="font-size: 1rem">
+            <span class="pl-1">Crear cuenta</span>
+          </i>
+        </p-button>
+        <p-button routerLink="login" class="flex items-center">
+          <i class="pi pi-sign-in" style="font-size: 1rem">
+            <span class="pl-1">Ingresar</span>
+          </i>
+        </p-button>
+
+        <p-button class="flex items-center">
+          <i class="pi pi-at" style="font-size: 1rem">
+            <span class="pl-1">Atencion al cliente</span>
+          </i>
+        </p-button>
+       </div>
+     </div>
+
+   </div>
+
+  </nav>
+
+</div>
+
+<router-outlet></router-outlet>
