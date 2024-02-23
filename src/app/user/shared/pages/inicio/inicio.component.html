@@ -1,38 +1,10 @@
-  <div class="flex flex-column bg-pink-100 pb-4 shadow-5 w-full">
-    <div class="flex flex-column mx-6 align-items-center sm:flex-row">
-      <img routerLink="Inicio" class="flex h-5rem m-2" src="../../../../assets/img/logo.png" alt="" />
-      <!-- <span class="p-input-icon-right w-full">
-        <i class="pi pi-search"></i>
-        <input [inputStyleClass]="'w-full'" [(ngModel)]="selectedItem" (completeMethod)="search($event)" [suggestions]="itemsS" field="title" placeholder="Search" p-autocomplete class="w-full" type="text" />
-      </span> -->
-        <p-autoComplete [inputStyleClass]="'w-full'" field="title" placeholder="Search" p-autocomplete class="w-full" type="text"></p-autoComplete>
-        <div class="flex flex-row">
-        <p-splitButton
-          label="Perfil"
-          icon="pi pi-user"
-          [model]="login"
-          styleClass="p-button-text"
-        >Perfil</p-splitButton>
-        <p-button
-          label="Carrito"
-          icon="pi pi-shopping-cart"
-          styleClass="p-button-text"
-          routerLink="carrito"
-        ></p-button>
-      </div>
-    </div>
-      <div class="flex text-center lg:flex-row">
-        <div class="col-3 sm:col-3">
-          <a routerLink="Inicio">Inicio</a>
-        </div>
-        <div class="col-3 sm:col-3">
-          <a routerLink="productos">Productos</a>
-        </div>
-        <div class="col-3 sm:col-3">
-          <a routerLink="mis-compras">Mis compras</a>
-        </div>
-        <div class="col-3 sm:col-3">
-          <a routerLink="atencion-cliente">Atencion al cliente</a>
-        </div>
-      </div>
+<div>
+  <nav class="flex items-center bg-pink-200 py-4 pl-5 gap-3">
+      <img class="h-16" src="../../../../../assets/img/logo.png" alt="logo">
+    <input type="text" class="rounded-lg w-full h-12">
+    <p-button class="flex items-center"><i class="pi pi-shopping-cart" style="font-size: 1.5rem"></i></p-button>
+  </nav>
+  <div class="">
+
   </div>
+</div>
