@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
+import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 
 
 @NgModule({
@@ -9,7 +10,8 @@ import { UserRoutingModule } from './user-routing.module';
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    PrimeNgModule
   ]
 })
 export class UserModule { }

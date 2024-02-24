@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InicioComponent } from './user/pages/inicio/inicio.component';
 
 const routes: Routes = [
   {
-    path: 'inicio',
-    component: InicioComponent
+    path: 'users', loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   },
   {
     path: '',
-    redirectTo: 'user',
+    redirectTo: 'users',
     pathMatch: 'full'
   },
-  { path: '', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
   {
     path:'**',
-    redirectTo:'inicio'
+    redirectTo:'users'
   },
+
 
   ];
 

@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css']
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: [
+    './inicio.component.css'
+  ],
+
 })
 export class InicioComponent {
-
+  value!: string;
 }

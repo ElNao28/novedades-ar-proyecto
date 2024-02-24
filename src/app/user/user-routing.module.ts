@@ -5,7 +5,7 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 
 const routes: Routes = [
   {
-    path: 'user',
+    path: '',
     component: LayoutPageComponent,
     children:[
       {
@@ -13,8 +13,12 @@ const routes: Routes = [
         component:InicioComponent
       },
       {
-        path:'ola',
+        path:'',
         loadChildren: () => import('./modulo-login/modulo-login.module').then(m => m.ModuloLoginModule)
+      },
+      {
+        path:'**',
+        redirectTo:'inicio'
       }
     ]
   }
