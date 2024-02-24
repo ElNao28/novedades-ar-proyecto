@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { ColoniaData, CpData, EstadoData, MunicipioData } from '../../interfaces/ApiCopo.interface';
@@ -50,9 +50,63 @@ export class LayoutFormComponent {
     response: {
         colonia: "",
     }};
+  @Input()
+  styles:string = "";
 
+  @Output()
+  estadoSelect = new EventEmitter<string>();
+  @Output()
+  municipioSelect = new EventEmitter<string>();
+  @Output()
+  cpSelect = new EventEmitter<string>();
+  @Output()
+  coloniaSelect = new EventEmitter<string>();
+
+  emitEstado(estado:string){
+    this.estadoSelect.emit(estado);
+  }
+  emitMunicipio(municipio:string){
+    this.municipioSelect.emit(municipio);
+  }
+  emitCp(cp:string){
+    this.cpSelect.emit(cp);
+  }
+  emitColonia(colonia:string){
+    this.coloniaSelect.emit(colonia);
+  }
   isValidField( field: string ): boolean | null {
     return this.dataForm.controls[field].errors
       && this.dataForm.controls[field].touched;
+  }
+  getFieldError( field: string ): string | null {
+
+    if ( !this.dataForm.controls[field] ) return null;
+
+    const errors = this.dataForm.controls[field].errors || {};
+
+    for (const key of Object.keys(errors) ) {
+      switch( key ) {
+        case 'required':
+          return 'Este campo es requerido';
+
+        case 'minlength':
+          return `Mínimo ${ errors['minlength'].requiredLength } caracters.`;
+      }
+    }
+
+    return null;
+  }
+
+  strengthMessage: string = '';
+  userPassword: string = '';
+  // Función para evaluar la fortaleza de la contraseña y mostrar un mensaje personalizado
+  evaluateStrength(password: string) {
+    if (password.length < 6) {
+      this.strengthMessage = 'Débil';
+    } else if (password.length < 10) {
+      this.strengthMessage = 'Media';
+    } else {
+      this.strengthMessage = 'Fuerte';
+    }
   }
 }

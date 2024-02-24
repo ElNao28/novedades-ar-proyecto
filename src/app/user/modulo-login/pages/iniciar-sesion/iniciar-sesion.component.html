@@ -1,34 +1,42 @@
-<div class="m-3 flex justify-content-center">
-  <div class="xl:w-4 px-5 pb-5 bg-white shadow-6 border-round">
-    <div class="xl:pl-5">
-      <h2 class="text-4xl">Iniciar sesion</h2>
-
-          <!--Se llama al componente layout-form y se le pasa los parametos que esta esperando(Dataform y datosForm)-->
-          <app-layout-form [dataForm]="myForm" [datosForm]="datosForm">
-          </app-layout-form>
-          <!---------------------------------------------------------------------------------------------------------->
-
-          <div class="field col-12 mt-3 ">
-            <!--Mediante el evento click se manda a llamar a la funcion que valida el acceso a la cuenta-->
-            <p-button type="submit" (click)="getData()" [disabled]="validButton" styleClass="mr-2 p-button-secondary" label="Ingresar"></p-button>
-            <p-button routerLink="/user/crear-cuenta" styleClass="mr-2" label="Crear una cuenta"></p-button>
-            <div class="mt-2">
-              <a class="text-blue-500 hover:text-blue-800" routerLink="/user/recuperar-password" style="text-decoration: none;">Olvide mi contraseña</a>
-            </div>
-          </div>
-          <div class="field col-12">
-            <!--Con este componente se hace la implementacion del  captcha en la propiedad [siteKey] se la pasa la variable que contiene la key-->
-            <ngx-recaptcha2 class="" #captchaElem
-              [siteKey]="key"
-              (success)="handleSuccess($event)"
-              [useGlobalDomain]="true"
-              [size]="'normal'"
-              [hl]="'es'"
-              [theme]="'light'"
-              [type]="'image'"
-              >
-            </ngx-recaptcha2>
-          </div>
+<div class="flex justify-center mt-20 mx-4">
+  <div class="bg-white rounded-lg p-10">
+    <div class="">
+      <h2 class="text-3xl mb-8">Iniciar sesion</h2>
+      <!--Se llama al componente layout-form y se le pasa los parametos que esta esperando(Dataform y datosForm)-->
+      <app-layout-form [styles]="estilos" [dataForm]="myForm" [datosForm]="datosForm">
+      </app-layout-form>
+      <!---------------------------------------------------------------------------------------------------------->
+      <div
+        class="mt-4 mb-1">
+        <!--Mediante el evento click se manda a llamar a la funcion que valida el acceso a la cuenta-->
+        <app-alert *ngIf="alert" (alertState)="stateAlert($event)" [typeAlert]="tAlert"></app-alert>
+        <p-button
+          (click)="getData()"
+          [disabled]="validButton"
+          styleClass="px-4 py-2 mr-2 bg-pink-400 hover:bg-pink-500"
+          label="Ingresar">
+        </p-button>
+        <p-button
+          routerLink="/users/crear-cuenta"
+          styleClass="px-4 py-2 bg-yellow-300 hover:bg-yellow-400"
+          label="Crear una cuenta">
+        </p-button>
+      </div>
+      <div class="">
+        <a class="text-blue-600 hover:text-blue-800" routerLink="/users/recuperar-password"
+          style="text-decoration: none;">Olvide mi contraseña</a>
+      </div>
+      <div>
+        <!--Con este componente se hace la implementacion del  captcha en la propiedad [siteKey] se la pasa la variable que contiene la key-->
+        <ngx-recaptcha2 #captchaElem siteKey="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u"
+          (success)="handleSuccess($event)"
+          [useGlobalDomain]="true"
+          [hl]="'es'"
+          [size]="'normal'"
+          [theme]="'light'"
+          [type]="'image'">
+        </ngx-recaptcha2>
+      </div>
     </div>
   </div>
 </div>

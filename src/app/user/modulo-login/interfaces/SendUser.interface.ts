@@ -1,4 +1,5 @@
 export interface User {
+  id:             number;
   name:           string;
   lastname:       string;
   motherLastname: string;
@@ -22,4 +23,15 @@ export interface User {
 export interface ResponseLogin{
   status:number;
   message:string;
+}
+export interface Email{
+  to: string;
+}
+export interface CheckEmail{
+  email:string;
+}
+export interface ResponseEmail{
+  status:number;
+  message:string;
+  codigo: string,
 }

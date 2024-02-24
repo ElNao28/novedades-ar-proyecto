@@ -1,0 +1,74 @@
+<div *ngIf="typeAlert.type === 'ok'" class="
+animate-bounce
+bg-opacity-50
+absolute
+right-0 top-10 mr-1
+bg-blue-400
+rounded-sm
+border-s-blue-500
+border-s-4
+flex
+flex-col
+w-3/4
+lg:w-1/4
+h-14
+justify-center
+pl-4
+">
+  <div class="flex justify-between">
+      <p class="text-white mr-8">{{typeAlert.message}}</p>
+      <p-button (click)="changeState()">
+        <i class="pi pi-times opacity-70" style="font-size: 1.5rem"></i>
+      </p-button>
+  </div>
+</div>
+
+<div *ngIf="typeAlert.type === 'error'" class="
+  animate-bounce
+  bg-opacity-60
+  absolute
+  right-0 top-10 mr-1
+  bg-red-500
+  rounded-sm
+  border-s-red-500
+  border-s-4
+  flex
+  flex-col
+  w-3/4
+  lg:w-1/4
+  h-14
+  justify-center
+  pl-4
+">
+  <div class="flex justify-between">
+      <p class="text-white mr-8">{{typeAlert.message}}</p>
+      <p-button (click)="changeState()">
+        <i class="pi pi-times opacity-70" style="font-size: 1.5rem"></i>
+      </p-button>
+  </div>
+</div>
+
+<div *ngIf="typeAlert.type === 'warning'" class="
+  animate-bounce
+  bg-opacity-60
+  absolute
+  right-0 top-10 mr-1
+  bg-orange-500
+  rounded-sm
+  border-s-orange-500
+  border-s-4
+  flex
+  flex-col
+  w-3/4
+  lg:w-1/4
+  h-14
+  justify-center
+  pl-4
+">
+  <div class="flex justify-between">
+      <p class="text-white mr-8">{{typeAlert.message}}</p>
+      <p-button (click)="changeState()">
+        <i class="pi pi-times opacity-70" style="font-size: 1.5rem"></i>
+      </p-button>
+  </div>
+</div>

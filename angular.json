@@ -35,10 +35,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/primeflex/primeflex.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/md-light-indigo/theme.css"
+              "node_modules/primeng/resources/themes/md-light-indigo/theme.css",
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -47,8 +46,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ReCaptchaV3Service } from 'ngx-captcha';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { MLoginService } from '../../services/m-login.service';
+import { AlertType } from '../../interfaces/Alert.interface';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -13,7 +13,17 @@ import { MLoginService } from '../../services/m-login.service';
 export class IniciarSesionComponent {
 
   //Constructor en el cual se inyectan modulos o servicios que se ocuparan en el componente
-  constructor(private fb:FormBuilder, private router:Router, private loginService:MLoginService){}
+  constructor(
+    private fb:FormBuilder,
+    private router:Router,
+    private loginService:MLoginService,
+    ){}
+
+  alert:boolean = false;
+  tAlert:AlertType = {
+    type: 'ok',
+    message: ''
+  };;
 
   //Variable que contiene los campos que tendra el formulario y que se envian al componente "layout-form"
   datosForm:DataForm[] = [
@@ -28,10 +38,12 @@ export class IniciarSesionComponent {
       type:"password",
     },
   ]
+  estilos:string = "w-full"
   //variable que contiene la exprecion regular para validar el correo electronico
   emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   //variable que contiene la clave para que el REcapcha funcione
   key:string="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u";
+  keyProd:string="6Le_PFspAAAAAFjAJ6f-wHhiaqlLLnstow9Bup-Z";
   //variable que manjea el estado en que se encuentra el boton de inciar sesion(activo o desactivado)
   public validButton: boolean = true;
   //variable que contiene los datos con los que cuenta el formulario y que son enviados al componente "layaut-form"
@@ -50,11 +62,36 @@ export class IniciarSesionComponent {
     }
 
     this.loginService.validUser(this.myForm.value).subscribe(res=>{
-      console.log(res)
       if(res.status === 200)
-        this.router.navigate(['/inicio'])
+      {
+        this.alert = true;
+        this.tAlert = {
+          type: 'ok',
+          message: 'Usuario y contraseña correcto'
+        }
+        setTimeout(() =>{
+          this.alert = false;
+          this.router.navigate(['/inicio'])
+        },1000)
+      }
+      else if(res.status === 400){
+        this.alert = true;
+        this.tAlert = {
+          type: 'warning',
+          message: 'Usuario o contraseña incorrectos'
+        }
+      }
+      else if(res.status === 409){
+        this.alert = true;
+        this.tAlert = {
+          type: 'error',
+          message: 'Haz alcanzado el numero maximo de intentos'
+        }
+      }
       else
+      {
         return console.log(false, "ola")
+      }
     })
   }
   //Funcion que controla el estado del boton de iniciar sesion(si re recpcha es resulto el boton se activa)
@@ -62,6 +99,7 @@ export class IniciarSesionComponent {
     // Este método se ejecutará cuando reCAPTCHA se resuelva con éxito
     this.validButton = false; // Habilitar el botón una vez que reCAPTCHA se haya resuelto
   }
-
-
+  stateAlert(val:boolean){
+    this.alert = val
+  }
 }

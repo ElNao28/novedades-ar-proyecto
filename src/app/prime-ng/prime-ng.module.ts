@@ -20,7 +20,7 @@ import { PasswordModule } from 'primeng/password';
 import {DividerModule} from 'primeng/divider';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
-
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [],
@@ -48,7 +48,7 @@ import { DialogModule } from 'primeng/dialog';
     DividerModule,
     AutoCompleteModule,
     DialogModule,
-
+    ToastModule
   ]
 })
 export class PrimeNgModule { }

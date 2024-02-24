@@ -4,6 +4,7 @@ import { MLoginService } from '../../services/m-login.service';
 import { ColoniaData, CpData, EstadoData, MunicipioData } from '../../interfaces/ApiCopo.interface';
 import { User } from '../../interfaces/SendUser.interface';
 import { DataForm } from '../../interfaces/FormData.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-cuenta',
@@ -12,7 +13,7 @@ import { DataForm } from '../../interfaces/FormData.interface';
 })
 export class CrearCuentaComponent {
 
-  constructor(private fb:FormBuilder, private loginService:MLoginService){}
+  constructor(private fb:FormBuilder, private loginService:MLoginService, private router:Router){}
 
   validButton:boolean = true;
   formValue:boolean = true;
@@ -98,7 +99,7 @@ export class CrearCuentaComponent {
     {
       label: "Codigo postal",
       formControlName: "cp",
-      type:"text",
+      type:"select",
     },
     {
       label: "Colonia",
@@ -132,30 +133,6 @@ export class CrearCuentaComponent {
       formControlName: "password2",
       type:"password",
     },
-    {
-      label: "Eliga regunta secreta",
-      formControlName: "question",
-      type:"select",
-      typeSelect:[
-        {
-          option:"¿Nombre de mascota?"
-        },
-        {
-          option:"¿Color favorito?"
-        },
-        {
-          option:"¿Pelicula favorita?"
-        },
-        {
-          option:"¿Comida favorita?"
-        }
-      ]
-    },
-    {
-      label: "Respuesta",
-      formControlName: "answer",
-      type:"text",
-    },
   ]
   myForm:FormGroup = this.fb.group({
     name:['', [Validators.required, Validators.minLength(3)]],
@@ -165,15 +142,13 @@ export class CrearCuentaComponent {
     birthdate: ['', [Validators.required, this.validateAge.bind(this)]],
     estado:['',[Validators.required]],
     municipio:['',[Validators.required]],
-    cp:['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
+    cp:['', [Validators.required]],
     colonia:['',[Validators.required]],
     calle:['', [Validators.required, Validators.minLength(5)]],
     email:['', [Validators.required, Validators.pattern(this.emailPattern)]],
     cellphone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
     password:['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/)]],
     password2: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/)],],
-    question:['',[Validators.required]],
-    answer:['', [Validators.required, Validators.minLength(3)]],
   }, {
     validators: [
       this.isFieldOneEqualFieldTwo('password','password2')
@@ -181,39 +156,37 @@ export class CrearCuentaComponent {
   })
 
   ngOnInit(): void {
-      // this.loginService.getEstado().subscribe(data =>{
-      //     console.log(data)
-      //     this.estados = data;
-      //   })
+    this.loginService.getEstado().subscribe(data =>{
+        this.estados = data;
+      })
   }
-  getMunicipios(){
-    // if(this.myForm.controls['estado'].invalid) return
-    // this.userService.getMunicipio(this.myForm.controls['estado'].value).subscribe(data =>{
-    //   console.log(data)
-    //   this.municipios = data;
-    // })
+  getMunicipios(estado:string){
+     if(this.myForm.controls['estado'].invalid) return
+     this.loginService.getMunicipio(estado).subscribe(data =>{
+       this.municipios = data;
+     })
   }
-  getCp(){
-    // if(this.myForm.controls['municipio'].invalid) return
-    // this.userService.getCp(this.myForm.controls['municipio'].value).subscribe(data =>{
-    //   console.log(data)
-    //   this.cp = data;
-    // })
+  getCp(municipio:string){
+    if(this.myForm.controls['municipio'].invalid) return
+    this.loginService.getCp(municipio).subscribe(data =>{
+      this.cp = data;
+    })
   }
-  getColonia(){
-    // if(this.myForm.controls['cp'].invalid) return
-    // this.userService.getColonia(this.myForm.controls['cp'].value).subscribe(data =>{
-    //   console.log(data)
-    //   this.colonias = data;
-    // })
+  getColonia(cp:string){
+    if(this.myForm.controls['cp'].invalid) return
+    this.loginService.getColonia(cp).subscribe(data =>{
+      this.colonias = data;
+    })
   }
 
   //Funcion que toma los datos del formulario y los envia mediante el metodo post al back para su registro
   createNewUser(){
      if(this.myForm.valid){
-       console.log(this.myForm.value)
        const formData = this.myForm.value;
-       this.loginService.createUser(formData).subscribe(data => console.log("Listo papu"))
+       this.loginService.createUser(formData).subscribe(data =>{
+        console.log("Listo papu")
+        this.router.navigate(['/inicio']);
+      })
      }
   }
 
@@ -278,13 +251,12 @@ export class CrearCuentaComponent {
     this.validButton = true;
   }
   //Funcion que cambia el estado de la variable que controla el boton de crear cuenta, cambia cuando el recapcha es reiniciado
-  handlereset(response:any): void {
+  handlereset(response:string): void {
     this.validButton = true;
   }
   //Funcion que cambia el estado del boton de crear cuenta si se cumplen las sentencias dictadas
   validCreateButton(){
     if(this.myForm.invalid === false && this.validButton === false){
-      console.log("3:", this.myForm.invalid, this.validButton)
       return false
     }
     else{

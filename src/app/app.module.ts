@@ -6,7 +6,9 @@ import { AppComponent } from './app.component';
 import { ModuloLoginModule } from './user/modulo-login/modulo-login.module';
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { SharedModule } from './user/shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageService } from 'primeng/api';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,9 +18,13 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ModuloLoginModule,
     PrimeNgModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
