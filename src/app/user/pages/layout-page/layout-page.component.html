@@ -1,31 +1,45 @@
-<div>
+<div class="w-full">
   <nav class="bg-pink-200 pt-3 pb-3 flex flex-col sm:flex-row items-center gap-4">
    <div class="w-full grid grid-cols-12">
-     <div class="flex items-center flex-col sm:flex-row py-1 gap-5 sm:col-start-2 col-span-10 sm:col-span-11 w-full">
-      <img class="h-12" src="../../../../../assets/img/logo2.png" alt="logo">
+     <div class="flex items-center flex-col sm:flex-row py-1 gap-5 sm:col-start-2 col-span-10 sm:col-span-10 w-full">
+      <img routerLink="/inicio" class="h-12" src="../../../../../assets/img/logo2.png" alt="logo">
       <div class="w-full flex-col sm:flex-row flex gap-3">
 
-         <div class="sm:w-2/4 flex bg-white items-center ring-1 ring-gray-500">
+         <div class="sm:w-2/4 flex bg-white items-center ring-1 rounded-sm ring-gray-500">
           <input type="text" class="border-none rounded-e-none w-full h-10">
              <p-button>
                <i class="pi pi-search pb-1 pl-5" style="font-size: 1.2rem"></i>
              </p-button>
          </div>
 
-          <div class="text-md text-gray-900 flex gap-2 lg:gap-4">
-            <a class="flex items-center hover:text-gray-700" routerLink="/users/inicio">
+          <div class="text-sm text-gray-900 flex gap-2 lg:gap-8">
+            <a class="flex items-center hover:text-gray-700" routerLink="/inicio">
                <i class="pi pi-home" style="font-size: 1.3rem"></i>
                <span class="pl-1">Inicio</span>
             </a>
-            <a routerLink="crear-cuenta" class="flex items-center hover:text-gray-700">
+            <a routerLink="/productos" class="flex items-center hover:text-gray-700">
+              <i class="pi pi-tags" style="font-size: 1.3rem">
+              </i><span class="pl-1">Productos</span>
+            </a>
+            <a *ngIf="isLogin()" routerLink="crear-cuenta" class="flex items-center hover:text-gray-700">
               <i class="pi pi-user-plus" style="font-size: 1.3rem">
               </i><span class="pl-1">Crear cuenta</span>
             </a>
-             <a routerLink="login" class="flex items-center hover:text-gray-700">
+             <a *ngIf="isLogin()" routerLink="login" class="flex items-center hover:text-gray-700">
               <i class="pi pi-sign-in" style="font-size: 1.3rem">
               </i><span class="pl-1">Ingresar</span>
             </a>
-            <a routerLink="login" class="flex items-center hover:text-gray-700">
+            <a *ngIf="!isLogin()" routerLink="mis-compras" class="flex items-center hover:text-gray-700">
+              <i class="pi pi-shopping-bag" style="font-size: 1.3rem">
+              </i><span class="pl-1">Mis compras</span>
+            </a>
+
+            <a *ngIf="!isLogin()" (click)="closeSesion()" class="flex items-center hover:text-gray-700">
+              <i class="pi pi-sign-out" style="font-size: 1.3rem">
+              </i><span class="pl-1">Salir</span>
+            </a>
+
+            <a routerLink="/carrito" class="flex items-center hover:text-gray-700">
               <i class="pi pi-shopping-cart" style="font-size: 1.5rem">
               </i>
             </a>

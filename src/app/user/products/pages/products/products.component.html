@@ -1,0 +1,31 @@
+<div class="px-10 my-4">
+    <form action="" class="flex justify-end mb-3">
+        <select name="" id="" class="rounded-sm">
+            <option value="">Mayor precio</option>
+            <option value="">Menor precio</option>
+        </select>
+    </form>
+    <div class="flex">
+        <div class="mr-3 w-1/5 text-sm">
+            <label for="categoria">Categoria</label>
+            <select name="" id="" class="w-full rounded-sm">
+                <option value="">Hombre</option>
+                <option value="">Mujer</option>
+                <option value="">Niño</option>
+                <option value="">Niña</option>
+            </select>
+        </div>
+
+        <div class="w-full grid grid-cols-4 gap-3 ">
+            <div class="bg-white flex flex-col rounded-lg hover:shadow-xl px-2 pt-2 product" *ngFor="let item of products;">
+                <img src="{{item.image}}" alt="{{item.image}}">
+                <div class="p-3">
+                    <a routerLink="/view/{{item.id}}" class="text-sm">{{item.title}}</a>
+                    <p><span class="text-blue-700 text-lg">${{item.price}}</span></p>
+                    <p-rating  [readonly]="true" [cancel]="false"></p-rating>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

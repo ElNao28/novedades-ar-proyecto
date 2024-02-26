@@ -69,6 +69,7 @@ export class IniciarSesionComponent {
           type: 'ok',
           message: 'Usuario y contraseña correcto'
         }
+        localStorage.setItem('token', 'adnajicnokoidd');
         setTimeout(() =>{
           this.alert = false;
           this.router.navigate(['/inicio'])

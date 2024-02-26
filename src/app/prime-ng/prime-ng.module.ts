@@ -21,6 +21,7 @@ import {DividerModule} from 'primeng/divider';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [],
@@ -48,7 +49,8 @@ import { ToastModule } from 'primeng/toast';
     DividerModule,
     AutoCompleteModule,
     DialogModule,
-    ToastModule
+    ToastModule,
+    ConfirmDialogModule
   ]
 })
 export class PrimeNgModule { }
