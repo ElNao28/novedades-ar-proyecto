@@ -1,8 +1,8 @@
 <div class="px-10 my-4">
     <form action="" class="flex justify-end mb-3">
-        <select name="" id="" class="rounded-sm">
-            <option value="">Mayor precio</option>
-            <option value="">Menor precio</option>
+        <select name="ordenarPor" id="" class="rounded-sm"  [(ngModel)]="ordenarPorPrecio" (ngModelChange)="ordenarProductosPorPrecio()">
+            <option value="desc">Mayor precio</option>
+            <option value="asc">Menor precio</option>
         </select>
     </form>
     <div class="flex">

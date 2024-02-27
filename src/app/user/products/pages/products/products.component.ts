@@ -16,6 +16,14 @@ export class ProductsComponent implements OnInit{
   {
     this.productService.getProducts().subscribe(data => this.products = data)
   }
+  ordenarPorPrecio: string = 'asc'; // Por defecto, ordenar de menor a mayor precio
 
-
+  // Función para ordenar los productos según el precio
+  ordenarProductosPorPrecio(): void {
+    if (this.ordenarPorPrecio === 'asc') {
+      this.products.sort((a, b) => a.price - b.price);
+    } else {
+      this.products.sort((a, b) => b.price - a.price);
+    }
+  }
 }

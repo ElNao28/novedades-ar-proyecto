@@ -6,11 +6,17 @@
       <div class="w-full flex-col sm:flex-row flex gap-3">
 
          <div class="sm:w-2/4 flex bg-white items-center ring-1 rounded-sm ring-gray-500">
-          <input type="text" class="border-none rounded-e-none w-full h-10">
-             <p-button>
-               <i class="pi pi-search pb-1 pl-5" style="font-size: 1.2rem"></i>
-             </p-button>
+          <input type="text" class="border-none rounded-e-none w-full h-10" [(ngModel)]="inputValue" (keyup)="filtrarOpciones()">
+          <select [hidden]="!(inputValue.length >=3)"
+            name=""
+            id=""
+            class="border-none rounded-e-none overflow-hidden whitespace-nowrap">
+      <option *ngFor="let item of opcionesFiltradas" [value]="item">{{ item }}</option>
+      <option  *ngIf="opcionesFiltradas.length === 0" value="hola" class="truncate">No se encuentra coincidencia</option>
+    </select>
+
          </div>
+
 
           <div class="text-sm text-gray-900 flex gap-2 lg:gap-8">
             <a class="flex items-center hover:text-gray-700" routerLink="/inicio">
