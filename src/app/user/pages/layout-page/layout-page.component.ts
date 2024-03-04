@@ -1,37 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { MLoginService } from '../../modulo-login/services/m-login.service';
-import { Product } from '../../products/interfaces/products.interface';
+import { Products } from '../../products/interfaces/products.interface';
 import { ProductsService } from '../../products/services/products.service';
+import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-layout-page',
   templateUrl: './layout-page.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './layout-page.component.css'
 })
-export class LayoutPageComponent implements OnInit{
-  constructor(private loginService:MLoginService, private producstService:ProductsService){}
-  ngOnInit(): void {
-    this.producstService.getProducts().subscribe(data =>{
-      this.products = data;
-      this.products.forEach(element => {
-        this.opciones.push(element.title)
-      });
-    })
-  }
+export class LayoutPageComponent {
 
-  inputValue: string = '';
-  opciones: string[] = [];
-  opcionesFiltradas: string[] = [];
-  products!:Product[];
-  isLogin():boolean{
+  constructor(
+    private loginService: MLoginService,
+    private producstService: ProductsService,
+    ) { }
+  items!: Products[];
+  itemsS!: Products[];
+
+  isLogin(): boolean {
     return this.loginService.checkLogin();
   }
-  closeSesion(){
-    localStorage.removeItem('token')
+    selectedItem: any;
+
+
+  search(event: AutoCompleteCompleteEvent) {
+    this.producstService.searchAutocomplete(event.query).subscribe(data => {
+      this.items = data
+      this.itemsS = this.items.filter(item => item.nombre_producto.toLowerCase().includes(event.query.toLowerCase()));
+      console.log(this.itemsS)
+    }
+    )
   }
-  filtrarOpciones(): void {
-    this.opcionesFiltradas = this.opciones.filter(opcion =>
-      opcion.toLowerCase().includes(this.inputValue.toLowerCase())
-    );
-  }
+
+
+
+
+    closeSesion() {
+      localStorage.removeItem('token')
+    }
+
 }

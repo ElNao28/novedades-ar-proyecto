@@ -1,51 +1,50 @@
 <div class="w-full">
-  <nav class="bg-pink-200 pt-3 pb-3 flex flex-col sm:flex-row items-center gap-4">
+  <nav class="bg-orange-500 pt-3 pb-3 flex flex-col sm:flex-row items-center gap-4 fixed top-0 w-full">
    <div class="w-full grid grid-cols-12">
      <div class="flex items-center flex-col sm:flex-row py-1 gap-5 sm:col-start-2 col-span-10 sm:col-span-10 w-full">
       <img routerLink="/inicio" class="h-12" src="../../../../../assets/img/logo2.png" alt="logo">
       <div class="w-full flex-col sm:flex-row flex gap-3">
+        <div class="card flex justify-content-center">
+          <p-autoComplete
+            [(ngModel)]="selectedItem"
+            (completeMethod)="search($event)"
+            class="m-0 p-0 rounded-md"
+            [suggestions]="itemsS"
+            field="title"
+            placeholder="Buscar"
+            p-autocomplete
+            type="text">
+          </p-autoComplete>
 
-         <div class="sm:w-2/4 flex bg-white items-center ring-1 rounded-sm ring-gray-500">
-          <input type="text" class="border-none rounded-e-none w-full h-10" [(ngModel)]="inputValue" (keyup)="filtrarOpciones()">
-          <select [hidden]="!(inputValue.length >=3)"
-            name=""
-            id=""
-            class="border-none rounded-e-none overflow-hidden whitespace-nowrap">
-      <option *ngFor="let item of opcionesFiltradas" [value]="item">{{ item }}</option>
-      <option  *ngIf="opcionesFiltradas.length === 0" value="hola" class="truncate">No se encuentra coincidencia</option>
-    </select>
-
-         </div>
-
-
-          <div class="text-sm text-gray-900 flex gap-2 lg:gap-8">
-            <a class="flex items-center hover:text-gray-700" routerLink="/inicio">
+        </div>
+          <div class="text-sm flex gap-2 lg:gap-8">
+            <a class="flex items-center hover:text-gray-300" routerLink="/inicio">
                <i class="pi pi-home" style="font-size: 1.3rem"></i>
                <span class="pl-1">Inicio</span>
             </a>
-            <a routerLink="/productos" class="flex items-center hover:text-gray-700">
+            <a routerLink="/productos" class="flex items-center hover:text-gray-300">
               <i class="pi pi-tags" style="font-size: 1.3rem">
               </i><span class="pl-1">Productos</span>
             </a>
-            <a *ngIf="isLogin()" routerLink="crear-cuenta" class="flex items-center hover:text-gray-700">
+            <a *ngIf="isLogin()" routerLink="crear-cuenta" class="flex items-center hover:text-gray-300">
               <i class="pi pi-user-plus" style="font-size: 1.3rem">
               </i><span class="pl-1">Crear cuenta</span>
             </a>
-             <a *ngIf="isLogin()" routerLink="login" class="flex items-center hover:text-gray-700">
+             <a *ngIf="isLogin()" routerLink="login" class="flex items-center hover:text-gray-300">
               <i class="pi pi-sign-in" style="font-size: 1.3rem">
               </i><span class="pl-1">Ingresar</span>
             </a>
-            <a *ngIf="!isLogin()" routerLink="mis-compras" class="flex items-center hover:text-gray-700">
+            <a *ngIf="!isLogin()" routerLink="mis-compras" class="flex items-center hover:text-gray-300">
               <i class="pi pi-shopping-bag" style="font-size: 1.3rem">
               </i><span class="pl-1">Mis compras</span>
             </a>
 
-            <a *ngIf="!isLogin()" (click)="closeSesion()" class="flex items-center hover:text-gray-700">
+            <a *ngIf="!isLogin()" (click)="closeSesion()" class="flex items-center hover:text-gray-300">
               <i class="pi pi-sign-out" style="font-size: 1.3rem">
               </i><span class="pl-1">Salir</span>
             </a>
 
-            <a routerLink="/carrito" class="flex items-center hover:text-gray-700">
+            <a routerLink="/carrito" class="flex items-center hover:text-gray-300">
               <i class="pi pi-shopping-cart" style="font-size: 1.5rem">
               </i>
             </a>

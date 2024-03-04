@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { ColoniaData, CpData, EstadoData, MunicipioData } from '../../interfaces/ApiCopo.interface';
@@ -6,6 +6,7 @@ import { ColoniaData, CpData, EstadoData, MunicipioData } from '../../interfaces
 @Component({
   selector: 'app-layout-form',
   templateUrl: './layout-form.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './layout-form.component.css'
 })
 export class LayoutFormComponent {

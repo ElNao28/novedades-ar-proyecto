@@ -9,7 +9,6 @@
       <div
         class="mt-4 mb-1">
         <!--Mediante el evento click se manda a llamar a la funcion que valida el acceso a la cuenta-->
-        <app-alert *ngIf="alert" (alertState)="stateAlert($event)" [typeAlert]="tAlert"></app-alert>
         <p-button
           (click)="getData()"
           [disabled]="validButton"
@@ -21,6 +20,8 @@
           styleClass="px-4 py-2 bg-yellow-300 hover:bg-yellow-400"
           label="Crear una cuenta">
         </p-button>
+        <p-toast></p-toast>
+        <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>
       </div>
       <div class="">
         <a class="text-blue-600 hover:text-blue-800" routerLink="/recuperar-password"

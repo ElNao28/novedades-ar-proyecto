@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../interfaces/products.interface';
+import { Products } from '../../interfaces/products.interface';
 import { ProductsService } from '../../services/products.service';
 
 @Component({
@@ -9,8 +9,8 @@ import { ProductsService } from '../../services/products.service';
 })
 export class ProductsComponent implements OnInit{
 
-  products!: Product[];
-
+  products!: Products[];
+  layout: string = 'list';
   constructor(private productService:ProductsService) {}
   ngOnInit(): void
   {
@@ -21,9 +21,9 @@ export class ProductsComponent implements OnInit{
   // Función para ordenar los productos según el precio
   ordenarProductosPorPrecio(): void {
     if (this.ordenarPorPrecio === 'asc') {
-      this.products.sort((a, b) => a.price - b.price);
+      this.products.sort((a, b) => a.precio - b.precio);
     } else {
-      this.products.sort((a, b) => b.price - a.price);
+      this.products.sort((a, b) => b.precio - a.precio);
     }
   }
 }

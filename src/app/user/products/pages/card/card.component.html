@@ -1,1 +1,15 @@
-<p>card works!</p>
+<div class="px-10 my-4 flex gap-5">
+  <div class="bg-white p-1 w-4/5 rounded-md">
+    <div class="flex" *ngFor="let item of productsCard">
+      <img src="https://www.tiendaenlinea.unam.mx/storage/products/3032/3358/3001000041083-1700077009-529.jpg" alt="imagen" class="w-28">
+      <div>
+        <h2>{{item.nombre_producto}}</h2>
+        <span>${{item.precio}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white p-1 w-1/5 rounded-md">
+    total
+  </div>
+
+</div>

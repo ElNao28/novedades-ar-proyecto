@@ -53,9 +53,7 @@ export class MLoginService {
   checkLogin():boolean{
 
     if ( !localStorage.getItem('token') ) return true;
-
     const token = localStorage.getItem('token');
-    console.log(token);
     return false
   }
 
