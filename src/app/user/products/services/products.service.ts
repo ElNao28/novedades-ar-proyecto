@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Products } from '../interfaces/products.interface';
 import { SendDataCard } from '../interfaces/SendDataCard.interface';
 import { ProducsToCard } from '../interfaces/ProductsCard.interface';
+import { CompraProducto, urlPago } from '../interfaces/CompraProduct.iinterface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,8 @@ export class ProductsService {
   }
   getProductByCard(id:string | null){
     return this.http.get<ProducsToCard[]>('http://localhost:3000/carrito/'+id)
+  }
+  comprarProduct(data:CompraProducto){
+    return this.http.post<urlPago>('http://localhost:3000/products/pago', data)
   }
 }

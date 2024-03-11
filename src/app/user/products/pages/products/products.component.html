@@ -9,7 +9,7 @@
     <div class="flex">
         <div class="w-full grid sm:grid-cols-2 lg:grid-cols-4 gap-3 ">
             <div class="bg-white flex flex-col rounded-lg hover:shadow-xl px-2 pt-2 product" *ngFor="let item of products;">
-                <img src="https://veryvaquero.com/cdn/shop/products/VV-camisa-hannover-lisa-basica-blanca-073-3.jpg?v=1653749405" alt="{{item.imagen}}" class="w-full max-h-72">
+                <img src="{{item.imagen}}" alt="{{item.nombre_producto}}" class="w-full max-h-72">
                 <div class="p-3">
                     <a routerLink="/view/{{item.id}}" class="text-sm">{{item.nombre_producto}}</a>
                     <p><span class="text-blue-700 text-lg">${{item.precio}}</span></p>

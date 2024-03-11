@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { Products } from '../../interfaces/products.interface';
 import { SendDataCard } from '../../interfaces/SendDataCard.interface';
+import { CompraProducto } from '../../interfaces/CompraProduct.iinterface';
 
 @Component({
   selector: 'app-view-product',
@@ -10,7 +11,11 @@ import { SendDataCard } from '../../interfaces/SendDataCard.interface';
   styleUrl: './view-product.component.css'
 })
 export class ViewProductComponent implements OnInit{
-  constructor(private routerLink:ActivatedRoute,private productsService:ProductsService){}
+  constructor(
+    private routerLink:ActivatedRoute,
+    private productsService:ProductsService,
+    private router:Router,
+    ){}
   id!: string;
   product:Products = {
     id:0,
@@ -44,8 +49,17 @@ export class ViewProductComponent implements OnInit{
       }
       this.productsService.addProductToCard(dataCard).subscribe(data => console.log(data))
     })
+  }
 
-
-
+  comprarProduct(){
+    const data:CompraProducto = {
+      id:this.product.id,
+      title:this.product.nombre_producto,
+      precio:this.product.precio
+    }
+    this.productsService.comprarProduct(data).subscribe(data =>{
+      console.log(data);
+      window.open(data.url);
+    })
   }
 }
