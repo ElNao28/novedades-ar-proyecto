@@ -5,6 +5,7 @@ export interface ValidUser {
 export interface ResponseLogin{
   status:number;
   message:string;
+  token:string;
 }
 export interface PasswordSend{
   password:string;

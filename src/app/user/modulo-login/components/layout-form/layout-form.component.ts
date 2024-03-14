@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { ColoniaData, CpData, EstadoData, MunicipioData } from '../../interfaces/ApiCopo.interface';
@@ -6,6 +6,7 @@ import { ColoniaData, CpData, EstadoData, MunicipioData } from '../../interfaces
 @Component({
   selector: 'app-layout-form',
   templateUrl: './layout-form.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './layout-form.component.css'
 })
 export class LayoutFormComponent {
@@ -61,6 +62,9 @@ export class LayoutFormComponent {
   cpSelect = new EventEmitter<string>();
   @Output()
   coloniaSelect = new EventEmitter<string>();
+  @Output()
+  onChangeFile = new EventEmitter<Event>();
+
 
   emitEstado(estado:string){
     this.estadoSelect.emit(estado);
@@ -73,6 +77,9 @@ export class LayoutFormComponent {
   }
   emitColonia(colonia:string){
     this.coloniaSelect.emit(colonia);
+  }
+  emitChangeFile(onChangeFile:Event){
+    this.onChangeFile.emit(onChangeFile);
   }
   isValidField( field: string ): boolean | null {
     return this.dataForm.controls[field].errors

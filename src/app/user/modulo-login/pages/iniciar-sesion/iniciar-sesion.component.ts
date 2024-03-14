@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { MLoginService } from '../../services/m-login.service';
-import { AlertType } from '../../interfaces/Alert.interface';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-iniciar-sesion',
   templateUrl: './iniciar-sesion.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './iniciar-sesion.component.css'
 })
 export class IniciarSesionComponent {
@@ -17,13 +18,9 @@ export class IniciarSesionComponent {
     private fb:FormBuilder,
     private router:Router,
     private loginService:MLoginService,
-    ){}
+    private messageService:MessageService,
 
-  alert:boolean = false;
-  tAlert:AlertType = {
-    type: 'ok',
-    message: ''
-  };;
+    ){}
 
   //Variable que contiene los campos que tendra el formulario y que se envian al componente "layout-form"
   datosForm:DataForm[] = [
@@ -64,29 +61,20 @@ export class IniciarSesionComponent {
     this.loginService.validUser(this.myForm.value).subscribe(res=>{
       if(res.status === 200)
       {
-        this.alert = true;
-        this.tAlert = {
-          type: 'ok',
-          message: 'Usuario y contraseña correcto'
-        }
+
+        localStorage.setItem('token', res.token);
+
+        //const dataToken = this.jwt.decode(res.token)
+
         setTimeout(() =>{
-          this.alert = false;
           this.router.navigate(['/inicio'])
         },1000)
       }
       else if(res.status === 400){
-        this.alert = true;
-        this.tAlert = {
-          type: 'warning',
-          message: 'Usuario o contraseña incorrectos'
-        }
+
       }
       else if(res.status === 409){
-        this.alert = true;
-        this.tAlert = {
-          type: 'error',
-          message: 'Haz alcanzado el numero maximo de intentos'
-        }
+
       }
       else
       {
@@ -99,7 +87,7 @@ export class IniciarSesionComponent {
     // Este método se ejecutará cuando reCAPTCHA se resuelva con éxito
     this.validButton = false; // Habilitar el botón una vez que reCAPTCHA se haya resuelto
   }
-  stateAlert(val:boolean){
-    this.alert = val
-  }
+  showError() {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
+}
 }

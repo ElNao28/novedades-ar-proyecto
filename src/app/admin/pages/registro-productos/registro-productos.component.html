@@ -1,0 +1,24 @@
+<div class="flex justify-center">
+  <div class="bg-white p-8 mt-8 w-2/5 rounded-md">
+
+    <app-layout-form
+      [dataForm]="form"
+      [datosForm]="datosForm"
+      (onChangeFile)="onChangeFile($event)"
+    >
+    </app-layout-form>
+      <div class="mt-4">
+        <p-button
+        label="Cancelar"
+        class="mr-4"
+        styleClass="p-button-danger"
+        ></p-button>
+        <p-button
+        label="Agregar"
+        type="submit"
+        (click)="addNewProduct()"
+        styleClass="p-button-secondary"
+        ></p-button>
+      </div>
+  </div>
+</div>

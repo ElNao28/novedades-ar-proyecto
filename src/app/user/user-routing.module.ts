@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+import { canActivate, canMatch } from './guards/guards.guard';
 
 const routes: Routes = [
   {
@@ -14,12 +15,14 @@ const routes: Routes = [
       },
       {
         path:'',
-        loadChildren: () => import('./modulo-login/modulo-login.module').then(m => m.ModuloLoginModule)
+        loadChildren: () => import('./modulo-login/modulo-login.module').then(m => m.ModuloLoginModule),
+        canActivate: [canActivate],
+        canMatch:[canMatch]
       },
       {
-        path:'**',
-        redirectTo:'inicio'
-      }
+        path: '',
+        loadChildren: () => import('../user/products/products.module').then(m => m.ProductsModule)
+      },
     ]
   }
 ];

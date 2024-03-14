@@ -1,11 +1,32 @@
-<form [formGroup]="dataForm" >
+<form [formGroup]="dataForm" enctype="multipart/form-data">
 
   <div *ngIf="formValue" class="grid {{styles}} gap-4">
     <div *ngFor="let data of datosForm">
       <label for="{{data.formControlName}}">{{data.label}}</label><br>
-      <input *ngIf="data.type != 'select'" formControlName="{{data.formControlName}}"
+
+      <input *ngIf="data.type != 'select' && data.type != 'password'"
+        formControlName="{{data.formControlName}}"
         class="rounded-md w-full"
+        accept="image/*"
+        (change)="emitChangeFile($event)"
         type="{{data.type}}">
+
+      <p-password formControlName="{{data.formControlName}}" *ngIf="data.type === 'password'" [toggleMask]="true">
+        <ng-template pTemplate="header">
+            <h6>Pick a password</h6>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <p-divider></p-divider>
+            <p class="mt-2">Suggestions</p>
+            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                <li>At least one lowercase</li>
+                <li>At least one uppercase</li>
+                <li>At least one numeric</li>
+                <li>Minimum 8 characters</li>
+            </ul>
+        </ng-template>
+      </p-password>
+
         <select
           *ngIf="data.type === 'select' && data.formControlName != 'estado' && data.formControlName != 'municipio' && data.formControlName != 'cp' && data.formControlName != 'colonia'"
           name="{{data.formControlName}}"
@@ -66,7 +87,7 @@
           <option *ngFor="let opcion of colonias.response.colonia" value="{{opcion}}">{{ opcion }}</option>
         </select>
         <br>
-        <span *ngIf="isValidField(data.formControlName)">{{getFieldError(data.formControlName)}}</span>
+        <span class="msj" *ngIf="isValidField(data.formControlName)">{{getFieldError(data.formControlName)}}</span>
     </div>
   </div>
 
@@ -75,9 +96,24 @@
   <div *ngIf="!formValue" class="grid {{styles}} gap-4">
   <div *ngFor="let data of datosFormDos">
       <label for="{{data.formControlName}}">{{data.label}}</label><br>
-      <input  *ngIf="data.type != 'select'" formControlName="{{data.formControlName}}"
+      <input  *ngIf="data.type != 'select'  && data.type != 'password'" formControlName="{{data.formControlName}}"
       class="rounded-md w-full"
       type="{{data.type}}">
+      <p-password *ngIf="data.type === 'password'" [toggleMask]="true" formControlName="{{data.formControlName}}">
+        <ng-template pTemplate="header">
+            <h6>Pick a password</h6>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <p-divider></p-divider>
+            <p class="mt-2">Suggestions</p>
+            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                <li>At least one lowercase</li>
+                <li>At least one uppercase</li>
+                <li>At least one numeric</li>
+                <li>Minimum 8 characters</li>
+            </ul>
+        </ng-template>
+      </p-password>
         <select
           *ngIf="data.type === 'select'"
           name="{{data.formControlName}}"

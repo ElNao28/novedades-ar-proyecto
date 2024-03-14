@@ -1,20 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Error404Component } from './user/shared/pages/error-404/error-404.component';
 
 const routes: Routes = [
   {
-    path: 'users', loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+    path: '',
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: '',
-    redirectTo: 'users',
+    redirectTo: '',
     pathMatch: 'full'
   },
   {
     path:'**',
-    redirectTo:'users'
-  },
-
+    component:Error404Component
+  }
 
   ];
 

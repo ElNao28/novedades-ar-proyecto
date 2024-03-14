@@ -50,4 +50,11 @@ export class MLoginService {
     return this.http.patch(this.urlBack+'/users/'+email,password)
   }
 
+  checkLogin():boolean{
+
+    if ( !localStorage.getItem('token') ) return true;
+    const token = localStorage.getItem('token');
+    return false
+  }
+
 }
