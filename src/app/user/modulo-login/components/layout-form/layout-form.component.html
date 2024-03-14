@@ -1,10 +1,14 @@
-<form [formGroup]="dataForm" >
+<form [formGroup]="dataForm" enctype="multipart/form-data">
 
   <div *ngIf="formValue" class="grid {{styles}} gap-4">
     <div *ngFor="let data of datosForm">
       <label for="{{data.formControlName}}">{{data.label}}</label><br>
-      <input *ngIf="data.type != 'select' && data.type != 'password'" formControlName="{{data.formControlName}}"
+
+      <input *ngIf="data.type != 'select' && data.type != 'password'"
+        formControlName="{{data.formControlName}}"
         class="rounded-md w-full"
+        accept="image/*"
+        (change)="emitChangeFile($event)"
         type="{{data.type}}">
 
       <p-password formControlName="{{data.formControlName}}" *ngIf="data.type === 'password'" [toggleMask]="true">

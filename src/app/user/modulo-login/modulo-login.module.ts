@@ -22,7 +22,9 @@ import { LayoutFormComponent } from './components/layout-form/layout-form.compon
     PrimeNgModule,
     ReactiveFormsModule,
     NgxCaptchaModule,
-
+  ],
+  exports:[
+    LayoutFormComponent,
   ],
   providers:[
   ]

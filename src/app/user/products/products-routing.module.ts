@@ -4,7 +4,6 @@ import { CardComponent } from './pages/card/card.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { ViewProductComponent } from './pages/view-product/view-product.component';
 import { MisComprasComponent } from './pages/mis-compras/mis-compras.component';
-import { canActivate, canMatch } from '../guards/guards.guard';
 
 const routes: Routes = [
   {

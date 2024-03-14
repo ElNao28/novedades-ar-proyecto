@@ -62,6 +62,9 @@ export class LayoutFormComponent {
   cpSelect = new EventEmitter<string>();
   @Output()
   coloniaSelect = new EventEmitter<string>();
+  @Output()
+  onChangeFile = new EventEmitter<Event>();
+
 
   emitEstado(estado:string){
     this.estadoSelect.emit(estado);
@@ -74,6 +77,9 @@ export class LayoutFormComponent {
   }
   emitColonia(colonia:string){
     this.coloniaSelect.emit(colonia);
+  }
+  emitChangeFile(onChangeFile:Event){
+    this.onChangeFile.emit(onChangeFile);
   }
   isValidField( field: string ): boolean | null {
     return this.dataForm.controls[field].errors

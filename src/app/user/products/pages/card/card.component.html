@@ -1,6 +1,7 @@
-<div class="px-10 my-4 flex gap-5">
+<div class="px-10 my-4 gap-5 flex flex-col-reverse w-full sm:flex-row">
+
   <div class="bg-white p-1 w-4/5 rounded-md">
-    <div class="flex" *ngFor="let item of productsCard">
+    <div class="flex gap-5" *ngFor="let item of productsCard">
       <img src="{{item.img}}" alt="{{item.nombre_producto}}" class="w-28">
       <div>
         <h2>{{item.nombre_producto}}</h2>
@@ -8,6 +9,7 @@
       </div>
     </div>
   </div>
+
   <div class="bg-white p-1 w-1/5 rounded-md">
     total
   </div>

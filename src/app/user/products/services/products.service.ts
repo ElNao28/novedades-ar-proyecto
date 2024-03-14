@@ -19,7 +19,7 @@ export class ProductsService {
     return this.http.get<Products>('http://localhost:3000/products/'+id);
   }
   searchAutocomplete(query:string){
-    return this.http.get<Products[]>(`http://localhost:3000/products?q=${{query}}&_limit=5`);
+    return this.http.get<Products[]>(`http://localhost:3000/products?q=${{query}}`);
   }
   addProductToCard(dataCard:SendDataCard){
     return this.http.post('http://localhost:3000/carrito/', dataCard)

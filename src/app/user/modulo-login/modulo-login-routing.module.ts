@@ -17,10 +17,6 @@ const routes: Routes = [
     path:'recuperar-password',
     component:RecuperarPassComponent
   },
-  {
-    path:'**',
-    redirectTo:'inicio'
-  },
 ];
 
 @NgModule({
