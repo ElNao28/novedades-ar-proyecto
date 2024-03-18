@@ -33,6 +33,7 @@ export class IniciarSesionComponent {
       label: "Ingresa tu contraseña",
       formControlName: "password",
       type:"password",
+      styles:'login'
     },
   ]
   estilos:string = "w-full"
@@ -59,22 +60,36 @@ export class IniciarSesionComponent {
     }
 
     this.loginService.validUser(this.myForm.value).subscribe(res=>{
+      console.log(res);
       if(res.status === 200)
       {
 
         localStorage.setItem('token', res.token);
 
         //const dataToken = this.jwt.decode(res.token)
-
+        this.alerts(
+          'success',
+          'Exito',
+          'Login correcto "Bienvenido"'
+        )
         setTimeout(() =>{
           this.router.navigate(['/inicio'])
         },1000)
       }
-      else if(res.status === 400){
+      else if(res.status === 400 || res.status === 302){
+        this.alerts(
+          'warn',
+          'Error al iniciar sesion',
+          'Los datos ingresados son incorrectos'
+        )
 
       }
       else if(res.status === 409){
-
+        this.alerts(
+          'error',
+          'Parece que hubo un error',
+          'Numero de intentos alcanzado'
+        )
       }
       else
       {
@@ -87,7 +102,7 @@ export class IniciarSesionComponent {
     // Este método se ejecutará cuando reCAPTCHA se resuelva con éxito
     this.validButton = false; // Habilitar el botón una vez que reCAPTCHA se haya resuelto
   }
-  showError() {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
+  alerts(tipo:string,encabezado:string,mensaje:string):void {
+    this.messageService.add({ severity: tipo, summary: encabezado, detail: mensaje });
 }
 }

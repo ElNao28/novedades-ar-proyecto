@@ -4,6 +4,7 @@ import { ProductsService } from '../../services/products.service';
 import { Products } from '../../interfaces/products.interface';
 import { SendDataCard } from '../../interfaces/SendDataCard.interface';
 import { CompraProducto } from '../../interfaces/CompraProduct.iinterface';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-view-product',
@@ -15,6 +16,7 @@ export class ViewProductComponent implements OnInit{
     private routerLink:ActivatedRoute,
     private productsService:ProductsService,
     private router:Router,
+    private messageService:MessageService,
     ){}
   id!: string;
   product:Products = {
@@ -47,7 +49,15 @@ export class ViewProductComponent implements OnInit{
         img: data.imagen,
         usuarioId: idUser
       }
-      this.productsService.addProductToCard(dataCard).subscribe(data => console.log(data))
+      this.productsService.addProductToCard(dataCard).subscribe(data =>{
+        if(data.status === 200){
+          this.messageService.add({
+            severity:'success',
+            summary: 'Mensaje',
+            detail: 'Producto agregado al carrito'
+          })
+        }
+      })
     })
   }
 

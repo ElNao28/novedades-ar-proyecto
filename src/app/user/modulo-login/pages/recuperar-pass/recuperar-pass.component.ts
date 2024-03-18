@@ -6,6 +6,7 @@ import { MLoginService } from '../../services/m-login.service';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { PasswordSend } from '../../interfaces/ValidUser.intereface';
 import { RecoverPassword } from '../../interfaces/RecoverPassword.interface';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-recuperar-pass',
@@ -13,7 +14,11 @@ import { RecoverPassword } from '../../interfaces/RecoverPassword.interface';
   styleUrl: './recuperar-pass.component.css'
 })
 export class RecuperarPassComponent {
-  constructor(private fb:FormBuilder,private router:Router, private loginService:MLoginService){}
+  constructor(
+    private fb:FormBuilder,
+    private router:Router,
+    private loginService:MLoginService,
+    private messageService:MessageService){}
 
   //variable que controla la visualizacion del primer formulario si esta en false el formulario se mostrara de lo contrario se ocultara
   validStatus:boolean = false;
@@ -99,9 +104,18 @@ export class RecuperarPassComponent {
           console.log(data)
           if(this.responseVerEmail.status === 404){
             this.caseBtnRec = true
-            return console.log("No existe")
+            return this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'No existe el correo'
+            })
           }
-
+          if(data.status === 202){
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Exito',
+              detail: 'Se a enviado un codigo a su correo'
+            })
             this.dataSend =
             {
               to:this.formEmail.controls['email'].value,
@@ -111,8 +125,10 @@ export class RecuperarPassComponent {
                 this.validStatus = true;
                 this.code = data.codigo;
                 console.log(this.code)
+
               }
             })
+          }
         })
     }
 
@@ -144,6 +160,12 @@ export class RecuperarPassComponent {
 
     validatedCode(){
       if(this.code === this.formCode.controls['code'].value){
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'El codigo ingresado es correcto'
+        })
+        console.log('validatedCode')
         this.validCode = true;
       }
       return
@@ -168,7 +190,17 @@ export class RecuperarPassComponent {
          password: this.formNewPassword.controls['password'].value
        }
        this.loginService.updatePassword(this.dataSend.to,password).subscribe(data =>{
-         this.router.navigate(['/user/Inicio'])
+        if(data.status === 202){
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Exito',
+            detail: 'Contraseña actualizada'
+          })
+          setTimeout(() => {
+            this.router.navigate(['/inicio'])
+          }, 1000);
+
+        }
        })
      }
 }

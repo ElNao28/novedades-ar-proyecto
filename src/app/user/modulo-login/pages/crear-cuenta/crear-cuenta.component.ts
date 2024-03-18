@@ -5,6 +5,7 @@ import { ColoniaData, CpData, EstadoData, MunicipioData } from '../../interfaces
 import { User } from '../../interfaces/SendUser.interface';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-crear-cuenta',
@@ -13,7 +14,12 @@ import { Router } from '@angular/router';
 })
 export class CrearCuentaComponent {
 
-  constructor(private fb:FormBuilder, private loginService:MLoginService, private router:Router){}
+  constructor(
+    private fb:FormBuilder,
+    private loginService:MLoginService,
+    private router:Router,
+    private messageService:MessageService
+    ){}
 
   validButton:boolean = true;
   formValue:boolean = true;
@@ -183,10 +189,29 @@ export class CrearCuentaComponent {
   createNewUser(){
      if(this.myForm.valid){
        const formData = this.myForm.value;
-       this.loginService.createUser(formData).subscribe(data =>{
-        console.log("Listo papu")
-        this.router.navigate(['/inicio']);
-      })
+       try {
+        this.loginService.createUser(formData).subscribe(data =>{
+          if(data.status === 409){
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Ya existe un usuario con ese correo electronico o numero de telefono'
+            });
+          }
+          else if(data.status === 202){
+            this.messageService.add({
+              severity:'success',
+              summary: 'Exito',
+              detail: 'Usuario creado correctamente'
+            });
+            setTimeout(() => {
+              this.router.navigate(['/inicio']);
+            }, 1000);
+          }
+        })
+       } catch (error) {
+        console.log(error)
+       }
      }
   }
 

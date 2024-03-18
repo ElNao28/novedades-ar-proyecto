@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PasswordSend, ResponseLogin, ValidUser } from '../interfaces/ValidUser.intereface';
 import { Observable } from 'rxjs';
-import { CheckEmail, Email, ResponseEmail, User } from '../interfaces/SendUser.interface';
+import { CheckEmail, Email, ResponseCreateUser, ResponseEmail, User } from '../interfaces/SendUser.interface';
 import { ColoniaData, CpData, EstadoData, MunicipioData } from '../interfaces/ApiCopo.interface';
 import { RecoverPassword } from '../interfaces/RecoverPassword.interface';
 
@@ -21,8 +21,8 @@ export class MLoginService {
   validUser(data:ValidUser){
     return this.http.post<ResponseLogin>(this.urlBack+'/login', data);
   }
-  createUser(user:User):Observable<User>{
-    return this.http.post<User>(this.urlBack+'/users', user);
+  createUser(user:User){
+    return this.http.post<ResponseCreateUser>(this.urlBack+'/users', user);
   }
   getEstado(){
     return this.http.get<EstadoData>("https://api.copomex.com/query/get_estados?token="+this.tokenApiCopomex+"")
@@ -47,11 +47,10 @@ export class MLoginService {
     return this.http.post<ResponseEmail>(this.urlBack+'/email',email) ;
    }
    updatePassword(email:string, password:PasswordSend){
-    return this.http.patch(this.urlBack+'/users/'+email,password)
+    return this.http.patch<ResponseCreateUser>(this.urlBack+'/users/'+email,password)
   }
 
   checkLogin():boolean{
-
     if ( !localStorage.getItem('token') ) return true;
     const token = localStorage.getItem('token');
     return false
