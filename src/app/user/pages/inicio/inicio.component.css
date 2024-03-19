@@ -1,3 +1,14 @@
 .p-password{
   width: 100%;
 }
+.imgSlider{
+  height: 450px !important;
+}
+.novedades img{
+  height: 300px;
+}
+@media (max-width: 768px){
+  .imgSlider{
+    height: 225px !important;
+  }
+}

@@ -11,21 +11,42 @@
         (change)="emitChangeFile($event)"
         type="{{data.type}}">
 
-      <p-password formControlName="{{data.formControlName}}" *ngIf="data.type === 'password'" [toggleMask]="true">
+      <p-password
+        formControlName="{{data.formControlName}}" *ngIf="data.type === 'password' && data.styles !== 'login'"
+        [toggleMask]="true"
+        [promptLabel]="'Ingresa una contraseña'"
+        [weakLabel]="'Debil'"
+        [mediumLabel]="'Medio'"
+        [strongLabel]="'Fuerte'">
+
         <ng-template pTemplate="header">
-            <h6>Pick a password</h6>
+            <h6>Crea una contraseña</h6>
         </ng-template>
         <ng-template pTemplate="footer">
             <p-divider></p-divider>
-            <p class="mt-2">Suggestions</p>
+            <p class="mt-2">Sugerencias</p>
             <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                <li>At least one lowercase</li>
-                <li>At least one uppercase</li>
-                <li>At least one numeric</li>
-                <li>Minimum 8 characters</li>
+                <li>Una mayuscula</li>
+                <li>Una minuscula</li>
+                <li>Al menos un numero</li>
+                <li>Un caracter especial</li>
+                <li>Minimo 8 caracteres</li>
             </ul>
         </ng-template>
       </p-password>
+
+      <p-password
+        formControlName="{{data.formControlName}}" *ngIf="data.type === 'password' && data.styles === 'login'"
+        [toggleMask]="true"
+        [feedback]="false"
+        >
+
+
+      </p-password>
+
+
+
+
 
         <select
           *ngIf="data.type === 'select' && data.formControlName != 'estado' && data.formControlName != 'municipio' && data.formControlName != 'cp' && data.formControlName != 'colonia'"

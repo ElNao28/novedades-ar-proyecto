@@ -1,58 +1,86 @@
-<div class="w-full">
-  <nav class="bg-orange-500 pt-3 pb-3 flex flex-col sm:flex-row items-center gap-4 w-full">
-   <div class="w-full grid grid-cols-12">
-     <div class="flex items-center flex-col sm:flex-row py-1 gap-5 sm:col-start-2 col-span-10 sm:col-span-10 w-full">
-      <img routerLink="/inicio" class="h-12" src="../../../../../assets/img/logo2.png" alt="logo">
-      <div class="w-full flex-col sm:flex-row flex gap-3">
-        <div class="card flex justify-content-center">
-          <p-autoComplete
-            [(ngModel)]="selectedItem"
-            (completeMethod)="search($event)"
-            class="m-0 p-0 rounded-md"
-            [suggestions]="itemsS"
-            field="title"
-            placeholder="Buscar"
-            p-autocomplete
-            type="text">
-          </p-autoComplete>
+<nav
+class="bg-orange-500 flex flex-col md:flex-row py-1 px-2 md:px-8 content-center items-center md:gap-4 w-full">
+  <img class="w-32 rounded" src="../../../../assets/img/logo2.png" alt="Novedades AR">
+  <div class="w-full">
+    <p-autoComplete
+    [(ngModel)]="selectedItem"
+    [suggestions]="itemsS"
+    class="autoComplete"
+    (completeMethod)="search($event)"
+    [style]="{'width':'100%'}"
+    placeholder="Buscar"
+    field="nombre_producto"
+   ></p-autoComplete>
+  </div>
+  <ul class="flex gap-5 text-white">
+    <li routerLink="/inicio" class="cursor-pointer flex items-center gap-1 hover:text-gray-200"><span class="pi pi-home"></span>Inicio</li>
+    <li routerLink="productos" class="cursor-pointer flex items-center gap-1 hover:text-gray-200"><span class="pi pi-tags"></span>Productos</li>
+    <li routerLink="login" *ngIf="isLogin()" class="cursor-pointer flex items-center gap-1 hover:text-gray-200">
+      <span class="pi pi-sign-in"></span>
+      Ingresar</li>
+    <li *ngIf="!isLogin()" (click)="showConfirm()" class="cursor-pointer flex items-center gap-1 hover:text-gray-200">
+      <span class="pi pi-sign-out"></span>Salir</li>
+    <li routerLink="login"><span class="pi pi-user cursor-pointer hover:text-gray-200"></span></li>
+    <li routerLink="carrito"><span class="pi pi-shopping-cart cursor-pointer hover:text-gray-200"></span></li>
+  </ul>
+</nav>
 
-        </div>
-          <div class="text-sm flex gap-2 lg:gap-8">
-            <a class="flex items-center hover:text-gray-300" routerLink="/inicio">
-               <i class="pi pi-home" style="font-size: 1.3rem"></i>
-               <span class="pl-1">Inicio</span>
-            </a>
-            <a routerLink="/productos" class="flex items-center hover:text-gray-300">
-              <i class="pi pi-tags" style="font-size: 1.3rem">
-              </i><span class="pl-1">Productos</span>
-            </a>
-            <a *ngIf="isLogin()" routerLink="crear-cuenta" class="flex items-center hover:text-gray-300">
-              <i class="pi pi-user-plus" style="font-size: 1.3rem">
-              </i><span class="pl-1">Crear cuenta</span>
-            </a>
-             <a *ngIf="isLogin()" routerLink="login" class="flex items-center hover:text-gray-300">
-              <i class="pi pi-sign-in" style="font-size: 1.3rem">
-              </i><span class="pl-1">Ingresar</span>
-            </a>
-            <a *ngIf="!isLogin()" routerLink="mis-compras" class="flex items-center hover:text-gray-300">
-              <i class="pi pi-shopping-bag" style="font-size: 1.3rem">
-              </i><span class="pl-1">Mis compras</span>
-            </a>
 
-            <a *ngIf="!isLogin()" (click)="closeSesion()" class="flex items-center hover:text-gray-300">
-              <i class="pi pi-sign-out" style="font-size: 1.3rem">
-              </i><span class="pl-1">Salir</span>
-            </a>
 
-            <a routerLink="/carrito" class="flex items-center hover:text-gray-300">
-              <i class="pi pi-shopping-cart" style="font-size: 1.5rem">
-              </i>
-            </a>
-        </div>
-
+<p-toast position="top-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+      <div class="flex flex-col items-start" style="flex: 1">
+          <div class="font-medium my-3 text-md">{{ message.summary }}</div>
+          <button class="bg-red-400 border-none hover:bg-red-500 h-8" pButton label="Confirmar" (click)="closeSesion()"></button>
       </div>
-     </div>
-   </div>
-  </nav>
-</div>
+  </ng-template>
+</p-toast>
+
+
+
+
+
+
+
 <router-outlet></router-outlet>
+<footer class="bg-gray-800 text-white p-5 mt-5">
+  <div class="container mx-auto">
+      <div class="flex flex-wrap items-center justify-between">
+          <div class="w-full md:w-1/4 text-center md:text-left">
+              <h2 class="text-lg font-semibold">Company</h2>
+              <p class="my-2">Sobre nosotros</p>
+              <p class="my-2">Contacto</p>
+              <p class="my-2">Politica de privacidad</p>
+          </div>
+          <div class="w-full md:w-1/4 text-center md:text-left">
+              <h2 class="text-lg font-semibold">Help</h2>
+              <p class="my-2">FAQ</p>
+              <p class="my-2">Compras</p>
+              <p class="my-2">Reenbolsos</p>
+          </div>
+          <div class="w-full md:w-1/4 text-center md:text-left">
+              <h2 class="text-lg font-semibold">Siguenos</h2>
+              <ul class="list-reset flex flex-col">
+                  <li class="mx-2"><a href="#" class="text-gray-400 hover:text-gray-200">Facebook</a></li>
+                  <li class="mx-2"><a href="#" class="text-gray-400 hover:text-gray-200">Twitter</a></li>
+                  <li class="mx-2"><a href="#" class="text-gray-400 hover:text-gray-200">Instagram</a></li>
+              </ul>
+          </div>
+          <div class="w-full md:w-1/4 text-center md:text-left">
+              <h2 class="text-lg font-semibold">¿Dudas?</h2>
+              <p class="my-2">Haznos saber tus duda directo a nuestro correo</p>
+              <form class="w-full max-w-sm">
+                  <div class="flex items-center border-b-2 border-gray-200 py-2">
+                      <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Email">
+                      <button class="flex-shrink-0 bg-gray-900 text-white py-1 px-2 rounded" type="button">
+                          Enviar
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+      <div class="mt-5 border-t-2 border-gray-600 pt-5 text-center">
+          <p>&copy; 2024 NovedadesA&R. All rights reserved.</p>
+      </div>
+  </div>
+</footer>

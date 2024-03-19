@@ -4,6 +4,7 @@ import { Products } from '../interfaces/products.interface';
 import { SendDataCard } from '../interfaces/SendDataCard.interface';
 import { ProducsToCard } from '../interfaces/ProductsCard.interface';
 import { CompraProducto, urlPago } from '../interfaces/CompraProduct.iinterface';
+import { ResponseAddCard } from '../interfaces/ResponseCard.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class ProductsService {
     return this.http.get<Products[]>(`http://localhost:3000/products?q=${{query}}`);
   }
   addProductToCard(dataCard:SendDataCard){
-    return this.http.post('http://localhost:3000/carrito/', dataCard)
+    return this.http.post<ResponseAddCard>('http://localhost:3000/carrito/', dataCard)
   }
   getProductByCard(id:string | null){
     return this.http.get<ProducsToCard[]>('http://localhost:3000/carrito/'+id)

@@ -22,6 +22,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { GalleriaModule } from 'primeng/galleria';
 
 @NgModule({
   declarations: [],
@@ -50,7 +51,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     AutoCompleteModule,
     DialogModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    GalleriaModule
   ]
 })
 export class PrimeNgModule { }

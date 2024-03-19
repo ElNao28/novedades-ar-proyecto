@@ -35,3 +35,7 @@ export interface ResponseEmail{
   message:string;
   codigo: string,
 }
+export interface ResponseCreateUser{
+  message:string;
+  status:number;
+}

@@ -1,0 +1,108 @@
+<div>
+  <p-galleria
+    [value]="images"
+    [numVisible]="5"
+    [circular]="true"
+    [showItemNavigators]="true"
+    [showThumbnails]="false"
+    [autoPlay]="true"
+    [transitionInterval]="3000"
+    >
+      <ng-template pTemplate="item" let-item>
+          <img [src]="item" class=" imgSlider w-full" />
+      </ng-template>
+  </p-galleria>
+</div>
+<h2 class="text-center text-3xl">-Novedades-</h2>
+<hr class="w-5/6">
+
+  <div>
+    <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" >
+        <ng-template let-product pTemplate="item">
+            <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
+                <div class="mb-3 novedades">
+                    <img [src]="product.imagen" [alt]="product.name" class="novedades" />
+                </div>
+                <div>
+                    <h4 class="mb-1">{{ product.nombre_producto }}</h4>
+                    <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
+                    <div class="mt-5 flex items-center justify-center gap-2">
+                      <p-button icon="pi pi-shopping-cart" [rounded]="true" />
+                      <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+  </div>
+<div>
+    <h2 class="text-center text-3xl">-Lo mas vendido-</h2>
+    <hr class="w-5/6">
+    <div>
+      <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" >
+          <ng-template let-product pTemplate="item">
+              <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
+                  <div class="mb-3 novedades">
+                      <img [src]="product.imagen" [alt]="product.name" class="novedades" />
+                  </div>
+                  <div>
+                      <h4 class="mb-1">{{ product.nombre_producto }}</h4>
+                      <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
+                      <div class="mt-5 flex items-center justify-center gap-2">
+                        <p-button icon="pi pi-shopping-cart" [rounded]="true" />
+                        <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
+                      </div>
+                  </div>
+              </div>
+          </ng-template>
+      </p-carousel>
+    </div>
+</div>
+<div>
+  <h2 class="text-center text-3xl">-Con descuento-</h2>
+  <hr class="w-5/6">
+  <div>
+    <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" >
+        <ng-template let-product pTemplate="item">
+            <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
+                <div class="mb-3 novedades">
+                    <img [src]="product.imagen" [alt]="product.name" class="novedades" />
+                </div>
+                <div>
+                    <h4 class="mb-1">{{ product.nombre_producto }}</h4>
+                    <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
+                    <div class="mt-5 flex items-center justify-center gap-2">
+                      <p-button icon="pi pi-shopping-cart" [rounded]="true" />
+                      <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+  </div>
+</div>
+
+<div>
+  <h2 class="text-center text-3xl">-Para dama-</h2>
+  <hr class="w-5/6">
+  <div>
+    <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" >
+        <ng-template let-product pTemplate="item">
+            <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
+                <div class="mb-3 novedades">
+                    <img [src]="product.imagen" [alt]="product.name" class="novedades" />
+                </div>
+                <div>
+                    <h4 class="mb-1">{{ product.nombre_producto }}</h4>
+                    <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
+                    <div class="mt-5 flex items-center justify-center gap-2">
+                      <p-button icon="pi pi-shopping-cart" [rounded]="true" />
+                      <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+  </div>
+</div>
+
