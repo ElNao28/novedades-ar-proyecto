@@ -4,7 +4,7 @@ import { PasswordSend, ResponseLogin, ValidUser } from '../interfaces/ValidUser.
 import { Observable } from 'rxjs';
 import { CheckEmail, Email, ResponseCreateUser, ResponseEmail, User } from '../interfaces/SendUser.interface';
 import { ColoniaData, CpData, EstadoData, MunicipioData } from '../interfaces/ApiCopo.interface';
-import { RecoverPassword } from '../interfaces/RecoverPassword.interface';
+import { RecoverPassword, RecoverPasswordByQuestion } from '../interfaces/RecoverPassword.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -56,4 +56,7 @@ export class MLoginService {
     return false
   }
 
+  getQuestion(email:string){
+    return this.http.get<RecoverPasswordByQuestion>(this.urlBack+'/recover-password/'+email)
+  }
 }

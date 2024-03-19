@@ -27,8 +27,9 @@ export class RecuperarPassComponent {
   code!:string;
   validCode:boolean = false;
   validQuestion:boolean = true;
-  yaquedo:boolean = true;
   caseBtnRec:boolean = true;
+  typeRecover:boolean = true;
+  typeSelect:boolean = true;
   dataSend!:Email;
   checkEmail!:CheckEmail;
   //--------------------Decaracion de todos los formularios-------------------//
@@ -39,6 +40,10 @@ export class RecuperarPassComponent {
   //Formulario donde se ingresa el codigo enviado por correo
   formCode:FormGroup = this.fb.group({
     code:['',[Validators.required, Validators.minLength(10)]],
+  })
+   //Formulario donde se ingresa la respuesta de la pregunta
+   formQuestion:FormGroup = this.fb.group({
+    answer:['',[Validators.required, Validators.minLength(4)]],
   })
   //Formulario donde se ingresa la nueva contraseña y su respectiva repeticion
   formNewPassword:FormGroup = this.fb.group({
@@ -64,6 +69,13 @@ export class RecuperarPassComponent {
     {
       label: "Ingrese el codigo enviado a su correo",
       formControlName: "code",
+      type:"text",
+    }
+  ]
+  datosFormQuestion:DataForm[] = [
+    {
+      label: "pregunta",
+      formControlName: "answer",
       type:"text",
     }
   ]
@@ -110,26 +122,63 @@ export class RecuperarPassComponent {
               detail: 'No existe el correo'
             })
           }
-          if(data.status === 202){
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Exito',
-              detail: 'Se a enviado un codigo a su correo'
-            })
-            this.dataSend =
-            {
-              to:this.formEmail.controls['email'].value,
-            }
-            this.loginService.sendCodePassword(this.dataSend).subscribe( data =>{
-              if(data.status === 200){
-                this.validStatus = true;
-                this.code = data.codigo;
-                console.log(this.code)
 
-              }
-            })
+          if(data.status === 202){
+            this.validStatus = true;
           }
+
+          // if(data.status === 202){
+
+          // }
+
+
         })
+    }
+
+    chageValueBtnTypeRecover(value:number){
+      switch(value){
+        case 1:
+          this.typeRecover = false;
+          this.typeSelect = true;
+           this.messageService.add({
+             severity: 'success',
+             summary: 'Exito',
+             detail: 'Se a enviado un codigo a su correo'
+           })
+           this.dataSend =
+           {
+             to:this.formEmail.controls['email'].value,
+           }
+           this.loginService.sendCodePassword(this.dataSend).subscribe( data =>{
+             if(data.status === 200){
+               this.code = data.codigo;
+               console.log(this.code)
+             }
+           })
+          break;
+        case 2:
+          console.log(this.formEmail.controls['email'].value)
+          const email = this.formEmail.controls['email'].value;
+           this.loginService.getQuestion(email).subscribe(data =>{
+             console.log(data)
+             if(data.status === 200)
+             {
+               switch(data.response){
+                 case 'perro':
+                   this.datosFormQuestion[0].label = '¿Cual es el nombre de tu perro?';
+                 break;
+                 case 'comida':
+                   this.datosFormQuestion[0].label = '¿Cual es tu comida favorita?';
+                 break
+
+               }
+             }
+            });
+
+          this.typeRecover = false;
+          this.typeSelect = false;
+          break;
+      }
     }
 
   //Funcion para validar que las contraseñas ingresadas en el formulario sean iguales
@@ -166,6 +215,7 @@ export class RecuperarPassComponent {
           detail: 'El codigo ingresado es correcto'
         })
         console.log('validatedCode')
+
         this.validCode = true;
       }
       return
@@ -184,6 +234,8 @@ export class RecuperarPassComponent {
       else
         return false
     }
+
+
 
      updatePassword(){
        const password:PasswordSend = {
