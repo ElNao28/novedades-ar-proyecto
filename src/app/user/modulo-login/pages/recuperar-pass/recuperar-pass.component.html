@@ -14,7 +14,7 @@
 
       <p-button
       routerLink="/login"
-      styleClass="px-4 py-2 mr-2 bg-red-400 hover:bg-red-500"
+      styleClass="px-4 py-2 mr-2 bg-red-400 hover:bg-red-500" 
       label="Cancelar">
       </p-button>
 
@@ -44,6 +44,8 @@
         <input type="button" (click)="chageValueBtnTypeRecover(1)" value="Correo electronico">
         <input type="button" (click)="chageValueBtnTypeRecover(2)" value="Pregunta secreta">
       </div>
+
+      
       <div *ngIf="!typeRecover">
 
         <div *ngIf="typeSelect">
@@ -84,7 +86,24 @@
 
         <div *ngIf="!typeSelect">
           <h1>Pregunta</h1>
-          <app-layout-form [dataForm]="formQuestion" [datosForm]="datosFormQuestion"></app-layout-form>
+          <app-layout-form *ngIf="answerIsValid" [dataForm]="formQuestion" [datosForm]="datosFormQuestion" (click)="verificAnswer()"></app-layout-form>
+          <button *ngIf="answerIsValid"  (click)="verificAnswer()" pButton label="Checar"></button>
+          <app-layout-form
+            *ngIf="!answerIsValid"
+            [styles]="styles"
+            [dataForm]="formNewPassword"
+            [datosForm]="datosFormPassword">
+          </app-layout-form>
+            <div class="mt-3">
+              <p-button
+              *ngIf="!answerIsValid"
+              type="submit"
+              styleClass="px-4 py-2 bg-pink-300 hover:bg-pink-400"
+              [disabled]="validUpdate()"
+              label="Actualizar contraseña"
+              (click)="updatePassword()">
+              </p-button>
+            </div>
         </div>
 
 

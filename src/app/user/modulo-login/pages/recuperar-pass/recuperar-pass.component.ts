@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { MLoginService } from '../../services/m-login.service';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { PasswordSend } from '../../interfaces/ValidUser.intereface';
-import { RecoverPassword } from '../../interfaces/RecoverPassword.interface';
+import { RecoverPassword, SendAnser } from '../../interfaces/RecoverPassword.interface';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -32,6 +32,7 @@ export class RecuperarPassComponent {
   typeSelect:boolean = true;
   dataSend!:Email;
   checkEmail!:CheckEmail;
+  answerIsValid:boolean = true;
   //--------------------Decaracion de todos los formularios-------------------//
  //Formulario donde se ingresa el correo electronico
  formEmail:FormGroup = this.fb.group({
@@ -170,7 +171,6 @@ export class RecuperarPassComponent {
                  case 'comida':
                    this.datosFormQuestion[0].label = '¿Cual es tu comida favorita?';
                  break
-
                }
              }
             });
@@ -179,6 +179,20 @@ export class RecuperarPassComponent {
           this.typeSelect = false;
           break;
       }
+    }
+
+    verificAnswer(){
+      if(this.formQuestion.invalid) return console.log("error")
+      let sendAnswer:SendAnser = {
+        email:this.formEmail.controls['email'].value,
+        anwer:this.formQuestion.controls['answer'].value
+      }
+      this.loginService.patito(sendAnswer).subscribe(data =>{
+        if(data.status === 409) return console.log("respuesta incorrecta")
+
+        this.answerIsValid = false;
+        console.log("exito")
+      })
     }
 
   //Funcion para validar que las contraseñas ingresadas en el formulario sean iguales
