@@ -1,23 +1,14 @@
-<div
-  class="flex flex-col lg:flex-row mx-5 rounded-md shadow-lg p-3 my-5 "
->
-  <div class="lg:w-3/5">
-    <p-carousel
-      [value]="imagenes"
-      [numVisible]="1"
-      [numScroll]="1"
-      [circular]="true"
-      [showIndicators]="false"
-    >
-      <ng-template let-imagen pTemplate="item">
-        <img
-          class="w-full h-full lg:h-30rem border-round"
-          [src]="imagen"
-          alt="Imagen {{ imagen }}"
-        />
-      </ng-template>
-    </p-carousel>
+<div class="flex flex-col lg:flex-row mx-5 rounded-md shadow-lg p-3 my-5 gap-2 h-2/4">
+
+
+  <div class="carrucel  w-full">
+    <img [src]="imagenCarrucel" alt="" class="w-full h-96 rounded-sm">
+    <div class="grid grid-cols-3 gap-2 w-full">
+      <img *ngFor="let item of product.imagen" [src]="item.url_imagen" alt="" (mousemove)="changeImgCarrucel(item.id)" class="w-full h-full rounded-md">
+    </div>
   </div>
+
+
   <div class="container-datails rounded-md pl-4 pb-4">
     <h2 class="lg:text-3xl">{{product.nombre_producto}}</h2>
     <p-rating [cancel]="false" [disabled]="true"></p-rating>
@@ -31,17 +22,14 @@
         <p>Costo de envio: <b>$99.00</b></p>
         <p>Stock disponible: <b>{{product.stock}} pzas</b></p>
         <p>¡Compralo ahora!</p>
+        <div class="flex gap-2 items-center">
+          <button class="bg-red-500 border-none w-10 h-8 text-4xl rounded-md flex justify-center items-center text-white hover:bg-red-700" (click)="changeCantidad('-')" [disabled]="cantidad === 1">-</button>
+          <p>{{cantidad}}</p>
+          <button class="bg-blue-500 border-none w-10 h-8 text-2xl rounded-md flex justify-center items-center text-white hover:bg-blue-700" (click)="changeCantidad('+')" [disabled]="cantidad === product.stock">+</button>
+        </div>
         <div class="flex">
-          <p-button
-          class="mr-2 hover:bg-blue-400 rounded-md"
-          label=""
-          (click)="comprarProduct()"
-          >Comprar</p-button>
-          <p-button
-            styleClass="p-button-secondary"
-            label=""
-            (click)="addProductToCard()"
-          >Agregar al carrito</p-button>
+          <p-button class="mr-2 hover:bg-blue-400 rounded-md" label="" (click)="comprarProduct()">Comprar</p-button>
+          <p-button styleClass="p-button-secondary" label="" (click)="addProductToCard()">Agregar al carrito</p-button>
           <p-toast></p-toast>
         </div>
       </div>
@@ -53,9 +41,7 @@
   <h2 class="text-center text-4xl">Detalle del producto</h2>
   <div class="lg:text-2xl">
     <ul>
-      <li><b>Marca:</b> Patito</li>
       <li><b>Genero:</b> Hombre</li>
-      <li><b>Edad:</b> 35 Años</li>
       <li><b>Material del producto:</b> Algodon</li>
       <li><b>Talla:</b> 28</li>
     </ul>

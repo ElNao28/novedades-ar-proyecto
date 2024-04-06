@@ -52,7 +52,7 @@
           <h1>Pregunta</h1>
           <app-layout-form *ngIf="answerIsValid" [dataForm]="formQuestion" [datosForm]="datosFormQuestion"
             (click)="verificAnswer()"></app-layout-form>
-          <button *ngIf="answerIsValid" (click)="verificAnswer()" pButton label="Checar"></button>
+          <button *ngIf="answerIsValid" [disabled]="formQuestion.invalid" (click)="verificAnswer()" pButton label="Checar"></button>
         </div>
       </div>
 
@@ -71,4 +71,3 @@
 
   </div>
 </div>
-

@@ -6,13 +6,14 @@ export interface Products {
   precio:          number;
   descripccion:    string;
   stock:           number;
-  categoria?:       Categoria;
-  imagen:          string;
+  categoria:       string;
   rating:          number;
   descuento:       number;
+  status:          string;
+  imagen:          Imagen[];
 }
 
-export enum Categoria {
-  Caballero = "Caballero",
-  Dama = "Dama",
+export interface Imagen {
+  id:         number;
+  url_imagen: string;
 }

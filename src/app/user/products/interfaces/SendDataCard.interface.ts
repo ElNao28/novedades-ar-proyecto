@@ -1,7 +1,5 @@
 export interface SendDataCard{
-  nombre_producto: string;
-  precio: number;
+  idUser:number;
+  idProduct:number;
   cantidad: number;
-  img: string;
-  usuarioId:string | null
 }

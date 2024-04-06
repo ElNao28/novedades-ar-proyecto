@@ -1,41 +1,53 @@
 <div class="container mx-auto mt-5">
   <div class="flex justify-center">
-      <div class="bg-white p-5 rounded-lg shadow-lg w-full max-w-3xl">
-          <div class="items-center mb-5">
-              <h2 class="text-2xl font-semibold">Resumen de compra</h2>
-          </div>
-          <div class="space-y-3" *ngIf="!islogin">
-              <div class="flex justify-between ring-1 ring-orange-300 rounded-md py-1 px-3 shadow-lg gap-5" *ngFor="let item of productsCard">
-                <img [src]="item.img" [alt]="item.nombre_producto" class="h-36 w-32 rounded-md">
-                  <div class="flex justify-between w-full">
-                    <div class="">
-                      <p>{{item.nombre_producto}}</p>
-                      <p class="text-red-500">Eliminar</p>
-                      <div class="flex items-center gap-2">
-                        <input [disabled]="item.cantidad<=1" type="button" class="bg-red-500 border-none px-3 rounded-sm text-lg
-                        hover:bg-red-600 hover:shadow-lg cursor-pointer" value="-" (click)="changeCantidad('-',item.id)">
-                        <p>{{item.cantidad}}</p>
-                        <input type="button" class="bg-orange-500 border-none px-3 rounded-sm text-lg hover:bg-orange-600 hover:shadow-lg cursor-pointer" value="+"  (click)="changeCantidad('+',item.id)">
-                      </div>
-                    </div>
-                    <div>
-                      <p>Precio:</p>
-                      <p>${{item.precio}}</p>
-                    </div>
-                  </div>
-              </div>
-              <hr class="border-1 border-orange-200"/>
-              <div class="flex justify-between items-center text-lg font-semibold">
-                  <p>Total:</p>
-                  <p>${{total}}</p>
-              </div>
-              <div class="flex justify-end">
-                <button class="bg-orange-500 text-white py-2 px-4 rounded border-none">Proceder al pago</button>
-              </div>
-          </div>
-          <div class="space-y-3" *ngIf="islogin">
-            <h3>Ingresar</h3>
-          </div>
+    <div *ngIf="imgNotCard" class="flex items-center flex-col text-4xl mb-5">
+      <img src="../../../../../assets/img/not_card2.png" alt="notFound" class="rounded-md w-2/4 p-0 m-0">
+      <h3 class="m-0 p-0">Ohhhh! Parece que no tienes productos en tu carrito</h3>
+      <p class="text-blue-500 hover:text-blue-700 cursor-pointer" routerLink="/productos"><span>Pulsa aqui y descubre increibles productos!!!</span></p>
+    </div>
+    <div *ngIf="!imgNotCard" class="bg-white p-5 rounded-lg shadow-lg w-full max-w-3xl">
+      <div class="items-center mb-5">
+        <h2 class="text-2xl font-semibold">Resumen de compra</h2>
       </div>
+      <div class="space-y-3" *ngIf="!islogin">
+        <div class="flex justify-between ring-1 ring-orange-300 rounded-md py-1 px-3 shadow-lg gap-5"
+          *ngFor="let item of productsCard.detallesCarrito">
+          <img [src]="" [alt]="item.product.nombre_producto" class="h-36 w-32 rounded-md">
+          <div class="flex justify-between w-full">
+            <div class="">
+              <p>{{item.product.nombre_producto}}</p>
+              <p class="text-red-500 cursor-pointer" (click)="deleteProductByCard(item.id)">Eliminar</p>
+              <div class="flex items-center gap-2">
+                <input [disabled]="item.cantidad<=1" type="button" class="bg-red-500 border-none px-3 rounded-sm text-lg
+                        hover:bg-red-600 hover:shadow-lg cursor-pointer" value="-"
+                  (click)="changeCantidad('-',item.id)">
+                <p>{{item.cantidad}}</p>
+                <input type="button" class="bg-orange-500 border-none px-3 rounded-sm text-lg hover:bg-orange-600 hover:shadow-lg
+                        cursor-pointer" value="+" [disabled]="item.cantidad === item.product.stock"
+                  (click)="changeCantidad('+',item.id)">
+              </div>
+            </div>
+            <div class="text-center">
+              <p>Precio:</p>
+              <p>${{item.product.precio}}</p>
+              <p>stock:</p>
+              <p>{{item.product.stock}}</p>
+            </div>
+          </div>
+        </div>
+        <hr class="border-1 border-orange-200" />
+        <div class="flex justify-between items-center text-lg font-semibold">
+          <p>Total:</p>
+          <p>${{total}}</p>
+        </div>
+        <div class="flex justify-end">
+          <button class="bg-orange-500 text-white py-2 px-4 rounded border-none cursor-pointer"
+            (click)="comprarCard()">Proceder al pago</button>
+        </div>
+      </div>
+      <div class="space-y-3" *ngIf="islogin">
+        <h3>Ingresar</h3>
+      </div>
+    </div>
   </div>
 </div>

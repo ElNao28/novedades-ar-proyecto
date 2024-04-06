@@ -1,0 +1,41 @@
+<div>
+  <h2 class="text-2xl">Tu cuenta</h2>
+  <div routerLink="/profile/{{idUser}}/personal" class="flex items-center justify-between cursor-pointer mb-8 hover:opacity-80" [ngClass]="{'text-green-400':ruta === 'personal'}">
+    <div class="flex items-center gap-5">
+      <i class="pi pi-id-card text-2xl text-blue-700"></i>
+      <div>
+        <p class="m-0 pb-1 text-md">Datos personales</p>
+      </div>
+    </div>
+    <i class="pi pi-chevron-right mr-10 text-xl text-gray-500"></i>
+  </div>
+  <div routerLink="/profile/{{idUser}}/cuenta" class="flex items-center justify-between cursor-pointer mb-8 hover:opacity-80" [ngClass]="{'text-green-400':ruta === 'cuenta'}">
+    <div class="flex items-center gap-5">
+      <i class="pi pi-user text-2xl text-blue-700"></i>
+      <div>
+        <p class="m-0 pb-1 text-md">Datos de tu cuenta</p>
+      </div>
+    </div>
+    <i class="pi pi-chevron-right mr-10 text-xl text-gray-500"></i>
+  </div>
+  <div routerLink="/profile/{{idUser}}/seguridad"
+    class="flex items-center justify-between cursor-pointer mb-8 hover:opacity-80" [ngClass]="{'text-green-400':ruta === 'seguridad'}">
+    <div class="flex items-center gap-5">
+      <i class="pi pi-lock text-2xl text-blue-700"></i>
+      <div>
+        <p class="m-0 pb-1 text-md">Seguridad de tu cuenta</p>
+      </div>
+    </div>
+    <i class="pi pi-chevron-right mr-10 text-xl text-gray-500"></i>
+  </div>
+  <div routerLink="/profile/{{idUser}}/ubicacion"
+    class="flex items-center justify-between cursor-pointer mb-8 hover:opacity-80" [ngClass]="{'text-green-400':ruta === 'ubicacion'}">
+    <div class="flex items-center gap-5">
+      <i class="pi pi-truck text-2xl text-blue-700"></i>
+      <div>
+        <p class="m-0 pb-1 text-md">Datos de envio</p>
+      </div>
+    </div>
+    <i class="pi pi-chevron-right mr-10 text-xl text-gray-500"></i>
+  </div>
+</div>

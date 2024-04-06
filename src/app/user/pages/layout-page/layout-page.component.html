@@ -1,5 +1,5 @@
 <nav
-class="bg-orange-500 flex flex-col md:flex-row py-1 px-2 md:px-8 content-center items-center md:gap-4 w-full">
+class="bg-blue-900 flex flex-col md:flex-row py-1 px-2 md:px-8 content-center items-center md:gap-4 w-full">
   <img class="w-32 rounded" src="../../../../assets/img/logo2.png" alt="Novedades AR">
   <div class="w-full">
     <p-autoComplete
@@ -20,7 +20,7 @@ class="bg-orange-500 flex flex-col md:flex-row py-1 px-2 md:px-8 content-center 
       Ingresar</li>
     <li *ngIf="!isLogin()" (click)="showConfirm()" class="cursor-pointer flex items-center gap-1 hover:text-gray-200">
       <span class="pi pi-sign-out"></span>Salir</li>
-    <li routerLink="login"><span class="pi pi-user cursor-pointer hover:text-gray-200"></span></li>
+    <li routerLink="{{routerUser}}"><span class="pi pi-user cursor-pointer hover:text-gray-200"></span></li>
     <li routerLink="carrito"><span class="pi pi-shopping-cart cursor-pointer hover:text-gray-200"></span></li>
   </ul>
 </nav>
@@ -43,7 +43,7 @@ class="bg-orange-500 flex flex-col md:flex-row py-1 px-2 md:px-8 content-center 
 
 
 <router-outlet></router-outlet>
-<footer class="bg-gray-800 text-white p-5 mt-5">
+<footer class="bg-gray-800 text-white p-5">
   <div class="container mx-auto">
       <div class="flex flex-wrap items-center justify-between">
           <div class="w-full md:w-1/4 text-center md:text-left">

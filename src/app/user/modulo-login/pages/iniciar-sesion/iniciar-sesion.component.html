@@ -5,6 +5,18 @@
       <!--Se llama al componente layout-form y se le pasa los parametos que esta esperando(Dataform y datosForm)-->
       <app-layout-form [styles]="estilos" [dataForm]="myForm" [datosForm]="datosForm">
       </app-layout-form>
+
+      <div class="mt-4">
+        <!--Con este componente se hace la implementacion del  captcha en la propiedad [siteKey] se la pasa la variable que contiene la key-->
+        <ngx-recaptcha2 #captchaElem siteKey="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u"
+          (success)="handleSuccess($event)"
+          [useGlobalDomain]="true"
+          [hl]="'es'"
+          [size]="'normal'"
+          [theme]="'light'"
+          [type]="'image'">
+        </ngx-recaptcha2>
+      </div>
       <!---------------------------------------------------------------------------------------------------------->
       <div
         class="mt-4 mb-1">
@@ -28,17 +40,7 @@
         <a class="text-blue-600 hover:text-blue-800" routerLink="/recuperar-password"
           style="text-decoration: none;">Olvide mi contraseña</a>
       </div>
-      <div>
-        <!--Con este componente se hace la implementacion del  captcha en la propiedad [siteKey] se la pasa la variable que contiene la key-->
-        <ngx-recaptcha2 #captchaElem siteKey="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u"
-          (success)="handleSuccess($event)"
-          [useGlobalDomain]="true"
-          [hl]="'es'"
-          [size]="'normal'"
-          [theme]="'light'"
-          [type]="'image'">
-        </ngx-recaptcha2>
-      </div>
+
     </div>
   </div>
 </div>

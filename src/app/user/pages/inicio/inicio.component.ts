@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ProductsService } from '../../products/services/products.service';
 import { Products } from '../../products/interfaces/products.interface';
-
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',

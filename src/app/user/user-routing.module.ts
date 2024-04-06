@@ -23,6 +23,9 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import('../user/products/products.module').then(m => m.ProductsModule)
       },
+      {
+        path: '',
+        loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
     ]
   }
 ];

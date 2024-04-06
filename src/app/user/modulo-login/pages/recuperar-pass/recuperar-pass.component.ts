@@ -129,11 +129,6 @@ export class RecuperarPassComponent {
             this.validStatus = true;
           }
 
-          // if(data.status === 202){
-
-          // }
-
-
         })
     }
 
@@ -176,6 +171,12 @@ export class RecuperarPassComponent {
                  case 'comida':
                    this.datosFormQuestion[0].label = '¿Cual es tu comida favorita?';
                  break
+                 case 'pelicula':
+                  this.datosFormQuestion[0].label = '¿Cual es tu pelicula favorita?';
+                  break;
+                  case 'color':
+                    this.datosFormQuestion[0].label = '¿Cual es tu color favorito?';
+                  break;
                }
              }
             });
@@ -187,7 +188,7 @@ export class RecuperarPassComponent {
     }
 
     verificAnswer(){
-      if(this.formQuestion.invalid) return console.log("error")
+      if(this.formQuestion.invalid) return
       let sendAnswer:SendAnser = {
         email:this.formEmail.controls['email'].value,
         anwer:this.formQuestion.controls['answer'].value

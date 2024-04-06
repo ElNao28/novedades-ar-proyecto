@@ -1,0 +1,73 @@
+<div class="flex gap-40">
+  <div class="bg-white w-1/5 rounded-md shadow-md">
+    <h2 class="text-center">Mi cuenta</h2>
+    <div class="pl-2">
+      <div routerLink="/profile/{{idUser}}/mis-compras" class="flex items-center gap-3 hover:opacity-80 cursor-pointer">
+        <i class="pi pi-shopping-bag text-xl text-blue-700"></i>
+        <p>Mis compras</p>
+      </div>
+      <div class="flex items-center gap-3 hover:opacity-80 cursor-pointer">
+        <i class="pi pi-heart-fill text-xl text-blue-700"></i>
+        <p>Favoritos</p>
+      </div>
+      <div class="flex items-center gap-3 hover:opacity-80 cursor-pointer">
+        <i class="pi pi-comment text-xl text-blue-700"></i>
+        <p>Comentarios</p>
+      </div>
+      <div class="flex items-center gap-3 hover:opacity-80 cursor-pointer">
+        <i class="pi pi-ban text-xl text-red-700"></i>
+        <p class="text-red-700">Desactivar cuenta</p>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white w-3/5 mt-5 rounded-md px-8 py-4 shadow-md mb-5">
+    <div class="flex gap-4 items-center">
+      <img src="../.././../../../assets/img/user-icon.png" alt="perfil" class="h-20 cursor-pointer">
+      <div>
+        <p class="text-xl p-0 m-0">{{name}}</p>
+        <p class="p-0 m-0">{{email}}</p>
+      </div>
+    </div>
+    <hr class="opacity-50 mb-8">
+    <div routerLink="/profile/{{idUser}}/personal" class="flex items-center justify-between cursor-pointer mb-8 hover:opacity-80">
+      <div class="flex items-center gap-5">
+        <i class="pi pi-id-card text-2xl text-blue-700"></i>
+        <div>
+          <p class="m-0 pb-1 text-md">Datos personales</p>
+          <p class="p-0 m-0 text-sm text-gray-600">Informacion de tu persona: nombre, apellidos,fecha de nacimiento.</p>
+        </div>
+      </div>
+      <i class="pi pi-chevron-right mr-10 text-xl text-gray-500"></i>
+    </div>
+    <div routerLink="/profile/{{idUser}}/cuenta" class="flex items-center justify-between cursor-pointer mb-8 hover:opacity-80">
+      <div class="flex items-center gap-5">
+        <i class="pi pi-user text-2xl text-blue-700"></i>
+        <div>
+          <p class="m-0 pb-1 text-md">Datos de tu cuenta</p>
+          <p class="p-0 m-0 text-sm text-gray-600">Informacion de tu cuenta: correo, contraseña, numero de telefono.</p>
+        </div>
+      </div>
+      <i class="pi pi-chevron-right mr-10 text-xl text-gray-500"></i>
+    </div>
+    <div routerLink="/profile/{{idUser}}/seguridad" class="flex items-center justify-between cursor-pointer mb-8 hover:opacity-80">
+      <div class="flex items-center gap-5">
+        <i class="pi pi-lock text-2xl text-blue-700"></i>
+        <div>
+          <p class="m-0 pb-1 text-md">Seguridad de tu cuenta</p>
+          <p class="p-0 m-0 text-sm text-gray-600">Metodos de seguridad de tu cuenta: pregunta secreta.</p>
+        </div>
+      </div>
+      <i class="pi pi-chevron-right mr-10 text-xl text-gray-500"></i>
+    </div>
+    <div routerLink="/profile/{{idUser}}/ubicacion" class="flex items-center justify-between cursor-pointer mb-8 hover:opacity-80">
+      <div class="flex items-center gap-5">
+        <i class="pi pi-truck text-2xl text-blue-700"></i>
+        <div>
+          <p class="m-0 pb-1 text-md">Datos de envio</p>
+          <p class="p-0 m-0 text-sm text-gray-600">Tu ubicacion: estado, municipio, colonia, cp, referencia.</p>
+        </div>
+      </div>
+      <i class="pi pi-chevron-right mr-10 text-xl text-gray-500"></i>
+    </div>
+  </div>
+</div>
