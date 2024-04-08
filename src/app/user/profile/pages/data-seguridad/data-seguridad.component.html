@@ -6,7 +6,7 @@
       <h2 class="text-xl">Pregunta secreta</h2>
       <div class="mb-5">
         <label for="">Pregunta</label>
-        <input type="text" [value]="dataForm.question" disabled
+        <input type="text" value="*******************" disabled
           class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200" *ngIf="editName">
         <select name="question" class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200" id="question"
           formControlName="question" *ngIf="!editName">

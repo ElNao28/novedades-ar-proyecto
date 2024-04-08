@@ -21,6 +21,14 @@ export interface RespSeguridad{
   question:number;
   answer:string;
 }
+export interface RespEnvio{
+  status:number;
+  estado:string;
+  municipio:string;
+  cp:number;
+  colonia:string;
+  referencia:string;
+}
 export interface RespUpdate{
   status:number;
   message:string;
@@ -39,4 +47,27 @@ export interface UpdatCuenta{
 export interface UpdatSeguridad{
   question:string;
   answer:string;
+}
+export interface UpdatUbicacion{
+  estado:string
+  municipio:string;
+  cp:number;
+  colonia:string;
+  referencia:string;
+}
+export interface RespCopomex {
+  error:         boolean;
+  code_error:    number;
+  error_message: null;
+  response:      Response;
+}
+
+export interface Response {
+  cp:                string;
+  asentamiento:      string[];
+  tipo_asentamiento: string;
+  municipio:         string;
+  estado:            string;
+  ciudad:            string;
+  pais:              string;
 }

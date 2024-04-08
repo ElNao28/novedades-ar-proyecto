@@ -1,4 +1,8 @@
 <div>
+  <div class="flex items-center gap-1 text-gray-600 cursor-pointer hover:opacity-80" routerLink="/profile/{{idUser}}">
+    <li class="pi pi-arrow-left text-md"></li>
+    <p>Regresar</p>
+  </div>
   <h2 class="text-2xl">Tu cuenta</h2>
   <div routerLink="/profile/{{idUser}}/personal" class="flex items-center justify-between cursor-pointer mb-8 hover:opacity-80" [ngClass]="{'text-green-400':ruta === 'personal'}">
     <div class="flex items-center gap-5">

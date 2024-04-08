@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RespCuenta, RespPersonal, RespProfile, RespSeguridad, RespUpdate, UpdatCuenta, UpdatPersonal, UpdatSeguridad } from '../interfaces/ResProfile.interface';
+import { RespCopomex, RespCuenta, RespEnvio, RespPersonal, RespProfile, RespSeguridad, RespUpdate, UpdatCuenta, UpdatPersonal, UpdatSeguridad, UpdatUbicacion } from '../interfaces/ResProfile.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +32,14 @@ export class ProfileService {
   }
   updateUserPassword(idUser:string,data:{password:string}){
     return this.http.patch<RespUpdate>('http://localhost:3000/users/profile/update-user/'+idUser,data)
+  }
+  getDataUbicacion(id:string){
+    return this.http.get<RespEnvio>('http://localhost:3000/users/profile/ubicacion/'+id)
+  }
+  getDataCopomex(cp:number){
+    return this.http.get<RespCopomex>('https://api.copomex.com/query/info_cp/'+cp+'?type=simplified&token=pruebas')
+  }
+  updateUserUbicacion(idUser:string,data:UpdatUbicacion){
+    return this.http.patch<RespUpdate>('http://localhost:3000/users/ubicacion/'+idUser,data)
   }
 }
