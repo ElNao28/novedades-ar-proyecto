@@ -54,13 +54,12 @@ export class DataEnvioComponent {
 
   }
   searchDataByCp(){
-    console.log(this.ubicacionForm.controls['cp'].valid)
     if(this.ubicacionForm.controls['cp'].valid){
       this.profileService.getDataCopomex(this.ubicacionForm.controls['cp'].value).subscribe(data =>{
         this.dataByCopomex = data;
         this.ubicacionForm.patchValue({estado:data.response.estado});
         this.ubicacionForm.patchValue({municipio:data.response.municipio});
-        this.ubicacionForm.patchValue({colonia:data.response.asentamiento});
+        this.ubicacionForm.patchValue({colonia:data.response.asentamiento[0]});
       })
     }
   }
@@ -82,8 +81,7 @@ export class DataEnvioComponent {
         break;
       case 3:
         const userId = localStorage.getItem('token');
-        console.log(this.ubicacionForm.value)
-        if (userId !== null)
+        if (userId !== null){
           this.profileService.updateUserUbicacion(userId, this.ubicacionForm.value).subscribe(data => {
             if (data.status === 200) {
               this.messageService.add({
@@ -103,7 +101,8 @@ export class DataEnvioComponent {
               })
               this.editName = !this.editName;
             }
-          })
+          });
+        }
         break;
     }
   }

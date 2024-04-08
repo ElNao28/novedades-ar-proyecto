@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RespCopomex, RespCuenta, RespEnvio, RespPersonal, RespProfile, RespSeguridad, RespUpdate, UpdatCuenta, UpdatPersonal, UpdatSeguridad, UpdatUbicacion } from '../interfaces/ResProfile.interface';
+import { RespCopomex, RespCuenta, RespEnvio, RespPersonal, RespProfile, RespSeguridad, RespUpdate, ResVentas, UpdatCuenta, UpdatPersonal, UpdatSeguridad, UpdatUbicacion } from '../interfaces/ResProfile.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +41,8 @@ export class ProfileService {
   }
   updateUserUbicacion(idUser:string,data:UpdatUbicacion){
     return this.http.patch<RespUpdate>('http://localhost:3000/users/ubicacion/'+idUser,data)
+  }
+  getVentas(idUser:number){
+    return this.http.get<ResVentas>('http://localhost:3000/ventas/'+idUser)
   }
 }
