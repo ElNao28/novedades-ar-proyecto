@@ -8,6 +8,7 @@ import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { LayoutFormComponent } from './components/layout-form/layout-form.component';
+import { SharedModule } from 'primeng/api';
 
 @NgModule({
   declarations: [

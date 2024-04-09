@@ -15,6 +15,7 @@ export class DataSeguridadComponent {
     private profileService: ProfileService,
     private messageService: MessageService
   ) { }
+  isLoader:boolean = true;
   editName: boolean = true;
   editPassword: boolean = true;
   dataForm: RespSeguridad = {
@@ -46,7 +47,10 @@ export class DataSeguridadComponent {
           question: [res.question, [Validators.required, Validators.minLength(3)]],
           answer: [res.answer, [Validators.required, Validators.minLength(10)]],
         });
-      })
+        setTimeout(() => {
+          this.isLoader = false;
+        }, 500);
+      });
     }
   }
   isFieldOneEqualFieldTwo( field1: string, field2: string ) {

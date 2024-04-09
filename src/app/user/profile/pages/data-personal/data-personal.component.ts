@@ -15,6 +15,7 @@ export class DataPersonalComponent implements OnInit {
     private profileService: ProfileService,
     private messageService: MessageService
   ) { }
+  isLoader:boolean = true;
   editName: boolean = true;
   dataForm: RespPersonal = {
     status: 0,
@@ -45,7 +46,10 @@ export class DataPersonalComponent implements OnInit {
           gender: [{ value: res.gender.toUpperCase(), disabled: true }, [Validators.required]],
           birthdate: [{ value: res.birthdate, disabled: true }, [Validators.required, this.validateAge.bind(this)]],
         });
-      })
+        setTimeout(() => {
+          this.isLoader = false;
+        }, 500);
+      });
     }
   }
 

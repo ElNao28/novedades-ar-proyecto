@@ -33,6 +33,7 @@ export class ViewProductComponent implements OnInit{
     status:'',
     imagen:[]
   };
+  isLoader:boolean = true;
   cantidad:number = 1;
   imagenCarrucel:string = "";
   imagenes: string[] = [
@@ -45,7 +46,11 @@ export class ViewProductComponent implements OnInit{
     console.log(this.id);
     this.productsService.getProductById(this.id).subscribe(data => {
       this.product = data
-      this.imagenCarrucel = data.imagen[0].url_imagen
+      console.log("si llega")
+      setTimeout(() => {
+        this.isLoader = false;
+      }, 500);
+      this.imagenCarrucel = data.imagen[0].url_imagen;
     });
   }
   addProductToCard(){

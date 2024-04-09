@@ -63,4 +63,7 @@ export class MLoginService {
   patito(sendData:SendAnser){
     return this.http.post<RecoverPasswordByQuestion>(this.urlBack+'/recover-password/answer',sendData)
   }
+  getIp(){
+    return this.http.get<{ip:string}>("https://api.ipify.org/?format=json")
+  }
 }

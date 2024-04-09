@@ -15,6 +15,7 @@ export class DataCuentaComponent {
     private profileService: ProfileService,
     private messageService: MessageService
   ) { }
+  isLoader:boolean = true;
   editName: boolean = true;
   dataForm: RespCuenta = {
     status: 0,
@@ -36,6 +37,9 @@ export class DataCuentaComponent {
           email: [{ value: res.email, disabled: true }, [Validators.required, Validators.minLength(3)]],
           cellphone: [{ value: res.cellphone, disabled: true }, [Validators.required, Validators.minLength(10)]]
         });
+        setTimeout(() => {
+          this.isLoader = false;
+        }, 500);
       })
     }
   }

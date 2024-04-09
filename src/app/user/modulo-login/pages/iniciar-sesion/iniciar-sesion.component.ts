@@ -1,6 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { MLoginService } from '../../services/m-login.service';
 import { MessageService } from 'primeng/api';
@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
   encapsulation: ViewEncapsulation.None,
   styleUrl: './iniciar-sesion.component.css'
 })
-export class IniciarSesionComponent {
+export class IniciarSesionComponent implements OnInit{
 
   //Constructor en el cual se inyectan modulos o servicios que se ocuparan en el componente
   constructor(
@@ -19,9 +19,11 @@ export class IniciarSesionComponent {
     private router:Router,
     private loginService:MLoginService,
     private messageService:MessageService,
-
     ){}
-
+  fecha = new Date().toLocaleDateString();
+  ngOnInit(): void {
+    console.log(this.fecha)
+  }
   //Variable que contiene los campos que tendra el formulario y que se envian al componente "layout-form"
   datosForm:DataForm[] = [
     {
@@ -58,44 +60,51 @@ export class IniciarSesionComponent {
       this.myForm.markAllAsTouched();
       return;
     }
+    this.loginService.getIp().subscribe(data =>{
+        this.loginService.validUser({
+          email: this.myForm.controls['email'].value,
+          password: this.myForm.controls['password'].value,
+          ip:data.ip,
+          fecha:this.fecha
+        }).subscribe(res=>{
+          console.log(res);
+          if(res.status === 200)
+          {
 
-    this.loginService.validUser(this.myForm.value).subscribe(res=>{
-      console.log(res);
-      if(res.status === 200)
-      {
+            localStorage.setItem('token', res.token);
 
-        localStorage.setItem('token', res.token);
+            //const dataToken = this.jwt.decode(res.token)
+            this.alerts(
+              'success',
+              'Exito',
+              'Login correcto "Bienvenido"'
+            )
+            setTimeout(() =>{
+              this.router.navigate(['/inicio'])
+            },1000)
+          }
+          else if(res.status === 400 || res.status === 302){
+            this.alerts(
+              'warn',
+              'Error al iniciar sesion',
+              'Los datos ingresados son incorrectos'
+            )
 
-        //const dataToken = this.jwt.decode(res.token)
-        this.alerts(
-          'success',
-          'Exito',
-          'Login correcto "Bienvenido"'
-        )
-        setTimeout(() =>{
-          this.router.navigate(['/inicio'])
-        },1000)
-      }
-      else if(res.status === 400 || res.status === 302){
-        this.alerts(
-          'warn',
-          'Error al iniciar sesion',
-          'Los datos ingresados son incorrectos'
-        )
+          }
+          else if(res.status === 409){
+            this.alerts(
+              'error',
+              'Parece que hubo un error',
+              'Numero de intentos alcanzado'
+            )
+          }
+          else
+          {
+            return console.log(false, "ola")
+          }
+        });
+    });
 
-      }
-      else if(res.status === 409){
-        this.alerts(
-          'error',
-          'Parece que hubo un error',
-          'Numero de intentos alcanzado'
-        )
-      }
-      else
-      {
-        return console.log(false, "ola")
-      }
-    })
   }
   //Funcion que controla el estado del boton de iniciar sesion(si re recpcha es resulto el boton se activa)
   handleSuccess(response:any): void {

@@ -11,10 +11,16 @@ export class ProductsComponent implements OnInit{
 
   products!: Products[];
   layout: string = 'list';
+  isLoader:boolean = true;
   constructor(private productService:ProductsService) {}
   ngOnInit(): void
   {
-    this.productService.getProducts().subscribe(data => this.products = data)
+    this.productService.getProducts().subscribe(data => {
+      this.products = data
+      setTimeout(() => {
+        this.isLoader = false
+      }, 500);
+    })
   }
   ordenarPorPrecio: string = 'asc'; // Por defecto, ordenar de menor a mayor precio
 

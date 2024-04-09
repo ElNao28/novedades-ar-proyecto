@@ -1,4 +1,5 @@
-<div class="flex justify-between">
+<app-loader *ngIf="isLoader"></app-loader>
+<div class="flex justify-between" *ngIf="!isLoader">
   <app-menu-rutas-profile class="bg-white py-5 pl-4 w-1/5"></app-menu-rutas-profile>
   <div class="bg-white w-3/5 px-5 py-5 rounded-md shadow-lg my-5">
     <h2 class="text-3xl">Domicilio de entrega</h2>

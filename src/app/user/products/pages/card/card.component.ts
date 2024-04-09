@@ -24,10 +24,16 @@ export class CardComponent implements OnInit {
   islogin = false
   idUser!: string;
   imgNotCard:boolean = true;
+  isLoader:boolean = true;
   ngOnInit(): void {
     const idUser = localStorage.getItem('token')
     if (idUser !== null) {
       this.getProducts(idUser)
+    }
+    else{
+      setTimeout(() => {
+        this.isLoader = false;
+      }, 500);
     }
     this.islogin = this.mLoginService.checkLogin()
   }
@@ -41,7 +47,6 @@ export class CardComponent implements OnInit {
               console.log(data)
             })
           }
-
         }
         ;
         break;
@@ -61,8 +66,11 @@ export class CardComponent implements OnInit {
 
   getProducts(idUser: string) {
       this.producsService.getProductByCard({ id: parseInt(idUser) }).subscribe(data => {
-        console.log(data);
         this.productsCard = data;
+        setTimeout(() => {
+          this.isLoader = false;
+        }, 500);
+        console.log(this.isLoader);
         if(data.detallesCarrito.length >= 1){
           for (let i = 0; i < this.productsCard.detallesCarrito.length; i++) {
             this.total += this.productsCard.detallesCarrito[i].product.precio * this.productsCard.detallesCarrito[i].cantidad
@@ -72,6 +80,7 @@ export class CardComponent implements OnInit {
         }
         else{
           this.imgNotCard = true;
+
         }
       });
   }

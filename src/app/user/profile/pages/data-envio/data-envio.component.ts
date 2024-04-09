@@ -15,6 +15,7 @@ export class DataEnvioComponent {
     private profileService: ProfileService,
     private messageService: MessageService
   ) { }
+  isLoader:boolean = true;
   editName: boolean = true;
   dataForm: RespEnvio = {
     status: 0,
@@ -48,7 +49,10 @@ export class DataEnvioComponent {
         });
         this.profileService.getDataCopomex(res.cp).subscribe(data=>{
           this.dataByCopomex = data;
-        })
+        });
+        setTimeout(() => {
+          this.isLoader = false;
+        }, 500);
       });
     }
 

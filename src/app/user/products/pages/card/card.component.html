@@ -1,4 +1,5 @@
-<div class="container mx-auto mt-5">
+<app-loader *ngIf="isLoader"></app-loader>
+<div class="container mx-auto my-5" *ngIf="!isLoader">
   <div class="flex justify-center">
     <div *ngIf="imgNotCard" class="flex items-center flex-col text-4xl mb-5">
       <img src="../../../../../assets/img/not_card2.png" alt="notFound" class="rounded-md w-2/4 p-0 m-0">

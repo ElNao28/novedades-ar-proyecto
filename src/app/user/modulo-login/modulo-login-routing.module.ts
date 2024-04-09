@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path:'recuperar-password',
     component:RecuperarPassComponent
-  },
+  }
 ];
 
 @NgModule({

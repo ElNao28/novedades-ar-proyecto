@@ -9,6 +9,7 @@ import { ResVentas } from '../../interfaces/ResProfile.interface';
 })
 export class MisComprasComponent implements OnInit {
   constructor(private profileService: ProfileService) { }
+  isLoader:boolean = true;
   dataVentas: ResVentas = {
     status: 200,
     detallesVenta: [
@@ -43,8 +44,10 @@ export class MisComprasComponent implements OnInit {
     if (idUser !== null)
       this.profileService.getVentas(parseInt(idUser)).subscribe(data => {
         this.dataVentas = data;
-        console.log(this.dataVentas)
-      })
+        setTimeout(() => {
+          this.isLoader = false;
+        }, 500);
+      });
   }
 
 }

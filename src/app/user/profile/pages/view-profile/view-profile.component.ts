@@ -13,7 +13,7 @@ export class ViewProfileComponent implements OnInit{
     private activateLink:ActivatedRoute,
     private router:Router,
   ){}
-
+  isLoader :boolean = true;
   email:string = "";
   name:string = "";
   idUser:string = "";
@@ -27,6 +27,9 @@ export class ViewProfileComponent implements OnInit{
         if(res.status === 200){
           this.email = res.email;
           this.name = res.name;
+          setTimeout(() => {
+            this.isLoader = false;
+          }, 500);
         }
       })
     }
