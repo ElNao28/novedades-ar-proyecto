@@ -1,9 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MLoginService } from '../../modulo-login/services/m-login.service';
 import { Products } from '../../products/interfaces/products.interface';
 import { ProductsService } from '../../products/services/products.service';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout-page',
@@ -11,17 +12,31 @@ import { MessageService } from 'primeng/api';
   encapsulation: ViewEncapsulation.None,
   styleUrl: './layout-page.component.css'
 })
-export class LayoutPageComponent {
+export class LayoutPageComponent implements OnInit{
 
   constructor(
     private loginService: MLoginService,
     private producstService: ProductsService,
-    private messageService:MessageService
+    private messageService:MessageService,
+    private router:Router,
     ) { }
+
   items!: Products[];
   itemsS!: Products[];
   products!:string[];
   selectedItem: any;
+  routerUser:string = "login";
+  idUser:string = "";
+
+  ngOnInit(): void {
+    let titlle = document.getElementById('titlle');
+    const idUser = localStorage.getItem('token');
+    if (idUser !== null) {
+      if(!this.isLogin()){
+        this.routerUser = "profile/"+idUser;
+      }
+    }
+  }
   isLogin(): boolean {
     return this.loginService.checkLogin();
   }
@@ -36,7 +51,9 @@ export class LayoutPageComponent {
   }
     closeSesion() {
       this.onConfirm()
-      localStorage.removeItem('token')
+      localStorage.removeItem('token');
+      this.router.navigate(['/login']);
+      this.routerUser = "login";
     }
 
 

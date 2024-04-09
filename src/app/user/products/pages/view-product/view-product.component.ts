@@ -5,6 +5,7 @@ import { Products } from '../../interfaces/products.interface';
 import { SendDataCard } from '../../interfaces/SendDataCard.interface';
 import { CompraProducto } from '../../interfaces/CompraProduct.iinterface';
 import { MessageService } from 'primeng/api';
+import { MLoginService } from '../../../modulo-login/services/m-login.service';
 
 @Component({
   selector: 'app-view-product',
@@ -17,6 +18,7 @@ export class ViewProductComponent implements OnInit{
     private productsService:ProductsService,
     private router:Router,
     private messageService:MessageService,
+    private loginService:MLoginService
     ){}
   id!: string;
   product:Products = {
@@ -25,51 +27,96 @@ export class ViewProductComponent implements OnInit{
     precio:0,
     descripccion:"",
     stock:0,
-    imagen:"",
+    categoria:'',
     rating:0,
     descuento:0,
+    status:'',
+    imagen:[]
   };
-  ngOnInit(): void {
-    this.id = this.routerLink.snapshot.paramMap.get('id')!;
-    console.log(this.id);
-    this.productsService.getProductById(this.id).subscribe(data => this.product = data)
-  }
+  isLoader:boolean = true;
+  cantidad:number = 1;
+  imagenCarrucel:string = "";
   imagenes: string[] = [
     'https://www.esdesignbarcelona.com/sites/default/files/imagenes/haz-crecer-tu-marca-de-ropa-frente-la-competencia_1.jpg',
     'https://www.clikisalud.net/wp-content/uploads/2018/07/el-importante-beneficio-de-usar-ropa-holgada.jpg',
     'https://media.gq.com.mx/photos/6398d2adf773a1a8874e3a12/master/pass/mejor-ropa-de-hombre-en-2023.jpg',
   ];
+  ngOnInit(): void {
+    this.id = this.routerLink.snapshot.paramMap.get('id')!;
+    console.log(this.id);
+    this.productsService.getProductById(this.id).subscribe(data => {
+      this.product = data
+      console.log("si llega")
+      setTimeout(() => {
+        this.isLoader = false;
+      }, 500);
+      this.imagenCarrucel = data.imagen[0].url_imagen;
+    });
+  }
   addProductToCard(){
-    const idUser = localStorage.getItem('token')
-    this.productsService.getProductById(this.id).subscribe(data =>{
+    const idUser = localStorage.getItem('token');
+
+    if(idUser !== null){
       const dataCard:SendDataCard = {
-        nombre_producto: data.nombre_producto,
-        precio: data.precio,
         cantidad: 1,
-        img: data.imagen,
-        usuarioId: idUser
+        idProduct: parseInt(this.id,),
+        idUser:parseInt(idUser)
       }
       this.productsService.addProductToCard(dataCard).subscribe(data =>{
         if(data.status === 200){
           this.messageService.add({
             severity:'success',
-            summary: 'Mensaje',
             detail: 'Producto agregado al carrito'
           })
         }
+        else if(data.status === 409){
+          this.messageService.add({
+            severity:'warn',
+            detail: 'El producto ya esta en el carrito'
+          })
+        }
       })
-    })
+    }
+    else{
+      this.messageService.add({
+        severity:'warn',
+        detail: 'Debes iniciar sesion para poder agregar al carrito'
+      })
+    }
   }
 
   comprarProduct(){
-    const data:CompraProducto = {
-      id:this.product.id,
-      title:this.product.nombre_producto,
-      precio:this.product.precio
+    if(this.loginService.checkLogin()){
+      return this.messageService.add(
+        {
+          severity:'warn',
+          detail: 'Debes iniciar sesion para poder comprar el producto'
+        }
+      )
     }
-    this.productsService.comprarProduct(data).subscribe(data =>{
-      console.log(data);
-      window.open(data.url);
-    })
+    this.router.navigate(['compra/',this.id]);
+    localStorage.setItem('product',this.id);
+    localStorage.setItem('cantidad',this.cantidad.toString());
+  }
+
+  changeCantidad(value: string) {
+    switch (value) {
+      case '+':
+        this.cantidad++;
+        ;
+        break;
+      case '-':
+        this.cantidad--;
+        break;
+    }
+  }
+
+  changeImgCarrucel(id:number){
+    for(let i = 0; i <this.product.imagen.length; i++){
+      if(id === this.product.imagen[i].id){
+        this.imagenCarrucel = this.product.imagen[i].url_imagen;
+      }
+    }
+
   }
 }

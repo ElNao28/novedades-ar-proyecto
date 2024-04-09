@@ -1,4 +1,4 @@
-<div class="mt-16 flex justify-center">
+<div class="my-10 flex justify-center">
   <div class="md:w-3/5 bg-white rounded-md px-8 py-8">
     <h2 class="text-4xl mb-4">Crear cuenta</h2>
     <h3 class="text-3xl  mb-4" *ngIf="formValue">Paso 1: Datos personales</h3>
@@ -8,13 +8,6 @@
       [datosFormDos]="datosFormDos"
       [dataForm]="myForm"
       [datosForm]="datosForm"
-      [colonias]="colonias"
-      [cp]="cp"
-      [municipios]="municipios"
-      [estados]="estados"
-      (estadoSelect)="getMunicipios($event)"
-      (municipioSelect)="getCp($event)"
-      (cpSelect)="getColonia($event)"
       [styles]="'md:grid-cols-2'"
       ></app-layout-form>
       <p-toast></p-toast>

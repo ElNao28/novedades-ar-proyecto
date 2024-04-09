@@ -15,14 +15,24 @@ const routes: Routes = [
       },
       {
         path:'',
-        loadChildren: () => import('./modulo-login/modulo-login.module').then(m => m.ModuloLoginModule),
-        canActivate: [canActivate],
-        canMatch:[canMatch]
+        redirectTo:'/inicio',
+        pathMatch:'full'
+      },
+      {
+        path: '',
+        loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
       },
       {
         path: '',
         loadChildren: () => import('../user/products/products.module').then(m => m.ProductsModule)
       },
+      {
+        path:'',
+        loadChildren: () => import('./modulo-login/modulo-login.module').then(m => m.ModuloLoginModule),
+        canActivate: [canActivate],
+        canMatch:[canMatch]
+      },
+
     ]
   }
 ];

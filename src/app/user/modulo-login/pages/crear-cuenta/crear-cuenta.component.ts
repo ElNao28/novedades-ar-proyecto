@@ -27,37 +27,6 @@ export class CrearCuentaComponent {
   emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   newUser:User[] = [];
 
-  /*Inicializacion de las variables que contienen los estados, municipios, codigo postal y colonias traidas del api de copomex*/
-  estados:EstadoData = {
-  error: false,
-  code_error: 0,
-  error_message: null,
-  response: {
-      estado: "",
-  }};
-  municipios:MunicipioData = {
-    error: false,
-    code_error: 0,
-    error_message: null,
-    response: {
-        municipios: "",
-    }};
-  cp:CpData = {
-    error: false,
-    code_error: 0,
-    error_message: null,
-    response: {
-        cp: "",
-    }};
-  colonias:ColoniaData = {
-    error: false,
-    code_error: 0,
-    error_message: null,
-    response: {
-        colonia: "",
-    }};
-  /*-----------------------Fin de las varibles relacionadas con la api de copomex--------------------------------*/
-
   datosForm:DataForm[] = [
     {
       label: "Nombre",
@@ -91,32 +60,7 @@ export class CrearCuentaComponent {
       label: "Fecha de nacimiento",
       formControlName: "birthdate",
       type:"date",
-    },
-    {
-      label: "Estado",
-      formControlName: "estado",
-      type:"select",
-    },
-    {
-      label: "Municipio",
-      formControlName: "municipio",
-      type:"select",
-    },
-    {
-      label: "Codigo postal",
-      formControlName: "cp",
-      type:"select",
-    },
-    {
-      label: "Colonia",
-      formControlName: "colonia",
-      type:"select",
-    },
-    {
-      label: "Calle",
-      formControlName: "calle",
-      type:"text",
-    },
+    }
   ]
   datosFormDos:DataForm[] = [
     {
@@ -139,6 +83,34 @@ export class CrearCuentaComponent {
       formControlName: "password2",
       type:"password",
     },
+    {
+      label: "Pregunta",
+      formControlName: "question",
+      type:"select",
+      typeSelect:[
+        {
+          option:"¿Nombre de su perro?",
+          value:1
+        },
+        {
+          option:"¿Comida favortita?",
+          value:2
+        },
+        {
+          option:"¿Pelicula favorita?",
+          value:3
+        },
+        {
+          option:"¿Color favorito?",
+          value:4
+        }
+      ]
+    },
+    {
+      label: "Respuesta",
+      formControlName: "answer",
+      type:"text",
+    }
   ]
   myForm:FormGroup = this.fb.group({
     name:['', [Validators.required, Validators.minLength(3)]],
@@ -146,11 +118,8 @@ export class CrearCuentaComponent {
     motherLastname:['', [Validators.required, Validators.minLength(3)]],
     gender:['',[Validators.required]],
     birthdate: ['', [Validators.required, this.validateAge.bind(this)]],
-    estado:['',[Validators.required]],
-    municipio:['',[Validators.required]],
-    cp:['', [Validators.required]],
-    colonia:['',[Validators.required]],
-    calle:['', [Validators.required, Validators.minLength(5)]],
+    question:['',[Validators.required]],
+    answer:['', [Validators.required, Validators.minLength(3)]],
     email:['', [Validators.required, Validators.pattern(this.emailPattern)]],
     cellphone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
     password:['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/)]],
@@ -160,30 +129,6 @@ export class CrearCuentaComponent {
       this.isFieldOneEqualFieldTwo('password','password2')
     ]
   })
-
-  ngOnInit(): void {
-    this.loginService.getEstado().subscribe(data =>{
-        this.estados = data;
-      })
-  }
-  getMunicipios(estado:string){
-     if(this.myForm.controls['estado'].invalid) return
-     this.loginService.getMunicipio(estado).subscribe(data =>{
-       this.municipios = data;
-     })
-  }
-  getCp(municipio:string){
-    if(this.myForm.controls['municipio'].invalid) return
-    this.loginService.getCp(municipio).subscribe(data =>{
-      this.cp = data;
-    })
-  }
-  getColonia(cp:string){
-    if(this.myForm.controls['cp'].invalid) return
-    this.loginService.getColonia(cp).subscribe(data =>{
-      this.colonias = data;
-    })
-  }
 
   //Funcion que toma los datos del formulario y los envia mediante el metodo post al back para su registro
   createNewUser(){
@@ -256,12 +201,7 @@ export class CrearCuentaComponent {
     !this.myForm.controls['lastname'].invalid &&
     !this.myForm.controls['motherLastname'].invalid &&
     !this.myForm.controls['gender'].invalid &&
-    !this.myForm.controls['birthdate'].invalid &&
-    !this.myForm.controls['estado'].invalid &&
-    !this.myForm.controls['municipio'].invalid &&
-    !this.myForm.controls['cp'].invalid &&
-    !this.myForm.controls['colonia'].invalid &&
-    !this.myForm.controls['calle'].invalid )
+    !this.myForm.controls['birthdate'].invalid)
     return false
 
     return true;

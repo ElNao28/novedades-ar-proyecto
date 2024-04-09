@@ -103,17 +103,4 @@ export class LayoutFormComponent {
 
     return null;
   }
-
-  strengthMessage: string = '';
-  userPassword: string = '';
-  // Función para evaluar la fortaleza de la contraseña y mostrar un mensaje personalizado
-  evaluateStrength(password: string) {
-    if (password.length < 6) {
-      this.strengthMessage = 'Débil';
-    } else if (password.length < 10) {
-      this.strengthMessage = 'Media';
-    } else {
-      this.strengthMessage = 'Fuerte';
-    }
-  }
 }

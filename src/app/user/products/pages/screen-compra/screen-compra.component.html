@@ -1,0 +1,31 @@
+<div class="flex justify-center p-10">
+  <div class="bg-white w-3/5 px-20 rounded-md pb-10">
+    <h2 class="text-center text-3xl">Detalles compra</h2>
+    <div class="flex justify-center">
+      <img [src]="product.imagen[0].url_imagen" [alt]="product.nombre_producto" class="h-40 rounded-md">
+    </div>
+    <div class="grid grid-cols-2">
+      <div class="text-md">
+        <p><strong>Producto: </strong>{{product.nombre_producto}}</p>
+        <p><strong>Piezas: </strong>{{cantidad}}</p>
+        <p><strong>Domicilio de entrega:</strong> <br>
+          {{domicilio.municipio+" "+domicilio.estado+","+domicilio.colonia+","+domicilio.cp}}.Referencia: {{domicilio.referencia}}
+        </p>
+      </div>
+      <div class="text-md flex justify-end">
+        <div class="flex flex-col">
+          <p><strong>Precio: </strong>${{product.precio}}</p>
+          <p><strong>Envio: </strong>$99.00</p>
+          <p><strong>Total: </strong>${{product.precio*cantidad}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-2 md:justify-between">
+      <p-button label="Cancelar" severity="danger"
+      (click)="cancellCompra()"
+      ></p-button>
+      <p-button label="Confirmar" severity="primary" (click)="compraProducto()"></p-button>
+    </div>
+  </div>
+</div>

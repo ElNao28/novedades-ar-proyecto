@@ -1,0 +1,55 @@
+<app-loader *ngIf="isLoader"></app-loader>
+<div class="flex justify-between" *ngIf="!isLoader">
+  <app-menu-rutas-profile class="bg-white py-5 pl-4 w-1/5"></app-menu-rutas-profile>
+  <div class="bg-white w-3/5 px-5 py-5 rounded-md shadow-lg my-5">
+    <h2 class="text-3xl">Domicilio de entrega</h2>
+    <form [formGroup]="ubicacionForm" class="grid ">
+      <div class="mb-5">
+        <label for="">Codigo postal</label>
+        <input type="text" [value]="dataForm.cp" disabled *ngIf="editName"
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+        <input type="text" formControlName="cp" *ngIf="!editName" (keyup)="searchDataByCp()"
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+      </div>
+      <div class="mb-5">
+        <label for="">Estado</label>
+        <input type="text" [value]="ubicacionForm.controls['estado'].value" disabled
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+      </div>
+      <div class="mb-5">
+        <label for="">Municipio</label>
+        <input type="text" [value]="ubicacionForm.controls['municipio'].value" disabled
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+      </div>
+      <div class="mb-5">
+        <label for="">Colonia</label>
+        <input type="text" [value]="ubicacionForm.controls['colonia'].value" disabled *ngIf="editName"
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+        <select formControlName="colonia" name="colonia" id="colonia" *ngIf="!editName"
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+          <option *ngFor="let item of dataByCopomex.response.asentamiento" [value]="item">{{item}}</option>
+        </select>
+      </div>
+      <div class="mb-5">
+        <label for="">Referencia</label>
+        <input type="text" [value]="dataForm.referencia" disabled *ngIf="editName"
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+        <input type="text" formControlName="referencia" *ngIf="!editName"
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+      </div>
+      <div class="mb-3 flex justify-end gap-3">
+        <button pButton (click)="chamgeStateBtnName(1)" *ngIf="editName" class="bg-red-500 gap-1">
+          <i class="pi pi-pencil"></i>Editar
+        </button>
+        <button pButton (click)="chamgeStateBtnName(3)" *ngIf="!editName" class="bg-blue-500 gap-1">
+          <i class="pi pi-save"></i>Guardar
+        </button>
+        <button pButton (click)="chamgeStateBtnName(2)" *ngIf="!editName" class="bg-yellow-500 gap-1">
+          <i class="pi pi-times-circle"></i>Cancelar
+        </button>
+
+      </div>
+    </form>
+  </div>
+  <p-toast></p-toast>
+</div>

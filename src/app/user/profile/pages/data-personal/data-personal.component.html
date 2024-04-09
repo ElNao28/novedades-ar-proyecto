@@ -1,0 +1,50 @@
+<app-loader *ngIf="isLoader"></app-loader>
+<div class="flex justify-between" *ngIf="!isLoader">
+  <app-menu-rutas-profile class="bg-white py-5 pl-4 w-1/5"></app-menu-rutas-profile>
+  <div class="bg-white w-3/5 px-5 py-5 rounded-md shadow-lg my-5">
+    <h2 class="text-3xl">Informacion personal</h2>
+    <form [formGroup]="nameForm" class="grid ">
+      <div class="mb-5">
+        <label for="">Nombre</label>
+        <input type="text" formControlName="name" class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+      </div>
+      <div class="mb-5">
+        <label for="">Apellido paterno</label>
+        <input type="text" formControlName="lastname" class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+      </div>
+      <div class="mb-5">
+        <label for="">Apellido materno</label>
+        <input type="text" formControlName="motherLastname"
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+      </div>
+      <div class="mb-5">
+        <label for="">Genero</label>
+        <input *ngIf="editName" [value]="dataForm.gender" type="text"
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200" disabled>
+        <select *ngIf="!editName" formControlName="gender"
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+        </select>
+      </div>
+      <div class="mb-5">
+        <label for="">Fecha de nacimiento</label>
+        <input type="date" formControlName="birthdate"
+          class="border-t-0 border-x-0 border-b-1 w-full border-b-gray-200">
+      </div>
+      <div class="mb-3 flex justify-end gap-3">
+        <button pButton (click)="chamgeStateBtnName(1)" *ngIf="editName" class="bg-red-500 gap-1">
+          <i class="pi pi-pencil"></i>Editar
+        </button>
+        <button pButton (click)="chamgeStateBtnName(3)" *ngIf="!editName" class="bg-blue-500 gap-1">
+          <i class="pi pi-save"></i>Guardar
+        </button>
+        <button pButton (click)="chamgeStateBtnName(2)" *ngIf="!editName" class="bg-yellow-500 gap-1">
+          <i class="pi pi-times-circle"></i>Cancelar
+        </button>
+
+      </div>
+    </form>
+  </div>
+  <p-toast></p-toast>
+</div>

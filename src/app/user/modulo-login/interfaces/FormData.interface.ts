@@ -5,6 +5,7 @@ export interface DataForm{
   styles?:string;
   typeSelect?:{
     option:string
+    value?:number;
   }[];
 
 }

@@ -6,7 +6,8 @@ import { CardComponent } from './pages/card/card.component';
 import { ViewProductComponent } from './pages/view-product/view-product.component';
 import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
 import { ProductsComponent } from './pages/products/products.component';
-import { MisComprasComponent } from './pages/mis-compras/mis-compras.component';
+import { ScreenCompraComponent } from './pages/screen-compra/screen-compra.component';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -14,12 +15,13 @@ import { MisComprasComponent } from './pages/mis-compras/mis-compras.component';
     CardComponent,
     ViewProductComponent,
     ProductsComponent,
-    MisComprasComponent
+    ScreenCompraComponent,
   ],
   imports: [
     CommonModule,
     ProductsRoutingModule,
     PrimeNgModule,
+    SharedModule
   ]
 })
 export class ProductsModule { }

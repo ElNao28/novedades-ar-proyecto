@@ -1,4 +1,5 @@
-<div class="px-10 my-4">
+<app-loader *ngIf="isLoader"></app-loader>
+<div class="px-10 my-4" *ngIf="!isLoader">
     <form action="" class="flex justify-end mb-3">
         <select name="ordenarPor" id="" class="rounded-lg border-none"  [(ngModel)]="ordenarPorPrecio" (ngModelChange)="ordenarProductosPorPrecio()">
             <option value="desc">Mayor precio</option>

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ProductsService } from '../../products/services/products.service';
 import { Products } from '../../products/interfaces/products.interface';
-
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -13,6 +12,7 @@ import { Products } from '../../products/interfaces/products.interface';
 })
 export class InicioComponent  implements OnInit{
   constructor(private productsService:ProductsService){}
+  isLoader:boolean = true;
   products!:Products[];
   images = [
     'https://www.tooltyp.com/wp-content/uploads/2014/10/1900x920-8-beneficios-de-usar-imagenes-en-nuestros-sitios-web.jpg',
@@ -22,7 +22,9 @@ export class InicioComponent  implements OnInit{
   ngOnInit(): void {
     this.productsService.getProducts().subscribe(data => {
       this.products = data
-      console.log(this.products)
+      setTimeout(() => {
+        this.isLoader = false;
+      }, 500);
     })
   }
 

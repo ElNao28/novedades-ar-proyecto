@@ -1,0 +1,40 @@
+<app-loader *ngIf="isLoader"></app-loader>
+<div class="flex justify-center" *ngIf="!isLoader">
+  <div class="w-4/5 rounded-md my-5">
+    <div class="flex justify-between items-center">
+      <h2>Mis compras</h2>
+      <div class="flex items-center gap-3">
+        <label for="">Ordenar por</label>
+        <select name="" id="" class="rounded-md border-none">
+          <option value="">Fecha</option>
+          <option value="">Precio</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="bg-white rounded-md mb-5" *ngFor="let item of dataVentas.detallesVenta">
+      <div class="pt-1 pb-2">
+        <div>
+          <p class="px-4">{{item.fecha_venta}}</p>
+          <hr class="opacity-50">
+        </div>
+        <div class="px-8 flex items-center justify-between mb-5" *ngFor="let product of item.detallesVenta">
+          <div class="flex items-center gap-5">
+            <img class="w-32" src="../../.../../../.././../assets/img/user-icon.png" alt="">
+            <div class="">
+              <p class="text-xl p-0 m-0">{{product.producto.nombre_producto}}</p>
+              <p class="text-md text-gray-600">Entregado el dia 10 de Noviembre</p>
+              <p class="text-green-500 text-sm">Entregado</p>
+            </div>
+          </div>
+          <div>
+            <button pButton>Ver detalles</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

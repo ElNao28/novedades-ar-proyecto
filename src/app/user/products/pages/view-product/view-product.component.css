@@ -3,6 +3,7 @@
 }
 .container-datails{
   border: 0.5px solid rgb(207, 207, 207);
+  width: 40%;
 }
 .detalles p{
   font-size: 20px;
@@ -15,5 +16,8 @@ ul{
 }
 li{
   margin-bottom: 1rem;
+}
+.carrucel{
+  width: 60%;
 }
 
