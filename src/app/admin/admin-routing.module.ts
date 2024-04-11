@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { RegistroProductosComponent } from './pages/registro-productos/registro-productos.component';
+import { CalculadoraComponent } from './pages/calculadora/calculadora.component';
 
 const routes: Routes = [{
   path: '',
@@ -10,6 +11,10 @@ const routes: Routes = [{
     {
       path:'registro-producto',
       component:RegistroProductosComponent
+    },
+    {
+      path:'calculadora',
+      component:CalculadoraComponent
     }
   ]
  }];

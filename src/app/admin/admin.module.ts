@@ -7,12 +7,14 @@ import { RegistroProductosComponent } from './pages/registro-productos/registro-
 import { ModuloLoginModule } from '../user/modulo-login/modulo-login.module';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CalculadoraComponent } from './pages/calculadora/calculadora.component';
 
 
 @NgModule({
   declarations: [
     LayoutPageComponent,
-    RegistroProductosComponent
+    RegistroProductosComponent,
+    CalculadoraComponent
   ],
   imports: [
     CommonModule,
