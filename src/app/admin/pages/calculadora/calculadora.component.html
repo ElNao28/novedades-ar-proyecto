@@ -1,116 +1,137 @@
-<div *ngIf="isSave">
-  <div *ngIf="!isSelect" class="flex justify-center">
-    <div class="bg-white w-2/5 mt-10 px-5 rounded-md pb-10">
-      <h2 class="text-center text-3xl">Calculadora</h2>
-    <div class="flex flex-col">
-      <button (click)="isSelectType(2)" class="mb-3" pButton>Calcular horas para alcanzar un rango de visitas</button>
-      <button (click)="isSelectType(1)" class="mb-3" pButton>Calcular visitas en un lapso de horas</button>
-      <button (click)="changeSave()" pButton class="bg-yellow-400">Regresar</button>
-    </div>
-    </div>
-  </div>
-
-
-  <div *ngIf="isSelect">
-    <div *ngIf="tipo" class="flex justify-center px-10 gap-8">
-      <div class="bg-white my-10 rounded-md pb-10 px-10">
-        <h1 class="text-center">Predicción de visitas</h1>
-        <div class="px-10">
-          <form (submit)="calcularVisitas()" [formGroup]="formvistas">
-            <div class="mb-4">
-              <div class="flex flex-col text-lg mb-2">
-                <label for="">Horas</label>
-                <input formControlName="horas_alcanzar" type="number" class="rounded-md" placeholder="Ejemp. 100">
-              </div>
-            </div>
-            <div class="flex gap-3">
-              <button pButton type="submit">Calcular</button>
-              <button pButton type="submit" (click)="changeType()">Regresar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="bg-white my-10 rounded-md pb-10">
-        <div class="px-5">
-          <h2>Las visitas alcanzadas seran: <span class="text-red-600">{{visitas}}
-            </span>en:<span class="text-red-600"> {{formvistas.controls['horas_alcanzar'].value}}</span> horas</h2>
-        </div>
-        <canvas id="chart">{{ chart2 }}</canvas>
-      </div>
-    </div>
-
-
-    <div *ngIf="!tipo" class="flex justify-center px-10 gap-8">
-      <div class="bg-white my-10 rounded-md pb-10" >
-        <h1 class="text-center">Predicción de horas</h1>
-        <div class="px-10">
-          <form (submit)="calcularHoras()" [formGroup]="form">
-            <div class="mb-4">
-              <div class="flex flex-col text-lg mb-2">
-                <label for="">Numero de visitas en la primera hora</label>
-                <input [value]="c" disabled type="number" class="rounded-md" placeholder="Ejemp. 30">
-              </div>
-              <div class="flex flex-col text-lg mb-2">
-                <label for="">Visitas que deseas alcanzar</label>
-                <input formControlName="visitas_alcanzar" type="number" class="rounded-md" placeholder="Ejemp. 100">
-              </div>
-            </div>
-            <div class="flex gap-3">
-              <button pButton type="submit">Calcular</button>
-              <button pButton type="submit" (click)="changeType()">Regresar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="bg-white my-10 rounded-md pb-10">
-        <div class="px-5">
-          <h2>Las horas necesarias para alcanzar <span class="text-red-600">{{form.controls['visitas_alcanzar'].value}}
-            </span>visitas son:<span class="text-red-600"> {{horasNecesarias}}</span> horas</h2>
-        </div>
-        <canvas id="chart">{{ chart }}</canvas>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="flex justify-center mt-10" *ngIf="!isSave">
-  <div class="bg-white p-5 pb-10 rounded-md">
-    <h2 class="text-center">Tabla de datos</h2>
-    <form [formGroup]="formData">
-      <table class="text-center mb-5">
-        <thead>
-          <tr>
-            <th>Datos</th>
-            <th>V = visualizaciones</th>
-            <th>T = horas</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>CI</td>
-            <td><input type="text" formControlName="vistas_primera"></td>
-            <td><input disabled type="text" value="1"></td>
-          </tr>
-          <tr>
-            <td>K</td>
-            <td><input type="text" formControlName="visitas_segunda"></td>
-            <td><input type="text" formControlName="horas_segunda"></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="flex justify-end">
-        <div class="flex gap-3">
-          <button pButton (click)="calcularK()">Guardar datos</button>
-          <button pButton (click)="limpiarTabla()" class="bg-red-600">Limpiar tabla</button>
-        </div>
+<div *ngIf="!selectProduct" class="flex justify-center">
+  <div class="bg-white my-10 rounded-md w-3/5 p-5">
+    <form [formGroup]="formSelect">
+      <div class="flex justify-end items-center gap-3">
+        <label for="">Filtrar por:</label>
+        <select formControlName="type" name="" id="" (click)="getProducts()">
+          <option value="H" >Hombre</option>
+          <option value="M">Mujer</option>
+        </select>
       </div>
     </form>
+    <div>
+      <div *ngFor="let dato of products" class="bg-blue-300 p-4 my-3 rounded-md text-black cursor-pointer" (click)="selectProductOp(dato.nombre_producto)">
+        <p>{{dato.nombre_producto}}</p>
+        <p>Categoria: {{dato.categoria}}</p>
+        <p>Precio: {{dato.precio}}</p>
+      </div>
+    </div>
   </div>
 </div>
-<div class="flex justify-center">
-  <div class="w-3/5">
 
+<div *ngIf="selectProduct">
+  <div *ngIf="isSave">
+    <div *ngIf="!isSelect" class="flex justify-center">
+      <div class="bg-white w-2/5 mt-10 px-5 rounded-md pb-10">
+        <h2 class="text-center text-3xl">Calculadora</h2>
+        <div class="flex flex-col">
+          <button (click)="isSelectType(2)" class="mb-3" pButton>Calcular horas para alcanzar un rango de
+            visitas</button>
+          <button (click)="isSelectType(1)" class="mb-3" pButton>Calcular visitas en un lapso de horas</button>
+          <button (click)="changeSave()" pButton class="bg-yellow-400">Regresar</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="isSelect">
+      <div *ngIf="tipo" class="flex justify-center px-10 gap-8">
+        <div class="bg-white my-10 rounded-md pb-10 px-10">
+          <h1 class="text-center">Predicción de visitas</h1>
+          <div class="px-10">
+            <form (submit)="calcularVisitas()" [formGroup]="formvistas">
+              <div class="mb-4">
+                <div class="flex flex-col text-lg mb-2">
+                  <label for="">Horas</label>
+                  <input formControlName="horas_alcanzar" type="number" class="rounded-md" placeholder="Ejemp. 100">
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <button pButton type="submit">Calcular</button>
+                <button pButton type="submit" (click)="changeType()">Regresar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="bg-white my-10 rounded-md pb-10">
+          <div class="px-5">
+            <h2>Las visitas alcanzadas seran: <span class="text-red-600">{{visitas}}
+              </span>en:<span class="text-red-600"> {{formvistas.controls['horas_alcanzar'].value}}</span> horas</h2>
+          </div>
+          <canvas id="chart">{{ chart2 }}</canvas>
+        </div>
+      </div>
+
+
+      <div *ngIf="!tipo" class="flex justify-center px-10 gap-8">
+        <div class="bg-white my-10 rounded-md pb-10">
+          <h1 class="text-center">Predicción de horas</h1>
+          <div class="px-10">
+            <form (submit)="calcularHoras()" [formGroup]="form">
+              <div class="mb-4">
+                <div class="flex flex-col text-lg mb-2">
+                  <label for="">Numero de visitas en la primera hora</label>
+                  <input [value]="c" disabled type="number" class="rounded-md" placeholder="Ejemp. 30">
+                </div>
+                <div class="flex flex-col text-lg mb-2">
+                  <label for="">Visitas que deseas alcanzar</label>
+                  <input formControlName="visitas_alcanzar" type="number" class="rounded-md" placeholder="Ejemp. 100">
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <button pButton type="submit">Calcular</button>
+                <button pButton type="submit" (click)="changeType()">Regresar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="bg-white my-10 rounded-md pb-10">
+          <div class="px-5">
+            <h2>Las horas necesarias para alcanzar <span
+                class="text-red-600">{{form.controls['visitas_alcanzar'].value}}
+              </span>visitas son:<span class="text-red-600"> {{horasNecesarias}}</span> horas</h2>
+          </div>
+          <canvas id="chart">{{ chart }}</canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="flex justify-center mt-10" *ngIf="!isSave">
+    <div class="bg-white p-5 pb-10 rounded-md">
+      <h1 class="text-center">Tabla de datos</h1>
+      <h2 class="text-center">{{producto.name}}</h2>
+      <form [formGroup]="formData">
+        <table class="text-center mb-5">
+          <thead>
+            <tr>
+              <th>Datos</th>
+              <th>V = visualizaciones</th>
+              <th>T = horas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CI</td>
+              <td><input type="text" formControlName="vistas_primera"></td>
+              <td><input disabled type="text" value="1"></td>
+            </tr>
+            <tr>
+              <td>K</td>
+              <td><input type="text" formControlName="visitas_segunda"></td>
+              <td><input type="text" formControlName="horas_segunda"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="flex justify-end">
+          <div class="flex gap-3">
+            <button pButton (click)="calcularK()">Guardar datos</button>
+            <button pButton (click)="limpiarTabla()" class="bg-red-600">Limpiar tabla</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 
 </div>

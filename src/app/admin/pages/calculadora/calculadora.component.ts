@@ -1,23 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Chart, ChartType } from 'chart.js/auto';
+import { AdminService } from '../../services/admin-service.service';
+import { ProductCategory } from '../../interfaces/ProductCategory.interface';
 
 @Component({
   selector: 'app-calculadora',
   templateUrl: './calculadora.component.html',
   styleUrl: './calculadora.component.css'
 })
-export class CalculadoraComponent {
-  constructor(private fb: FormBuilder) { }
+export class CalculadoraComponent implements OnInit{
+  constructor(private fb: FormBuilder,private adminService:AdminService) { }
+  ngOnInit(): void {
+    this.adminService.getProductByCategory('H').subscribe(data =>{
+      console.log(data);
+      this.products = data;
+    })
+  }
 
   isSave: boolean = false;
   isSelect: boolean = false;
   tipo: boolean = true;
   horasNecesarias: number = 0;
   visitas: number = 0;
+  selectProduct:boolean = false;
   p: number = 0;
   c: number = 0;
   k: number = 0;
+  products!:ProductCategory[];
+  producto!:{name:string};
 
   public formData: FormGroup = this.fb.group({
     vistas_primera: ['', [Validators.required]],
@@ -87,6 +98,10 @@ export class CalculadoraComponent {
   crearGraficaHoras(){
     let datos = ['1hra',this.formData.controls['horas_segunda'].value+'hra',this.horasNecesarias+'horas'];
     let vistas = [this.formData.controls['vistas_primera'].value,this.formData.controls['visitas_segunda'].value,this.p]
+
+
+
+
     const data = {
       labels: datos,
       datasets: [{
@@ -97,6 +112,13 @@ export class CalculadoraComponent {
         tension: 0.1
       }]
     };
+
+
+
+
+
+
+
     // Creamos la gráfica
     this.chart = new Chart("chart", {
       type: 'line' as ChartType, // tipo de la gráfica
@@ -124,5 +146,20 @@ export class CalculadoraComponent {
       type: 'line' as ChartType, // tipo de la gráfica
       data: data // datos
     });
+  }
+
+  formSelect:FormGroup = this.fb.group({
+    type:['',[Validators.required]]
+  })
+  getProducts(){
+    if(this.formSelect.invalid )return
+    this.adminService.getProductByCategory(this.formSelect.controls['type'].value).subscribe(data =>{
+      this.products = data;
+      console.log(data);
+    })
+  }
+  selectProductOp(nombre:string){
+    this.selectProduct = !this.selectProduct;
+    this.producto = {name:nombre}
   }
 }
