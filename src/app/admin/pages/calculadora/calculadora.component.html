@@ -35,6 +35,7 @@
           <h2>Las visitas alcanzadas seran: <span class="text-red-600">{{visitas}}
             </span>en:<span class="text-red-600"> {{formvistas.controls['horas_alcanzar'].value}}</span> horas</h2>
         </div>
+        <canvas id="chart">{{ chart2 }}</canvas>
       </div>
     </div>
 
@@ -66,6 +67,7 @@
           <h2>Las horas necesarias para alcanzar <span class="text-red-600">{{form.controls['visitas_alcanzar'].value}}
             </span>visitas son:<span class="text-red-600"> {{horasNecesarias}}</span> horas</h2>
         </div>
+        <canvas id="chart">{{ chart }}</canvas>
       </div>
     </div>
   </div>
@@ -105,4 +107,10 @@
       </div>
     </form>
   </div>
+</div>
+<div class="flex justify-center">
+  <div class="w-3/5">
+
+  </div>
+
 </div>

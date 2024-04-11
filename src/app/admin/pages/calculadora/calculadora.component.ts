@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Chart, ChartType } from 'chart.js/auto';
 
 @Component({
   selector: 'app-calculadora',
@@ -35,6 +36,7 @@ export class CalculadoraComponent {
     this.p = this.form.controls['visitas_alcanzar'].value;
     this.horasNecesarias = Math.log(this.p / this.c) / this.k;
     this.horasNecesarias = Math.round(this.horasNecesarias);
+    this.crearGraficaHoras();
   }
   public calcularVisitas() {
     this.visitas = Math.round(this.visitas);
@@ -43,6 +45,7 @@ export class CalculadoraComponent {
 
     this.visitas = c * Math.exp(this.k * t);
     this.visitas = Math.round(this.visitas);
+    this.crearGraficaVisitas();
   }
   public isSelectType(option: number) {
     this.isSelect = !this.isSelect;
@@ -74,5 +77,52 @@ export class CalculadoraComponent {
       visitas_segunda: '',
       horas_segunda: '',
     })
+  }
+
+
+
+
+  public chart! : Chart;
+
+  crearGraficaHoras(){
+    let datos = ['1hra',this.formData.controls['horas_segunda'].value+'hra',this.horasNecesarias+'horas'];
+    let vistas = [this.formData.controls['vistas_primera'].value,this.formData.controls['visitas_segunda'].value,this.p]
+    const data = {
+      labels: datos,
+      datasets: [{
+        label: 'Grafica de visitas',
+        data: vistas,
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }]
+    };
+    // Creamos la gráfica
+    this.chart = new Chart("chart", {
+      type: 'line' as ChartType, // tipo de la gráfica
+      data: data // datos
+    });
+  }
+
+  public chart2! : Chart;
+
+  crearGraficaVisitas(){
+    let datos = ['1hra',this.formData.controls['horas_segunda'].value+'hra',this.formvistas.controls['horas_alcanzar'].value+'hra'];
+    let vistas = [this.formData.controls['vistas_primera'].value,this.formData.controls['visitas_segunda'].value,this.visitas]
+    const data = {
+      labels: datos,
+      datasets: [{
+        label: 'Grafica de visitas',
+        data: vistas,
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }]
+    };
+    // Creamos la gráfica
+    this.chart2 = new Chart("chart", {
+      type: 'line' as ChartType, // tipo de la gráfica
+      data: data // datos
+    });
   }
 }
