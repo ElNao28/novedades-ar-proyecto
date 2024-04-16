@@ -10,13 +10,13 @@ import { Products } from '../../products/interfaces/products.interface';
   ],
 
 })
-export class InicioComponent  implements OnInit{
-  constructor(private productsService:ProductsService){}
-  isLoader:boolean = true;
-  products!:Products[];
+export class InicioComponent implements OnInit {
+  constructor(private productsService: ProductsService) { }
+  isLoader: boolean = true;
+  products!: Products[];
   images = [
-    'https://www.tooltyp.com/wp-content/uploads/2014/10/1900x920-8-beneficios-de-usar-imagenes-en-nuestros-sitios-web.jpg',
-    'https://img.freepik.com/foto-gratis/pintura-lago-montana-montana-al-fondo_188544-9126.jpg'
+    'https://res.cloudinary.com/dy5jdb6tv/image/upload/fl_preserve_transparency/v1713151485/portada_ngupek.jpg?_s=public-apps',
+    'https://www.bombombom.mx/wp-content/uploads/2021/04/ropa-mayoreo-bombombom.mx_-1.jpg','https://fos.com.mx/cdn/shop/articles/negocio_de_ropa.webp?v=1690921572&width=2000','https://www.clikisalud.net/wp-content/uploads/2018/07/el-importante-beneficio-de-usar-ropa-holgada.jpg'
   ];
 
   ngOnInit(): void {

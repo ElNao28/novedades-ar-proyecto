@@ -30,8 +30,10 @@
       <!--Selecciona el metodo de recuperado-->
       <div *ngIf="typeRecover">
         <h2 class="text-2xl mb-4">Selecciona un metodo de recuperacion</h2>
-        <input type="button" (click)="chageValueBtnTypeRecover(1)" value="Correo electronico">
-        <input type="button" (click)="chageValueBtnTypeRecover(2)" value="Pregunta secreta">
+        <div class="flex gap-5">
+          <input pButton type="button" (click)="chageValueBtnTypeRecover(1)" value="Correo electronico" class="rounded-md bg-blue-600">
+          <input pButton type="button" (click)="chageValueBtnTypeRecover(2)" value="Pregunta secreta" class="rounded-md bg-yellow-500">
+        </div>
       </div>
 
       <!--Div que engloba los formulario de pregunta y codigo de correo-->
@@ -52,7 +54,8 @@
           <h1>Pregunta</h1>
           <app-layout-form *ngIf="answerIsValid" [dataForm]="formQuestion" [datosForm]="datosFormQuestion"
             (click)="verificAnswer()"></app-layout-form>
-          <button *ngIf="answerIsValid" [disabled]="formQuestion.invalid" (click)="verificAnswer()" pButton label="Checar"></button>
+          <button *ngIf="answerIsValid" [disabled]="formQuestion.invalid" (click)="verificAnswer()" pButton
+            label="Checar" class="mt-2"></button>
         </div>
       </div>
 

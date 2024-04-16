@@ -2,10 +2,7 @@
   width: 100%;
 }
 .imgSlider{
-  height: 450px !important;
-}
-.novedades img{
-  height: 300px;
+  height: 550px !important;
 }
 @media (max-width: 768px){
   .imgSlider{
