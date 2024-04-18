@@ -1,5 +1,5 @@
 <nav
-class="bg-blue-900 flex flex-col md:flex-row py-3 px-2 md:px-8 content-center items-center md:gap-4 w-full">
+class="bg-blue-900 flex flex-col md:flex-row py-3 px-2 md:px-8 content-center items-center md:gap-4 w-full fixed my-0">
   <img class="w-32 rounded" src="../../../../assets/img/logo2.png" alt="Novedades AR">
   <div class="w-full">
     <p-autoComplete
@@ -21,7 +21,8 @@ class="bg-blue-900 flex flex-col md:flex-row py-3 px-2 md:px-8 content-center it
     <li *ngIf="!isLogin()" (click)="showConfirm()" class="cursor-pointer flex items-center gap-1 hover:text-gray-200">
       <span class="pi pi-sign-out"></span>Salir</li>
     <li routerLink="{{routerUser}}"><span class="pi pi-user cursor-pointer hover:text-gray-200"></span></li>
-    <li routerLink="carrito"><span class="pi pi-shopping-cart cursor-pointer hover:text-gray-200"></span></li>
+    <!-- <i class="pi pi-shopping-cart cursor-pointer hover:text-gray-200" severity="info" pBadge [value]="numCard.toString()"></i> -->
+    <li routerLink="carrito"><span class="pi pi-shopping-cart cursor-pointer hover:text-gray-200" severity="info" pBadge [value]="numCard.toString()"></span></li>
   </ul>
 </nav>
 
@@ -47,16 +48,15 @@ class="bg-blue-900 flex flex-col md:flex-row py-3 px-2 md:px-8 content-center it
   <div class="container mx-auto">
       <div class="flex flex-wrap items-center justify-between">
           <div class="w-full md:w-1/4 text-center md:text-left">
-              <h2 class="text-lg font-semibold">Company</h2>
-              <p class="my-2">Sobre nosotros</p>
-              <p class="my-2">Contacto</p>
-              <p class="my-2">Politica de privacidad</p>
+              <h2 class="text-lg font-semibold">Compañia</h2>
+              <p class="my-2 cursor-pointer" routerLink="/aviso-privacidad">Aviso de privacidad</p>
+              <p class="my-2 cursor-pointer" routerLink="/cookies">Politicas de cookies</p>
+              <p class="my-2 cursor-pointer" routerLink="/terminos-condiciones">Terminos y condiciones</p>
           </div>
           <div class="w-full md:w-1/4 text-center md:text-left">
-              <h2 class="text-lg font-semibold">Help</h2>
-              <p class="my-2">FAQ</p>
-              <p class="my-2">Compras</p>
-              <p class="my-2">Reenbolsos</p>
+              <h2 class="text-lg font-semibold">Sobre nostros</h2>
+              <p class="my-2">Mision</p>
+              <p class="my-2">Vision</p>
           </div>
           <div class="w-full md:w-1/4 text-center md:text-left">
               <h2 class="text-lg font-semibold">Siguenos</h2>

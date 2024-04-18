@@ -27,13 +27,16 @@ export class LayoutPageComponent implements OnInit{
   selectedItem: any;
   routerUser:string = "login";
   idUser:string = "";
-
+  numCard:number = 0;
   ngOnInit(): void {
     let titlle = document.getElementById('titlle');
     const idUser = localStorage.getItem('token');
     if (idUser !== null) {
       if(!this.isLogin()){
         this.routerUser = "profile/"+idUser;
+        this.producstService.getProductByCard({id:parseInt(idUser)}).subscribe(data =>{
+          this.numCard = data.detallesCarrito.length
+        })
       }
     }
   }

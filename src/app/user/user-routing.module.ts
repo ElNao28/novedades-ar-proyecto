@@ -6,6 +6,7 @@ import { canActivate, canMatch } from './guards/guards.guard';
 import { TerminosCondicionesComponent } from './pages/terminos-condiciones/terminos-condiciones.component';
 import { AvisoPrivacidadComponent } from './pages/aviso-privacidad/aviso-privacidad.component';
 import { CookiesComponent } from './pages/cookies/cookies.component';
+import { profileGuardGuardActivate, profileGuardGuardMatch } from './guards/profile-guard.guard';
 
 const routes: Routes = [
   {
@@ -35,7 +36,9 @@ const routes: Routes = [
       },
       {
         path: '',
-        loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+        loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+        canActivate: [profileGuardGuardActivate],
+        canMatch:[profileGuardGuardMatch]
       },
       {
         path: '',

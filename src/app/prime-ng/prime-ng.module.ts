@@ -23,6 +23,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { GalleriaModule } from 'primeng/galleria';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
   declarations: [],
@@ -52,7 +53,8 @@ import { GalleriaModule } from 'primeng/galleria';
     DialogModule,
     ToastModule,
     ConfirmDialogModule,
-    GalleriaModule
+    GalleriaModule,
+    BadgeModule
   ]
 })
 export class PrimeNgModule { }
