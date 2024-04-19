@@ -93,6 +93,8 @@ export class CalculadoraComponent implements OnInit{
 
 
 
+
+
   public chart! : Chart;
 
   crearGraficaHoras(){

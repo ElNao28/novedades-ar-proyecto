@@ -1,5 +1,5 @@
 <nav
-class="bg-blue-900 flex flex-col md:flex-row py-3 px-2 md:px-8 content-center items-center md:gap-4 w-full fixed my-0">
+class="bg-blue-900 flex flex-col md:flex-row py-3 px-2 md:px-24 content-center items-center md:gap-4 w-full fixed top-0 ">
   <img class="w-32 rounded" src="../../../../assets/img/logo2.png" alt="Novedades AR">
   <div class="w-full">
     <p-autoComplete
@@ -25,7 +25,7 @@ class="bg-blue-900 flex flex-col md:flex-row py-3 px-2 md:px-8 content-center it
     <li routerLink="carrito"><span class="pi pi-shopping-cart cursor-pointer hover:text-gray-200" severity="info" pBadge [value]="numCard.toString()"></span></li>
   </ul>
 </nav>
-
+<br><br> <br> <br>
 
 
 <p-toast position="top-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
@@ -55,8 +55,8 @@ class="bg-blue-900 flex flex-col md:flex-row py-3 px-2 md:px-8 content-center it
           </div>
           <div class="w-full md:w-1/4 text-center md:text-left">
               <h2 class="text-lg font-semibold">Sobre nostros</h2>
-              <p class="my-2">Mision</p>
-              <p class="my-2">Vision</p>
+              <p class="my-2 cursor-pointer" routerLink="/mision">Mision</p>
+              <p class="my-2 cursor-pointer" routerLink="/vision">Vision</p>
           </div>
           <div class="w-full md:w-1/4 text-center md:text-left">
               <h2 class="text-lg font-semibold">Siguenos</h2>

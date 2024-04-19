@@ -7,6 +7,8 @@ import { TerminosCondicionesComponent } from './pages/terminos-condiciones/termi
 import { AvisoPrivacidadComponent } from './pages/aviso-privacidad/aviso-privacidad.component';
 import { CookiesComponent } from './pages/cookies/cookies.component';
 import { profileGuardGuardActivate, profileGuardGuardMatch } from './guards/profile-guard.guard';
+import { MisionComponent } from './pages/mision/mision.component';
+import { VisionComponent } from './pages/vision/vision.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,14 @@ const routes: Routes = [
       {
         path:'cookies',
         component:CookiesComponent
+      },
+      {
+        path:'mision',
+        component:MisionComponent
+      },
+      {
+        path:'vision',
+        component:VisionComponent
       },
       {
         path:'',
