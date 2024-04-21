@@ -41,4 +41,10 @@ export class ProductsService {
   getUbicacion(id:string){
     return this.http.get<Domicilio>('http://localhost:3000/users/ubicacion/'+id)
   }
+  getProductsByFilter(data:any){
+    return this.http.post<Products[]>('http://localhost:3000/products/filter',data)
+  }
+  getProductsByGender(gender:string,tipo:string){
+    return this.http.get<Products[]>('http://localhost:3000/products/gender/'+gender+'/category/'+tipo)
+  }
 }

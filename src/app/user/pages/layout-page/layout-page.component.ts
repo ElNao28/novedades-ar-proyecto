@@ -28,6 +28,8 @@ export class LayoutPageComponent implements OnInit{
   routerUser:string = "login";
   idUser:string = "";
   numCard:number = 0;
+  touchMale:boolean = false;
+  touchFemale:boolean = false;
   ngOnInit(): void {
     let titlle = document.getElementById('titlle');
     const idUser = localStorage.getItem('token');
@@ -82,5 +84,16 @@ export class LayoutPageComponent implements OnInit{
         this.messageService.clear('confirm');
         this.visible = false;
     }
-
+    activateTouchMale(){
+      this.touchMale = true;
+    }
+    disactivateTouchMale(){
+      this.touchMale = false;
+    }
+    activateTouchFemale(){
+      this.touchFemale = true;
+    }
+    disactivateTouchFemale(){
+      this.touchFemale = false;
+    }
 }
