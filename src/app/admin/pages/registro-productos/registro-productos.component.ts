@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataForm } from '../../../user/modulo-login/interfaces/FormData.interface';
 import { AdminService } from '../../services/admin-service.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-registro-productos',
@@ -10,86 +11,65 @@ import { AdminService } from '../../services/admin-service.service';
 })
 export class RegistroProductosComponent {
   constructor(
-    private fb:FormBuilder,
-    private adminService:AdminService
-    ){}
+    private fb: FormBuilder,
+    private adminService: AdminService,
+    private alertService:MessageService
+  ) { }
 
-    public nameFile:string = '';
-    public file:File | null = null;
-     public onChangeFile(event:Event){
-      const target = event.target as HTMLInputElement;
-
-      if (target?.files?.length) {
-        const file = target.files[0];
-        this.nameFile = file.name;
-        this.file = file;
-        console.log(file);
-      }
-     }
+  public nameFile: string = '';
+  public imagenes: File[] = [];
 
   //Variable que contiene los campos que tendra el formulario y que se envian al componente "layout-form"
-    datosForm:DataForm[] = [
-     {
-       label: "Nombre del producto",
-       formControlName: "nombre_producto",
-       type:"text",
-     },
-     {
-       label: "Precio",
-       formControlName: "precio",
-       type:"number",
-     },
-     {
-       label: "Stock",
-       formControlName: "stock",
-       type:"number",
-     },
-     {
-       label: "Descripccion",
-       formControlName: "descripccion",
-       type:"text",
-     },
-     {
-       label: "Categoria",
-       formControlName: "categoria",
-       type:"text",
-     },
-     {
-       label: "Descuento",
-       formControlName: "descuento",
-       type:"number",
-     },
-     {
-       label: "Imagen",
-       formControlName: "imagen",
-       type:"file",
-     },
-   ]
-  form:FormGroup = this.fb.group({
-    nombre_producto:['', [Validators.required]],
-    precio:['', [Validators.required]],
-    stock:['', [Validators.required]],
-    descripccion:['', [Validators.required]],
-    categoria:['', [Validators.required]],
-    imagen:[null, [Validators.required]],
-    descuento:['', [Validators.required]],
+
+  form: FormGroup = this.fb.group({
+    nombre_producto: ['', [Validators.required]],
+    precio: ['', [Validators.required]],
+    stock: ['', [Validators.required]],
+    descripccion: ['', [Validators.required]],
+    categoria: ['H', [Validators.required]],
+    tipo: ['Pantalon', [Validators.required]],
+    imagenes: [null, [Validators.required]],
+    descuento: ['', [Validators.required]],
   })
-
-  addNewProduct(){
-
-    if (this.form.valid && this.file !== null) {
-      const formData:FormData = new FormData();
+  public onChangeFile(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target?.files?.length) {
+      for (let i = 0; i < target.files.length; i++) {
+        this.nameFile = target.files[i].name;
+        this.imagenes.push(target.files[i]);
+      }
+    }
+  }
+  addNewProduct() {
+    //console.log(this.form.valid)
+    if (
+      this.form.valid
+      && this.imagenes !== null
+    ) {
+      const formData: FormData = new FormData();
       formData.append('nombre_producto', this.form.get('nombre_producto')!.value);
       formData.append('precio', this.form.get('precio')!.value);
       formData.append('stock', this.form.get('stock')!.value);
       formData.append('descripccion', this.form.get('descripccion')!.value);
-      formData.append('imagen', this.file);
+      formData.append('imagen',this.imagenes[0]);
+      formData.append('imagen',this.imagenes[1]);
+      formData.append('imagen',this.imagenes[2]);
+      formData.append('imagen',this.imagenes[3]);
       formData.append('categoria', this.form.get('categoria')!.value);
+      formData.append('tipo', this.form.get('tipo')!.value);
       formData.append('descuento', this.form.get('descuento')!.value);
 
-      this.adminService.addProduct(formData).subscribe(res=>{
-      console.log(res)
-    })
+      this.adminService.addProduct(formData).subscribe(res => {
+        if(res.status === 200){
+          this.form.reset();
+          this.alertService.add({
+            severity: 'success',
+            detail: 'Producto agregado correctamente'
+          })
+        }
+      })
+
+
     }
   }
 }
