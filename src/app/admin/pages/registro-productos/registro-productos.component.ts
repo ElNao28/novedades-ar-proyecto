@@ -18,7 +18,7 @@ export class RegistroProductosComponent {
 
   public nameFile: string = '';
   public imagenes: File[] = [];
-
+  validBtn:boolean = false;
   //Variable que contiene los campos que tendra el formulario y que se envian al componente "layout-form"
 
   form: FormGroup = this.fb.group({
@@ -41,6 +41,7 @@ export class RegistroProductosComponent {
     }
   }
   addNewProduct() {
+    this.validBtn = true;
     //console.log(this.form.valid)
     if (
       this.form.valid
@@ -61,6 +62,7 @@ export class RegistroProductosComponent {
 
       this.adminService.addProduct(formData).subscribe(res => {
         if(res.status === 200){
+          this.validBtn = false;
           this.form.reset();
           this.alertService.add({
             severity: 'success',
