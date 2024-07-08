@@ -7,13 +7,6 @@
           <li routerLink="inicio" class="cursor-pointer flex items-center gap-1 hover:text-gray-500"><span
               class="pi pi-home"></span>Inicio
           </li>
-
-
-
-
-
-
-
           <li class="flex flex-col justify-center gap-1">
             <div class="cursor-pointer hover:text-gray-500 flex items-center" (mouseenter)="activateTouchFemale()">
               <img src="../../../../assets/img/mujer.png" alt="icon-male" class="w-5">
@@ -54,13 +47,6 @@
               </ul>
             </div>
           </li>
-
-
-
-
-
-
-
           <li class="col-span-2">
             <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="itemsS" class="autoComplete"
               (completeMethod)="search($event)" [style]="{'width':'100%'}" placeholder="Buscar"
@@ -100,13 +86,6 @@
     </div>
   </ng-template>
 </p-toast>
-
-
-
-
-
-
-
 <router-outlet></router-outlet>
 <footer class="bg-gray-800 text-white p-5">
   <div class="container mx-auto">

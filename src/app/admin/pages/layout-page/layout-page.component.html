@@ -1,1 +1,78 @@
-<router-outlet></router-outlet>
+<div class="flex">
+
+  <div class="w-1/6 px-5 py-5 bg-gray-800 flex flex-col h-screen">
+    <div class="flex flex-col items-center">
+      <img src="../../../../assets/img/logo.png" alt="logo" class="w-20">
+      <p class="text-white text-sm font-bold">Luis Jair Escalante Cruz</p>
+    </div>
+    <div>
+      <hr>
+    </div>
+    <ul class="flex flex-col justify-start p-0 text-blue-200 gap-6">
+      <li routerLink="home" class="cursor-pointer flex items-center gap-1 hover:text-white">
+        <i class="pi pi-home"></i>Inicio
+      </li>
+      <li class="cursor-pointer flex items-center gap-1 hover:text-white">
+        <i class="pi pi-dollar"></i>Ventas
+      </li>
+      <li routerLink="usuarios" class="cursor-pointer flex items-center gap-1 hover:text-white">
+        <i class="pi pi-user"></i>Usuarios
+      </li>
+      <li (click)="showProductosList = !showProductosList" class="cursor-pointer flex flex-col gap-1">
+        <div class="flex items-center justify-between hover:text-white">
+          <div class="flex items-center gap-1">
+            <i class="pi pi-shopping-bag"></i><span>Productos</span>
+          </div>
+          <i *ngIf="!showProductosList" class="pi pi-chevron-down"></i>
+          <i *ngIf="showProductosList" class="pi pi-chevron-up"></i>
+        </div>
+        <ul *ngIf="showProductosList" class="pl-4 flex flex-col gap-2 mt-1">
+          <li routerLink="productos" class="cursor-pointer flex items-center gap-1 hover:text-white">
+            <i class="pi pi-list"></i>Lista de productos
+          </li>
+          <li class="cursor-pointer flex items-center gap-1 hover:text-white">
+            <i class="pi pi-money-bill"></i>Promociones
+          </li>
+        </ul>
+      </li>
+
+      <li (click)="showNosotrosList = !showNosotrosList" class="cursor-pointer flex flex-col gap-1">
+        <div class="flex items-center justify-between hover:text-white">
+          <div class="flex items-center gap-1">
+            <i class="pi pi-building"></i><span>Sobre nosotros</span>
+          </div>
+          <i *ngIf="!showNosotrosList" class="pi pi-chevron-down"></i>
+          <i *ngIf="showNosotrosList" class="pi pi-chevron-up"></i>
+        </div>
+        <ul *ngIf="showNosotrosList" class="pl-4 flex flex-col gap-2 mt-1">
+          <li class="cursor-pointer flex items-center gap-1 hover:text-white">
+            <i class="pi pi-chart-line"></i>Mision
+          </li>
+          <li class="cursor-pointer flex items-center gap-1 hover:text-white">
+            <i class="pi pi-eye"></i>Vision
+          </li>
+          <li class="cursor-pointer flex items-center gap-1 hover:text-white">
+            <i class="pi pi-book"></i>Politicas Privacidad
+          </li>
+          <li class="cursor-pointer flex items-center gap-1 hover:text-white">
+            <i class="pi pi-globe"></i>Cookies
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="w-5/6 flex flex-col h-screen">
+    <nav class="bg-white pr-5 shadow-lg">
+      <ul class="flex gap-2 items-center justify-between">
+        <li class="text-xl text-gray-700 font-semibold">Panel administrador</li>
+        <li><button class="border-none bg-red-700 flex justify-center hover:bg-red-600" pButton><i
+              class="pi pi-sign-out text-white"></i></button></li>
+      </ul>
+    </nav>
+    <div class="overflow-auto flex flex-col h-full">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>
