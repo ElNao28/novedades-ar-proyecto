@@ -27,13 +27,18 @@ export class LayoutPageComponent implements OnInit{
   selectedItem: any;
   routerUser:string = "login";
   idUser:string = "";
-
+  numCard:number = 0;
+  touchMale:boolean = false;
+  touchFemale:boolean = false;
   ngOnInit(): void {
     let titlle = document.getElementById('titlle');
     const idUser = localStorage.getItem('token');
     if (idUser !== null) {
       if(!this.isLogin()){
         this.routerUser = "profile/"+idUser;
+        this.producstService.getProductByCard({id:parseInt(idUser)}).subscribe(data =>{
+          this.numCard = data.detallesCarrito.length
+        })
       }
     }
   }
@@ -79,5 +84,16 @@ export class LayoutPageComponent implements OnInit{
         this.messageService.clear('confirm');
         this.visible = false;
     }
-
+    activateTouchMale(){
+      this.touchMale = true;
+    }
+    disactivateTouchMale(){
+      this.touchMale = false;
+    }
+    activateTouchFemale(){
+      this.touchFemale = true;
+    }
+    disactivateTouchFemale(){
+      this.touchFemale = false;
+    }
 }

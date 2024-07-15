@@ -47,7 +47,7 @@ export class MLoginService {
     return this.http.post<ResponseEmail>(this.urlBack+'/email',email) ;
    }
    updatePassword(email:string, password:PasswordSend){
-    return this.http.patch<ResponseCreateUser>(this.urlBack+'/users/'+email,password)
+    return this.http.patch<ResponseCreateUser>(this.urlBack+'/users/password/'+email,password)
   }
 
   checkLogin():boolean{

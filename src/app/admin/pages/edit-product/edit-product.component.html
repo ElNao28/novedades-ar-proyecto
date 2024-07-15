@@ -1,0 +1,65 @@
+<p-toast></p-toast>
+<div class="flex justify-center">
+  <div class="bg-white p-8 mt-8 w-2/5 rounded-md">
+
+    <h2 class="text-center">Editar de producto</h2>
+    <form class="grid grid-cols-2 gap-3" [formGroup]="productForm">
+      <div class="flex flex-col">
+        <label for="name">Nombre</label>
+        <input formControlName="nombre_producto" class="rounded-sm" type="text" name="" id="">
+      </div>
+      <div class="flex flex-col">
+        <label for="name">Precio</label>
+        <input formControlName="precio" class="rounded-sm" type="number" name="" id="">
+      </div>
+      <div class="col-span-2 flex flex-col">
+        <label for="name">Descripccion</label>
+        <textarea formControlName="descripccion" class="rounded-sm" name="" id="" cols="30" rows="10"></textarea>
+      </div>
+      <div class="flex flex-col">
+        <label for="name">Stock</label>
+        <input formControlName="stock" class="rounded-sm" type="number" name="" id="" value="0">
+      </div>
+      <div class="flex flex-col">
+        <label for="name">Genero</label>
+        <select class="rounded-sm" formControlName="categoria">
+          <option value="M">Dama</option>
+          <option value="H">Caballero</option>
+        </select>
+      </div>
+      <div class="flex flex-col">
+        <label for="name">Categoria</label>
+        <select class="rounded-sm" formControlName="tipo">
+          <option value="Blusa">Blusa</option>
+          <option value="Falda">Falda</option>
+          <option value="Vestido">Vestido</option>
+          <option value="Pantalon">Pantalon</option>
+          <option value="Playera">Playera</option>
+          <option value="Jean">Jean</option>
+          <option value="Short">Short</option>
+          <option value="Sudadera">Sudadera</option>
+          <option value="Camisa">Camisa</option>
+          <option value="Polo">Polo</option>
+          <option value="Sueter">Sueter</option>
+        </select>
+      </div>
+      <div class="flex flex-col">
+        <label for="name">Descuento</label>
+        <input formControlName="descuento" class="rounded-sm" type="number" name="" id="" value="0">
+      </div>
+
+      <div class="flex flex-col col-span-2">
+        <label for="name">Imagenes</label>
+        <input class="rounded-sm" type="file"  name="" id="" multiple>
+      </div>
+
+
+
+
+    </form>
+    <div class="mt-4 flex justify-between gap-3">
+      <p-button routerLink="/admin/productos" label="Cancelar" class="" styleClass="p-button-danger"></p-button>
+      <p-button (click)="updateProduct()" label="Editar" type="submit" styleClass="p-button-secondary"></p-button>
+    </div>
+  </div>
+</div>

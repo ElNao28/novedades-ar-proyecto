@@ -35,7 +35,7 @@
         name="{{data.formControlName}}" id="{{data.formControlName}}" formControlName="{{data.formControlName}}"
         class="rounded-md w-full">
         <option value="" disabled selected>Seleccione una opcion</option>
-        <option value="{{data.formControlName}}" *ngFor="let opcion of data.typeSelect">{{ opcion.option }}</option>
+        <option value="{{opcion.option}}" *ngFor="let opcion of data.typeSelect">{{ opcion.option }}</option>
       </select>
       <select *ngIf="data.type === 'select' && data.formControlName === 'estado'" name="{{data.formControlName}}"
         id="{{data.formControlName}}" formControlName="{{data.formControlName}}" #selectOption

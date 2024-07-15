@@ -6,16 +6,15 @@ import { LoaderComponent } from "./pages/loader/loader.component";
 import { CommonModule } from "@angular/common";
 import { PrimeNgModule } from "../prime-ng/prime-ng.module";
 
-
 @NgModule({
   declarations: [
     InicioComponent,
     LayoutPageComponent,
     Error404Component,
-    LoaderComponent
+    LoaderComponent,
   ],
   exports:[
-    LoaderComponent
+    LoaderComponent,
   ],
   imports: [
     CommonModule,

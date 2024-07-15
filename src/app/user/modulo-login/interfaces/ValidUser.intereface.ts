@@ -11,4 +11,6 @@ export interface ResponseLogin{
 }
 export interface PasswordSend{
   password:string;
+  ip:string;
+  fecha:string;
 }

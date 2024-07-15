@@ -76,6 +76,7 @@ export class ScreenCompraComponent implements OnInit {
           localStorage.removeItem('product');
           localStorage.removeItem('cantidad');
           this.idProduct = '';
+          this.router.navigate(['/view/'+this.dataByback[0].id])
         })
       }
     }

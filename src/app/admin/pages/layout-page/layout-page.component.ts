@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './layout-page.component.css'
 })
 export class LayoutPageComponent {
+  public showNosotrosList: boolean = false;
+  public showProductosList: boolean = false;
 
 }

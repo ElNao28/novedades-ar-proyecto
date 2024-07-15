@@ -31,7 +31,9 @@ export class ViewProductComponent implements OnInit{
     rating:0,
     descuento:0,
     status:'',
-    imagen:[]
+    imagen:[],
+    tipo:'',
+    comentarios:[]
   };
   isLoader:boolean = true;
   cantidad:number = 1;

@@ -1,10 +1,10 @@
 <app-loader *ngIf="isLoader"></app-loader>
-<div *ngIf="!isLoader">
+<div *ngIf="!isLoader" class="mt-5">
   <div>
     <p-galleria [value]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false"
       [autoPlay]="true" [transitionInterval]="3000">
       <ng-template pTemplate="item" let-item>
-        <img [src]="item" class=" imgSlider w-full" />
+        <img [src]="item" class=" imgSlider w-5/6 rounded-md" />
       </ng-template>
     </p-galleria>
   </div>
@@ -16,7 +16,7 @@
       <ng-template let-product pTemplate="item">
         <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
           <div class="mb-3 novedades">
-            <img [src]="product.imagen" [alt]="product.name" class="novedades" />
+            <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
           </div>
           <div>
             <h4 class="mb-1">{{ product.nombre_producto }}</h4>
@@ -38,7 +38,7 @@
         <ng-template let-product pTemplate="item">
           <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
             <div class="mb-3 novedades">
-              <img [src]="product.imagen" [alt]="product.name" class="novedades" />
+              <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
               <h4 class="mb-1">{{ product.nombre_producto }}</h4>
@@ -61,7 +61,7 @@
         <ng-template let-product pTemplate="item">
           <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
             <div class="mb-3 novedades">
-              <img [src]="product.imagen" [alt]="product.name" class="novedades" />
+              <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
               <h4 class="mb-1">{{ product.nombre_producto }}</h4>
@@ -85,7 +85,7 @@
         <ng-template let-product pTemplate="item">
           <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
             <div class="mb-3 novedades">
-              <img [src]="product.imagen" [alt]="product.name" class="novedades" />
+              <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
               <h4 class="mb-1">{{ product.nombre_producto }}</h4>
