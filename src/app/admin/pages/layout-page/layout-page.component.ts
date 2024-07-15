@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
 export class LayoutPageComponent {
   public showNosotrosList: boolean = false;
   public showProductosList: boolean = false;
+  public showVentassList: boolean = false;
 
 }

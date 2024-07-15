@@ -12,12 +12,34 @@
       <li routerLink="home" class="cursor-pointer flex items-center gap-1 hover:text-white">
         <i class="pi pi-home"></i>Inicio
       </li>
-      <li class="cursor-pointer flex items-center gap-1 hover:text-white">
-        <i class="pi pi-dollar"></i>Ventas
-      </li>
       <li routerLink="usuarios" class="cursor-pointer flex items-center gap-1 hover:text-white">
         <i class="pi pi-user"></i>Usuarios
       </li>
+
+      <li (click)="showVentassList = !showVentassList" class="cursor-pointer flex flex-col gap-1">
+        <div class="flex items-center justify-between hover:text-white">
+          <div class="flex items-center gap-1">
+            <i class="pi pi-dollar"></i><span>Ventas</span>
+          </div>
+          <i *ngIf="!showVentassList" class="pi pi-chevron-down"></i>
+          <i *ngIf="showVentassList" class="pi pi-chevron-up"></i>
+        </div>
+        <ul *ngIf="showVentassList" class="pl-4 flex flex-col gap-2 mt-1">
+          <li routerLink="productos" class="cursor-pointer flex items-center gap-1 hover:text-white">
+            <i class="pi pi-check-circle"></i>Completadas
+          </li>
+          <li routerLink="descuentos" class="cursor-pointer flex items-center gap-1 hover:text-white">
+            <i class="pi pi-clock"></i>Pendientes
+          </li>
+          <li routerLink="ventas-por-enviar" class="cursor-pointer flex items-center gap-1 hover:text-white">
+            <i class="pi pi-car"></i>Por enviar
+          </li>
+        </ul>
+      </li>
+
+
+
+
       <li (click)="showProductosList = !showProductosList" class="cursor-pointer flex flex-col gap-1">
         <div class="flex items-center justify-between hover:text-white">
           <div class="flex items-center gap-1">

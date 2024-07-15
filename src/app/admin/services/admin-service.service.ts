@@ -6,6 +6,7 @@ import { GetUsers } from '../interfaces/GetUsers.interface';
 import { ListProducts } from '../interfaces/GetProducts.interface';
 import { ResponseBack } from '../interfaces/ResponseBack.interface';
 import { Promociones } from '../interfaces/GetPromociones.interface';
+import { VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,11 @@ export class AdminService {
   }
   getAllProductsByDes(){
     return this.http.get<Promociones>('http://localhost:3000/products/get-promociones')
+  }
+  getVentasFenvio(type:string){
+    return this.http.get<VentasFenvio>('http://localhost:3000/ventas/ventas-status/'+type)
+  }
+  addCodeRastreo(id:number,code:number){
+    return this.http.post<ResponseBack>('http://localhost:3000/ventas/add-code-rastreo/'+id,{code:code})
   }
 }
