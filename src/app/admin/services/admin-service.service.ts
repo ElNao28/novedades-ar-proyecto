@@ -5,6 +5,7 @@ import { ResponseCreateUser } from '../../user/modulo-login/interfaces/SendUser.
 import { GetUsers } from '../interfaces/GetUsers.interface';
 import { ListProducts } from '../interfaces/GetProducts.interface';
 import { ResponseBack } from '../interfaces/ResponseBack.interface';
+import { Promociones } from '../interfaces/GetPromociones.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,8 @@ export class AdminService {
   }
   updateProduct(id:number,dataUp:any){
     return this.http.patch<ResponseBack>('http://localhost:3000/products/update-product/'+id,dataUp)
+  }
+  getAllProductsByDes(){
+    return this.http.get<Promociones>('http://localhost:3000/products/get-promociones')
   }
 }

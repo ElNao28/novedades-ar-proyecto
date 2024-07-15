@@ -1,18 +1,16 @@
 <div class="px-10 py-5">
-  <div class="flex items-center justify-end gap-3 mb-5">
-    <div class="flex items-center gap-1">
-      <span>Filtrar por: </span>
-      <select name="ordenarPor" id="" class="rounded-lg border-none"
-        >
-        <option value="T">Todos</option>
-        <option value="M">Masculino</option>
-        <option value="F">Femenino</option>
-      </select>
-    </div>
-  </div>
   <div class="bg-white py-2 px-2 rounded-md shadow-md">
     <h3 class="text-center text-2xl font-bold">Lista de productos</h3>
-    <div class="flex justify-end">
+    <div class="flex justify-between">
+      <div class="flex items-center gap-1">
+        <span>Filtrar por: </span>
+        <select name="ordenarPor" id="" class="rounded-md"
+          >
+          <option value="T">Todos</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+        </select>
+      </div>
       <button routerLink="/admin/registro-producto" class="bg-green-800 hover:bg-green-700 flex items-center gap-1" pButton><i class="pi pi-plus"></i>Agregar producto</button>
     </div>
     <ul class="grid grid-cols-8 gap-5 bg-gray-700 py-2 text-center text-white">

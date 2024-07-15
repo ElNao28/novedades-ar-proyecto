@@ -13,6 +13,7 @@ import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { ListProductsComponent } from './pages/list-products/list-products.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { ProductsService } from '../user/products/services/products.service';
+import { ViewDescuentosComponent } from './pages/view-descuentos/view-descuentos.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ProductsService } from '../user/products/services/products.service';
     LoginAdminComponent,
     HomeAdminComponent,
     ListProductsComponent,
-    EditProductComponent
+    EditProductComponent,
+    ViewDescuentosComponent
   ],
   imports: [
     CommonModule,
