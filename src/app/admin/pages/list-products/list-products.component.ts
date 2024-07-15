@@ -13,9 +13,19 @@ export class ListProductsComponent implements OnInit{
 
   ngOnInit(): void {
     this.adminService.getAllProducts().subscribe(products => {
-      console.log(products)
       this.listProducts = products;
     });
   }
 
+  changeStatus(id:number,action:boolean){
+    this.adminService.changeStatus(id,action).subscribe(resp =>{
+      if(resp.status === 200){
+        alert('Estado Actualizado')
+        this.ngOnInit();
+      }
+      else if(resp.status === 400){
+        alert(resp.message)
+      }
+    })
+  }
 }

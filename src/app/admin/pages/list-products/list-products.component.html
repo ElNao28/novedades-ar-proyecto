@@ -32,9 +32,9 @@
       <li>{{item.tipo}}</li>
       <li>{{item.categoria}}</li>
       <li class="col-span-2 flex items-center gap-2">
-        <button class="bg-blue-800 hover:bg-blue-700 flex items-center gap-1" pButton><i class="pi pi-file-edit"></i>Editar</button>
-        <button *ngIf="item.status !== 'inactivo'" class="bg-red-800 hover:bg-red-700 flex items-center gap-1" pButton><i class="pi pi-ban"></i>Desactivar</button>
-        <button *ngIf="item.status === 'inactivo'" class="bg-yellow-500 hover:bg-yellow-400 flex items-center gap-1" pButton><i class="pi pi-check-circle"></i>Activar</button>
+        <button routerLink="/admin/edit-product/{{item.id}}" class="bg-blue-800 hover:bg-blue-700 flex items-center gap-1" pButton><i class="pi pi-file-edit"></i>Editar</button>
+        <button (click)="changeStatus(item.id,false)" *ngIf="item.status !== 'inactivo'" class="bg-red-800 hover:bg-red-700 flex items-center gap-1" pButton><i class="pi pi-ban"></i>Desactivar</button>
+        <button (click)="changeStatus(item.id,true)" *ngIf="item.status === 'inactivo'" class="bg-yellow-500 hover:bg-yellow-400 flex items-center gap-1" pButton><i class="pi pi-check-circle"></i>Activar</button>
       </li>
     </ul>
   </div>

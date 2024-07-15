@@ -11,6 +11,8 @@ import { ListUsersComponent } from './pages/list-users/list-users.component';
 import { LoginAdminComponent } from './pages/login-admin/login-admin.component';
 import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { ListProductsComponent } from './pages/list-products/list-products.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
+import { ProductsService } from '../user/products/services/products.service';
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { ListProductsComponent } from './pages/list-products/list-products.compo
     ListUsersComponent,
     LoginAdminComponent,
     HomeAdminComponent,
-    ListProductsComponent
+    ListProductsComponent,
+    EditProductComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,6 @@ import { ListProductsComponent } from './pages/list-products/list-products.compo
     ModuloLoginModule,
     PrimeNgModule,
     ReactiveFormsModule
-  ]
+  ],
 })
 export class AdminModule { }

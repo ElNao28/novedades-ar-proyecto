@@ -6,6 +6,7 @@ import { ListUsersComponent } from './pages/list-users/list-users.component';
 import { LoginAdminComponent } from './pages/login-admin/login-admin.component';
 import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { ListProductsComponent } from './pages/list-products/list-products.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
     {
       path:'productos',
       component:ListProductsComponent
+    },
+    {
+      path:'edit-product/:id',
+      component:EditProductComponent
     },
     {
       path:'registro-producto',
