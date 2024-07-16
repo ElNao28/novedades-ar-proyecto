@@ -15,6 +15,7 @@ import { EditProductComponent } from './pages/edit-product/edit-product.componen
 import { ProductsService } from '../user/products/services/products.service';
 import { ViewDescuentosComponent } from './pages/view-descuentos/view-descuentos.component';
 import { VentasFenvioComponent } from './pages/ventas-fenvio/ventas-fenvio.component';
+import { VentasPendientesComponent } from './pages/ventas-pendientes/ventas-pendientes.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { VentasFenvioComponent } from './pages/ventas-fenvio/ventas-fenvio.compo
     ListProductsComponent,
     EditProductComponent,
     ViewDescuentosComponent,
-    VentasFenvioComponent
+    VentasFenvioComponent,
+    VentasPendientesComponent
   ],
   imports: [
     CommonModule,
