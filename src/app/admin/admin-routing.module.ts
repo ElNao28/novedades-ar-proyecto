@@ -8,6 +8,8 @@ import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { ListProductsComponent } from './pages/list-products/list-products.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { ViewDescuentosComponent } from './pages/view-descuentos/view-descuentos.component';
+import { VentasFenvioComponent } from './pages/ventas-fenvio/ventas-fenvio.component';
+import { VentasPendientesComponent } from './pages/ventas-pendientes/ventas-pendientes.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,14 @@ const routes: Routes = [
     {
       path:'usuarios',
       component:ListUsersComponent
+    },
+    {
+      path:'ventas-por-enviar',
+      component:VentasFenvioComponent
+    },
+    {
+      path:'ventas-pendientes',
+      component:VentasPendientesComponent
     },
     {
       path:'**',

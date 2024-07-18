@@ -133,32 +133,32 @@ export class CrearCuentaComponent {
   //Funcion que toma los datos del formulario y los envia mediante el metodo post al back para su registro
   createNewUser(){
     console.log(this.myForm.value)
-    //  if(this.myForm.valid){
-    //    const formData = this.myForm.value;
-    //    try {
-    //     this.loginService.createUser(formData).subscribe(data =>{
-    //       if(data.status === 409){
-    //         this.messageService.add({
-    //           severity: 'error',
-    //           summary: 'Error',
-    //           detail: 'Ya existe un usuario con ese correo electronico o numero de telefono'
-    //         });
-    //       }
-    //       else if(data.status === 202){
-    //         this.messageService.add({
-    //           severity:'success',
-    //           summary: 'Exito',
-    //           detail: 'Usuario creado correctamente'
-    //         });
-    //         setTimeout(() => {
-    //           this.router.navigate(['/inicio']);
-    //         }, 1000);
-    //       }
-    //     })
-    //    } catch (error) {
-    //     console.log(error)
-    //    }
-    //  }
+    if(this.myForm.valid){
+      const formData = this.myForm.value;
+      try {
+       this.loginService.createUser(formData).subscribe(data =>{
+         if(data.status === 409){
+           this.messageService.add({
+             severity: 'error',
+             summary: 'Error',
+             detail: 'Ya existe un usuario con ese correo electronico o numero de telefono'
+           });
+         }
+         else if(data.status === 202){
+           this.messageService.add({
+             severity:'success',
+             summary: 'Exito',
+             detail: 'Usuario creado correctamente'
+           });
+           setTimeout(() => {
+             this.router.navigate(['/inicio']);
+           }, 1000);
+         }
+       })
+      } catch (error) {
+       console.log(error)
+      }
+    }
   }
 
   //Funcion que valida si la edad ingresada es mayor o igual a 18

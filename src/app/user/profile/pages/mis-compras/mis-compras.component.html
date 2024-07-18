@@ -24,12 +24,13 @@
             <img class="w-32" src="../../.../../../.././../assets/img/user-icon.png" alt="">
             <div class="">
               <p class="text-xl p-0 m-0">{{product.producto.nombre_producto}}</p>
-              <p class="text-md text-gray-600">Entregado el dia 10 de Noviembre</p>
+              <p class="text-md text-gray-600">Entregado {{item}}</p>
+              <p class="text-sm text-gray-600">Codigo de rastreo <span class="text-blue-300">771147848319</span></p>
               <p class="text-green-500 text-sm">Entregado</p>
             </div>
           </div>
           <div>
-            <button pButton>Ver detalles</button>
+            <a href="https://www.fedex.com/fedextrack/?trknbr=771147848319" pButton>Seguir envio</a>
           </div>
         </div>
       </div>
