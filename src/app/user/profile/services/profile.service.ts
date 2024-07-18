@@ -8,7 +8,7 @@ import { RespCopomex, RespCuenta, RespEnvio, RespPersonal, RespProfile, RespSegu
 export class ProfileService {
 
   constructor(private http:HttpClient) { }
-  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
+  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/'; //'https://back-novedadesar-production.up.railway.app/';
 
   getProfile(id:string) {
     return this.http.get<RespProfile>(`${this.urlApi}users/profile/`+id);

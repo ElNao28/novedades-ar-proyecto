@@ -15,7 +15,7 @@ import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
 export class AdminService {
 
   constructor(private http:HttpClient) { }
-  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/'
+  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/'; //'https://back-novedadesar-production.up.railway.app/';
 
   addProduct(newProduct:any){
     return this.http.post<ResponseCreateUser>(`${this.urlApi}products`,newProduct)
