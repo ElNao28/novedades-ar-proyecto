@@ -13,7 +13,7 @@ import { Domicilio } from '../interfaces/Domicilio.interface';
 export class ProductsService {
 
   constructor(private http:HttpClient) { }
-  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/'
+  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
 
   getProducts() {
     return this.http.get<Products[]>(`${this.urlApi}products`);

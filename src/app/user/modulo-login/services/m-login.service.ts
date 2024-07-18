@@ -10,19 +10,16 @@ import { RecoverPassword, RecoverPasswordByQuestion, SendAnser } from '../interf
   providedIn: 'root'
 })
 export class MLoginService {
-
-  //Se inyecta el modulo de HttpCliente que sirve para hacer las peticiones POST,GET,PATCH.....
   constructor(private http:HttpClient) { }
 
   tokenApiCopomex:string = "pruebas";//pruebas 313f4530-9ec9-43d8-89c8-a55d9b43ca76
-  urlBack:string = "http://localhost:3000"
-  //https://back-novedadesar.up.railway.app(url de produccion)
-  //funcion que sirve para enviar los datos del formulario al back y regresa un estatus dependiendo de la respuesta del back
+  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
+
   validUser(data:ValidUser){
-    return this.http.post<ResponseLogin>(this.urlBack+'/login', data);
+    return this.http.post<ResponseLogin>(this.urlApi+'/login', data);
   }
   createUser(user:User){
-    return this.http.post<ResponseCreateUser>(this.urlBack+'/users', user);
+    return this.http.post<ResponseCreateUser>(this.urlApi+'/users', user);
   }
   getEstado(){
     return this.http.get<EstadoData>("https://api.copomex.com/query/get_estados?token="+this.tokenApiCopomex+"")
@@ -38,16 +35,16 @@ export class MLoginService {
   }
 
   getUser(email:string):Observable<User>{
-    return this.http.get<User>(this.urlBack+'/users/'+email);
+    return this.http.get<User>(this.urlApi+'/users/'+email);
   }
   verifEmail(email:CheckEmail){
-    return this.http.post<RecoverPassword>(this.urlBack+'/check-email',email);
+    return this.http.post<RecoverPassword>(this.urlApi+'/check-email',email);
   }
   sendCodePassword(email:Email){
-    return this.http.post<ResponseEmail>(this.urlBack+'/email',email) ;
+    return this.http.post<ResponseEmail>(this.urlApi+'/email',email) ;
    }
    updatePassword(email:string, password:PasswordSend){
-    return this.http.patch<ResponseCreateUser>(this.urlBack+'/users/password/'+email,password)
+    return this.http.patch<ResponseCreateUser>(this.urlApi+'/users/password/'+email,password)
   }
 
   checkLogin():boolean{
@@ -57,11 +54,11 @@ export class MLoginService {
   }
 
   getQuestion(email:string){
-    return this.http.get<RecoverPasswordByQuestion>(this.urlBack+'/recover-password/'+email)
+    return this.http.get<RecoverPasswordByQuestion>(this.urlApi+'/recover-password/'+email)
   }
 
   patito(sendData:SendAnser){
-    return this.http.post<RecoverPasswordByQuestion>(this.urlBack+'/recover-password/answer',sendData)
+    return this.http.post<RecoverPasswordByQuestion>(this.urlApi+'/recover-password/answer',sendData)
   }
   getIp(){
     return this.http.get<{ip:string}>("https://api.ipify.org/?format=json")
