@@ -12,7 +12,7 @@ export class VentasPendientesComponent implements OnInit{
   public ventas:VentasPendient[] = []
   ngOnInit(): void {
     this.adminService.getVentasPendientes('proceso').subscribe(data =>{
-      console.log(data.data);
+      this.ventas = data.data;
     })
   }
 
