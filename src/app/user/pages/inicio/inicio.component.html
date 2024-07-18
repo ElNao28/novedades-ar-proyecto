@@ -8,11 +8,11 @@
       </ng-template>
     </p-galleria>
   </div>
-  <h2 class="text-center text-3xl">-Novedades-</h2>
+  <h2 class="text-center text-3xl mt-10">-Novedades-</h2>
   <hr class="w-5/6">
 
   <div>
-    <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false">
+    <p-carousel [value]="novedades" [numVisible]="3" [numScroll]="3" [circular]="false">
       <ng-template let-product pTemplate="item">
         <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
           <div class="mb-3 novedades">
@@ -30,11 +30,12 @@
       </ng-template>
     </p-carousel>
   </div>
+
   <div>
-    <h2 class="text-center text-3xl">-Lo mas vendido-</h2>
+    <h2 class="text-center text-3xl">-Con descuento-</h2>
     <hr class="w-5/6">
     <div>
-      <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false">
+      <p-carousel [value]="descuento" [numVisible]="3" [numScroll]="3" [circular]="false">
         <ng-template let-product pTemplate="item">
           <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
             <div class="mb-3 novedades">
@@ -53,11 +54,12 @@
       </p-carousel>
     </div>
   </div>
-  <div>
-    <h2 class="text-center text-3xl">-Con descuento-</h2>
+
+<div>
+    <h2 class="text-center text-3xl">-Para dama-</h2>
     <hr class="w-5/6">
     <div>
-      <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false">
+      <p-carousel [value]="dama" [numVisible]="3" [numScroll]="3" [circular]="false">
         <ng-template let-product pTemplate="item">
           <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
             <div class="mb-3 novedades">
@@ -78,10 +80,10 @@
   </div>
 
   <div>
-    <h2 class="text-center text-3xl">-Para dama-</h2>
+    <h2 class="text-center text-3xl">-Para caballero-</h2>
     <hr class="w-5/6">
     <div>
-      <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false">
+      <p-carousel [value]="caballero" [numVisible]="3" [numScroll]="3" [circular]="false">
         <ng-template let-product pTemplate="item">
           <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
             <div class="mb-3 novedades">

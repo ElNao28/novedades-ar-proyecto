@@ -6,6 +6,7 @@ import { CardResponse } from '../interfaces/ProductsCard.interface';
 import { CompraProducto, urlPago } from '../interfaces/CompraProduct.iinterface';
 import { ResponseAddCard } from '../interfaces/ResponseCard.interface';
 import { Domicilio } from '../interfaces/Domicilio.interface';
+import { DataInicio } from '../interfaces/DataInicio.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,9 @@ export class ProductsService {
 
   getProducts() {
     return this.http.get<Products[]>(`${this.urlApi}products`);
+  }
+  getProductsNovedades() {
+    return this.http.get<DataInicio>(`${this.urlApi}products/data-inicio`);
   }
   getProductById(id:string) {
     return this.http.get<Products>(`${this.urlApi}products/`+id);
