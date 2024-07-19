@@ -29,7 +29,7 @@ export class ProductsComponent implements OnInit {
     camisa: [false],
     polo: [false],
     sueter: [false],
-  })
+  });
   ngOnInit(): void {
     this.productService.getProducts().subscribe(data => {
       this.products = data;
