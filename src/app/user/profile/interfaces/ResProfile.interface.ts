@@ -96,6 +96,7 @@ export interface DetallesVentaDetallesVenta {
   cantidad:  number;
   descuento: number;
   precio:    number;
+  calificacion: number;
   sub_total: number;
   producto:  Producto;
 }

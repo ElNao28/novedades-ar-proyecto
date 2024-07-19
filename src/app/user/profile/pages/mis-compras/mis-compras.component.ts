@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { ResVentas, ResVentasDetallesVenta } from '../../interfaces/ResProfile.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-mis-compras',
@@ -8,7 +9,7 @@ import { ResVentas, ResVentasDetallesVenta } from '../../interfaces/ResProfile.i
   styleUrl: './mis-compras.component.css'
 })
 export class MisComprasComponent implements OnInit {
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService,private fb:FormBuilder) { }
   isLoader: boolean = true;
   filterVenta: ResVentasDetallesVenta[] = [];
   dataBackup: ResVentasDetallesVenta[] = [];

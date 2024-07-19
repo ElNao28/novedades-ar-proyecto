@@ -33,7 +33,6 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts().subscribe(data => {
       this.products = data;
-      console.log(data)
       setTimeout(() => {
         this.isLoader = false
       }, 500);
@@ -92,7 +91,6 @@ export class ProductsComponent implements OnInit {
     this.productService.getProductsByFilter(dataSend).subscribe(data => {
       this.products = [];
       this.products = data
-      console.log(data);
     })
   }
 }

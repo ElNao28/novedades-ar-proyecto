@@ -17,7 +17,21 @@ export class ScreenCompraComponent implements OnInit {
     private routerLink: ActivatedRoute
   ) { }
   idProduct!: string;
-  product!: Product;
+  product: Product={
+    id: 0,
+    nombre_producto: "",
+    precio: 0,
+    descripccion: "",
+    stock: 0,
+    categoria: "",
+    rating: 0,
+    descuento: 0,
+    status: "",
+    imagen: [{
+      id: 0,
+      url_imagen: ""
+    }]
+  }
   domicilio:Domicilio = {
     id: 0,
     estado: "",
@@ -44,7 +58,6 @@ export class ScreenCompraComponent implements OnInit {
 
     this.productService.getProductById(this.idProduct).subscribe(data => {
       this.product = data;
-      console.log(this.product)
     })
     if(user !== null)
     this.productService.getUbicacion(user).subscribe(data => {

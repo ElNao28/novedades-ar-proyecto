@@ -1,0 +1,6 @@
+
+  <form [formGroup]="formRating" class="flex flex-col gap-2 font-semibold text-center text-gray-600 text-lg">
+    <label for="calificacion">Califica el producto</label>
+    <p-rating [cancel]="false" formControlName="value" />
+    <button class="bg-blue-600 hover:bg-blue-500 text-white border-none rounded-md py-2 px-3 cursor-pointer font-bold" *ngIf="formRating.controls['value'].value <= 0" [disabled]="formRating.invalid">Calificar</button>
+  </form>
