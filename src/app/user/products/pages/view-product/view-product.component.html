@@ -16,14 +16,15 @@
 
     <div class="container-datails rounded-md pl-4 pb-4 w-full md:w-3/4">
       <h2 class="lg:text-3xl">{{product.nombre_producto}}</h2>
-      <p-rating [cancel]="false" [disabled]="true"></p-rating>
+      <p-rating [cancel]="false" [disabled]="true" [(ngModel)]="rating"></p-rating>
       <div class="lg:h-3/4">
         <div class="detalles">
-          <p class="text-4x1"><b>${{product.precio}} </b><i class="precio">$150.00</i></p>
+          <p *ngIf="product.descuento > 0" class="text-4x1"><b>${{calDes(product.precio,product.descuento)}}.00 </b><i class="precio">${{product.precio}}.00</i></p>
+          <p *ngIf="product.descuento <= 0" class="text-4x1"><b>${{product.precio}}.00 </b></p>
           <p class="font-italic text-green-500">
             Envios a toda la republica mexicana
           </p>
-          <p>Descuento de: {{product.descuento}}%</p>
+          <p *ngIf="product.descuento > 0">Descuento de: {{product.descuento}}%</p>
           <p>Costo de envio: <b>$99.00</b></p>
           <p>Stock disponible: <b>{{product.stock}} pzas</b></p>
           <p>¡Compralo ahora!</p>

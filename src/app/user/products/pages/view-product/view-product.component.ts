@@ -22,6 +22,7 @@ export class ViewProductComponent implements OnInit {
     private loginService: MLoginService
   ) { }
   id!: string;
+  rating:number = 0;
   product: Products = {
     id: 0,
     nombre_producto: "",
@@ -39,15 +40,11 @@ export class ViewProductComponent implements OnInit {
   isLoader: boolean = true;
   cantidad: number = 1;
   imagenCarrucel: string = "";
-  imagenes: string[] = [
-    'https://www.esdesignbarcelona.com/sites/default/files/imagenes/haz-crecer-tu-marca-de-ropa-frente-la-competencia_1.jpg',
-    'https://www.clikisalud.net/wp-content/uploads/2018/07/el-importante-beneficio-de-usar-ropa-holgada.jpg',
-    'https://media.gq.com.mx/photos/6398d2adf773a1a8874e3a12/master/pass/mejor-ropa-de-hombre-en-2023.jpg',
-  ];
   ngOnInit(): void {
     this.id = this.routerLink.snapshot.paramMap.get('id')!;
     this.productsService.getProductById(this.id).subscribe(data => {
       this.product = data
+      this.rating = data.rating;
       setTimeout(() => {
         this.isLoader = false;
       }, 500);
@@ -130,5 +127,9 @@ export class ViewProductComponent implements OnInit {
       }
     }
 
+  }
+  calDes(precio:number,descuento:number){
+    let dato = precio - (precio * descuento/100);
+    return Math.floor(dato);
   }
 }

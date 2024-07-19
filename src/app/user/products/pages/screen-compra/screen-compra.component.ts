@@ -77,7 +77,7 @@ export class ScreenCompraComponent implements OnInit {
         const data: CompraProducto = {
           id: this.product.id,
           title: this.product.nombre_producto,
-          precio: this.product.precio,
+          precio: this.calDesByBack(this.product.precio, this.product.descuento),
           idUser: idUser,
           cantidad:cantidad,
           idCard:'null'
@@ -99,5 +99,16 @@ export class ScreenCompraComponent implements OnInit {
     localStorage.removeItem('product');
     localStorage.removeItem('cantidad');
     this.router.navigate(['/view',this.idProduct])
+  }
+
+  calDes(precio:number,descuento:number){
+    let total:number = precio * this.cantidad;
+    let desc = (precio * descuento/100) * this.cantidad;
+    console.log(desc);
+    return Math.floor(total-desc);
+  }
+  calDesByBack(precio:number,descuento:number){
+    let desc = precio - (precio * descuento/100);
+    return Math.floor(desc);
   }
 }

@@ -16,7 +16,8 @@
         <div class="flex flex-col">
           <p><strong>Precio: </strong>${{product.precio}}</p>
           <p><strong>Envio: </strong>$99.00</p>
-          <p><strong>Total: </strong>${{product.precio*cantidad}}</p>
+          <p><strong>Descuento: </strong>{{product.descuento}}%</p>
+          <p><strong>Total: </strong>${{calDes(product.precio, product.descuento)}}.00</p>
         </div>
       </div>
     </div>
