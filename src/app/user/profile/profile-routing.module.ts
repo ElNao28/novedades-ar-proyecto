@@ -6,6 +6,7 @@ import { DataPersonalComponent } from './pages/data-personal/data-personal.compo
 import { DataCuentaComponent } from './pages/data-cuenta/data-cuenta.component';
 import { DataSeguridadComponent } from './pages/data-seguridad/data-seguridad.component';
 import { DataEnvioComponent } from './pages/data-envio/data-envio.component';
+import { ComentariosComponent } from './pages/comentarios/comentarios.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path:'profile/:id/mis-compras',
     component:MisComprasComponent
+  },
+  {
+    path:'profile/:id/opiniones',
+    component:ComentariosComponent
   }
 ];
 

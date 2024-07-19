@@ -13,6 +13,7 @@ import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
 import { MenuRutasProfileComponent } from './components/menu-rutas-profile/menu-rutas-profile.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormRatingComponent } from './components/form-rating/form-rating.component';
+import { ComentariosComponent } from './pages/comentarios/comentarios.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { FormRatingComponent } from './components/form-rating/form-rating.compon
     DataEnvioComponent,
     MenuRutasProfileComponent,
     FormRatingComponent,
+    ComentariosComponent,
   ],
   imports: [
     CommonModule,
