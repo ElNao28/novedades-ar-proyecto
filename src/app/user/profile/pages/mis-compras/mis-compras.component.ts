@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
-import { ResVentas } from '../../interfaces/ResProfile.interface';
+import { ResVentas, ResVentasDetallesVenta } from '../../interfaces/ResProfile.interface';
 
 @Component({
   selector: 'app-mis-compras',
@@ -9,45 +9,28 @@ import { ResVentas } from '../../interfaces/ResProfile.interface';
 })
 export class MisComprasComponent implements OnInit {
   constructor(private profileService: ProfileService) { }
-  isLoader:boolean = true;
-  dataVentas: ResVentas = {
-    status: 200,
-    detallesVenta: [
-      {
-        id: 59,
-        total_venta: 245,
-        fecha_venta: "2024-04-05",
-        detallesVenta: [
-          {
-            id: 80,
-            cantidad: 1,
-            descuento: 0,
-            precio: 245,
-            sub_total: 0,
-            producto: {
-              id: 1,
-              nombre_producto: "Blusa sin mangas",
-              precio: 245,
-              descripccion: "Blusa color naranja sin mangas",
-              stock: 38,
-              categoria: "M",
-              rating: 0,
-              descuento: 8,
-              status: "activo"
-            }
-          }
-        ]
-      }]
-  }
+  isLoader: boolean = true;
+  filterVenta: ResVentasDetallesVenta[] = [];
+  dataBackup: ResVentasDetallesVenta[] = [];
+  public type: string = 'all';
   ngOnInit(): void {
     const idUser = localStorage.getItem('token');
     if (idUser !== null)
       this.profileService.getVentas(parseInt(idUser)).subscribe(data => {
-        this.dataVentas = data;
+        this.dataBackup = data.detallesVenta;
+        this.filterVenta = data.detallesVenta;
         setTimeout(() => {
           this.isLoader = false;
         }, 500);
       });
   }
 
+  filterData() {
+    if (this.type === 'all') {
+      this.filterVenta = this.dataBackup
+    }
+    else {
+      this.filterVenta = this.dataBackup.filter(item => item.estado === this.type);
+    }
+  }
 }
