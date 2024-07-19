@@ -6,7 +6,7 @@ import { GetUsers } from '../interfaces/GetUsers.interface';
 import { ListProducts } from '../interfaces/GetProducts.interface';
 import { ResponseBack } from '../interfaces/ResponseBack.interface';
 import { Promociones } from '../interfaces/GetPromociones.interface';
-import { VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
+import { DetallesVenta, VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
 import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
 
 @Injectable({
@@ -48,4 +48,8 @@ export class AdminService {
   addCodeRastreo(id:number,code:number){
     return this.http.post<ResponseBack>(`${this.urlApi}ventas/add-code-rastreo/`+id,{code:code})
   }
+  ventaComplete(idEnvio:number,fecha:string,idVenta:number){
+    return this.http.post<ResponseBack>(`${this.urlApi}ventas/venta-complete/`,{idEnvio,fecha,idVenta})
+  }
+
 }

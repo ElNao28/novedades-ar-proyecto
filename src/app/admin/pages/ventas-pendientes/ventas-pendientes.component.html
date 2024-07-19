@@ -32,6 +32,7 @@
       </div>
       <hr>
       <div class="flex justify-between">
+
         <div class="mb-2">
           <span class="font-semibold text-gray-800">Datos del comprador: </span>
           <div class="flex flex-col gap-1 text-sm">
@@ -52,6 +53,11 @@
             <span class="text-gray-600">Referencia: {{item.usuario.ubicacion.referencia}}</span>
           </div>
         </div>
+
+        <div>
+          <button class="border-none bg-gray-800 text-white py-2 px-3 rounded-sm text-md" (click)="confirm1(item.envio.id, item.id)">Entregado</button>
+        </div>
+
       </div>
     </div>
 
@@ -59,3 +65,5 @@
 
   </div>
 </div>
+<p-confirmDialog />
+<p-toast></p-toast>

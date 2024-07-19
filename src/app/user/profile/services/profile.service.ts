@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RespCopomex, RespCuenta, RespEnvio, RespPersonal, RespProfile, RespSeguridad, RespUpdate, ResVentas, UpdatCuenta, UpdatPersonal, UpdatSeguridad, UpdatUbicacion } from '../interfaces/ResProfile.interface';
 import { ResponseBack } from '../../../admin/interfaces/ResponseBack.interface';
+import { GetComentarios } from '../interfaces/GetComentarios.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,8 @@ export class ProfileService {
   }
   addRaking(idVenta:number,raking:number,opinion:string){
     return this.http.post<ResponseBack>(`${this.urlApi}ventas/add-raking/`, {idVenta,raking,opinion})
+  }
+  getComentarios(id:string){
+    return this.http.get<GetComentarios>(`${this.urlApi}ventas/get-comentarios/${id}`)
   }
 }
