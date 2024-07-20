@@ -52,4 +52,5 @@ export class ProductsService {
   getProductsByGender(gender:string,tipo:string){
     return this.http.get<Products[]>(`${this.urlApi}products/gender/`+gender+'/category/'+tipo)
   }
+
 }

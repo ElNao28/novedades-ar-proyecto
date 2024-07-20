@@ -41,7 +41,7 @@
         <button pButton (click)="chamgeStateBtnName(1)" *ngIf="editName" class="bg-red-500 gap-1">
           <i class="pi pi-pencil"></i>Editar
         </button>
-        <button pButton (click)="chamgeStateBtnName(3)" *ngIf="!editName" class="bg-blue-500 gap-1">
+        <button [disabled]="idDisabled" pButton (click)="chamgeStateBtnName(3)" *ngIf="!editName" class="bg-blue-500 gap-1">
           <i class="pi pi-save"></i>Guardar
         </button>
         <button pButton (click)="chamgeStateBtnName(2)" *ngIf="!editName" class="bg-yellow-500 gap-1">

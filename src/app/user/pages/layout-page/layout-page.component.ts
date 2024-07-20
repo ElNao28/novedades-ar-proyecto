@@ -31,7 +31,6 @@ export class LayoutPageComponent implements OnInit{
   touchMale:boolean = false;
   touchFemale:boolean = false;
   ngOnInit(): void {
-    let titlle = document.getElementById('titlle');
     const idUser = localStorage.getItem('token');
     if (idUser !== null) {
       if(!this.isLogin()){

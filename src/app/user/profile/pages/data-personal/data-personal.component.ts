@@ -91,7 +91,20 @@ export class DataPersonalComponent implements OnInit {
           });
         break;
         case 3:
+          if(this.nameForm.invalid) return this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No dejes campos vacios y rellena correctamente'
+          })
           const userId = localStorage.getItem('token');
+          this.nameForm.setValue(
+            {
+              name: this.dataForm.name.toLowerCase(),
+              lastname: this.dataForm.lastname.toLowerCase(),
+              motherLastname: this.dataForm.motherLastname.toLowerCase(),
+              gender: this.dataForm.gender.toUpperCase(),
+              birthdate: this.dataForm.birthdate.toLowerCase(),
+            });
           if(userId !== null)
             this.profileService.updateUserPersonal(userId,this.nameForm.value).subscribe(data => {
           if(data.status === 200){

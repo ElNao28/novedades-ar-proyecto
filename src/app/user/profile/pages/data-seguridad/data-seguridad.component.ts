@@ -24,10 +24,10 @@ export class DataSeguridadComponent {
     answer: '',
   };
 
-  public seguridadForm: FormGroup = new FormGroup({
+  public seguridadForm: FormGroup = this.fb.group({
     question: new FormControl('', [Validators.required]),
-    answer: new FormControl('', [Validators.required]),
-  });
+    answer: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  })
   public passForm:FormGroup = this.fb.group({
     password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/)]],
     confirmPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/)]]
@@ -44,8 +44,8 @@ export class DataSeguridadComponent {
       this.profileService.getDataSeguridad(userId).subscribe(res => {
         this.dataForm = res;
         this.seguridadForm = this.fb.group({
-          question: [res.question, [Validators.required, Validators.minLength(3)]],
-          answer: [res.answer, [Validators.required, Validators.minLength(10)]],
+          question: [res.question, [Validators.required]],
+          answer: [res.answer, [Validators.required, Validators.minLength(5)]],
         });
         setTimeout(() => {
           this.isLoader = false;
@@ -77,13 +77,14 @@ export class DataSeguridadComponent {
         break;
       case 2:
         this.editName = !this.editName;
-        this.seguridadForm.setValue(
-          {
-            questionId: this.dataForm.question,
-            answer: this.dataForm.answer,
-          });
         break;
       case 3:
+        console.log(this.seguridadForm.value)
+        if(this.seguridadForm.invalid) return this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No dejes campos vacios y llena correctamente los campos'
+        })
         const userId = localStorage.getItem('token');
         if (userId !== null) {
           this.profileService.updateUserSeguridad(userId, this.seguridadForm.value).subscribe(data => {
@@ -95,10 +96,6 @@ export class DataSeguridadComponent {
               });
               this.profileService.getDataSeguridad(userId).subscribe(data => {
                 this.dataForm = data;
-                this.seguridadForm = this.fb.group({
-                  question: [data.question, [Validators.required, Validators.minLength(3)]],
-                  answer: [data.answer, [Validators.required, Validators.minLength(3)]],
-                });
               })
               this.editName = !this.editName;
             }
@@ -114,13 +111,13 @@ export class DataSeguridadComponent {
         break;
       case 2:
         this.editPassword = !this.editPassword;
-        this.seguridadForm.setValue(
-          {
-            questionId: this.dataForm.question,
-            answer: this.dataForm.answer,
-          });
         break;
       case 3:
+        if(this.passForm.invalid) return this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No dejes campos vacios y llena correctamente los campos'
+        })
         const userId = localStorage.getItem('token');
         if (userId !== null) {
           this.profileService.updateUserPassword(userId, {password:this.passForm.controls['password'].value}).subscribe(data => {

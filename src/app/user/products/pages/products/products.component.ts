@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Products } from '../../interfaces/products.interface';
 import { ProductsService } from '../../services/products.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-products',
@@ -10,7 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private productService: ProductsService, private fb: FormBuilder) { }
+  constructor(private productService: ProductsService, private fb: FormBuilder,private messageService:MessageService) { }
   products!: Products[];
   productsFilter!: Products[];
   layout: string = 'list';
@@ -69,7 +70,28 @@ export class ProductsComponent implements OnInit {
       !this.formFilter.controls['camisa'].value &&
       !this.formFilter.controls['polo'].value &&
       !this.formFilter.controls['sueter'].value
-    )return
+    )return this.messageService.add({
+      severity: 'info',
+      summary: 'Filtrado',
+      detail: 'No se han seleccionado ningún filtro'
+    })
+    if(
+      !this.formFilter.controls['pantalon'].value &&
+      !this.formFilter.controls['playera'].value &&
+      !this.formFilter.controls['blusa'].value &&
+      !this.formFilter.controls['falda'].value &&
+      !this.formFilter.controls['vestido'].value &&
+      !this.formFilter.controls['jean'].value &&
+      !this.formFilter.controls['short'].value &&
+      !this.formFilter.controls['sudadera'].value &&
+      !this.formFilter.controls['camisa'].value &&
+      !this.formFilter.controls['polo'].value &&
+      !this.formFilter.controls['sueter'].value
+    )return this.messageService.add({
+      severity: 'info',
+      summary: 'Filtrado',
+      detail: 'Debe seleccionar al menos un tipo'
+    })
     let filter = [
       this.formFilter.controls['pantalon'].value ? 'Pantalon' : '',
       this.formFilter.controls['playera'].value ? 'Playera' : '',
@@ -91,6 +113,7 @@ export class ProductsComponent implements OnInit {
     this.productService.getProductsByFilter(dataSend).subscribe(data => {
       this.products = [];
       this.products = data
+      console.log(this.products)
     })
   }
 }
