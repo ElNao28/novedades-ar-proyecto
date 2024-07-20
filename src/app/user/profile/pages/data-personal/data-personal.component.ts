@@ -99,11 +99,11 @@ export class DataPersonalComponent implements OnInit {
           const userId = localStorage.getItem('token');
           this.nameForm.setValue(
             {
-              name: this.dataForm.name.toLowerCase(),
-              lastname: this.dataForm.lastname.toLowerCase(),
-              motherLastname: this.dataForm.motherLastname.toLowerCase(),
-              gender: this.dataForm.gender.toUpperCase(),
-              birthdate: this.dataForm.birthdate.toLowerCase(),
+              name: this.nameForm.controls['name'].value.toLowerCase(),
+              lastname: this.nameForm.controls['lastname'].value.toLowerCase(),
+              motherLastname: this.nameForm.controls['motherLastname'].value.toLowerCase(),
+              gender: this.nameForm.controls['gender'].value.toUpperCase(),
+              birthdate: this.nameForm.controls['birthdate'].value
             });
           if(userId !== null)
             this.profileService.updateUserPersonal(userId,this.nameForm.value).subscribe(data => {

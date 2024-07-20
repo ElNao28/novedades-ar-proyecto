@@ -132,9 +132,20 @@ export class CrearCuentaComponent {
 
   //Funcion que toma los datos del formulario y los envia mediante el metodo post al back para su registro
   createNewUser(){
-    console.log(this.myForm.value)
     if(this.myForm.valid){
-      const formData = this.myForm.value;
+      let formData = this.myForm.value;
+      formData = {
+        name: formData.name.toLowerCase(),
+        lastname: formData.lastname.toLowerCase(),
+        motherLastname: formData.motherLastname.toLowerCase(),
+        gender: formData.gender.toUpperCase(),
+        birthdate: formData.birthdate.toLowerCase(),
+        email: formData.email.toLowerCase(),
+        cellphone: formData.cellphone,
+        password: formData.password,
+        question: formData.question,
+        answer: formData.answer,
+      }
       try {
        this.loginService.createUser(formData).subscribe(data =>{
          if(data.status === 409){

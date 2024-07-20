@@ -18,7 +18,7 @@ export class MLoginService {
   validUser(data: ValidUser) {
     return this.http.post<ResponseLogin>(this.urlApi + '/login', data);
   }
-  createUser(user: User) {
+  createUser(user: any) {
     return this.http.post<ResponseCreateUser>(this.urlApi + '/users', user);
   }
   getEstado() {
