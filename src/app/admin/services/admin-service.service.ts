@@ -51,5 +51,4 @@ export class AdminService {
   ventaComplete(idEnvio:number,fecha:string,idVenta:number){
     return this.http.post<ResponseBack>(`${this.urlApi}ventas/venta-complete/`,{idEnvio,fecha,idVenta})
   }
-
 }

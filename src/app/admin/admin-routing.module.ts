@@ -10,6 +10,7 @@ import { EditProductComponent } from './pages/edit-product/edit-product.componen
 import { ViewDescuentosComponent } from './pages/view-descuentos/view-descuentos.component';
 import { VentasFenvioComponent } from './pages/ventas-fenvio/ventas-fenvio.component';
 import { VentasPendientesComponent } from './pages/ventas-pendientes/ventas-pendientes.component';
+import { VentasCompletasComponent } from './pages/ventas-completas/ventas-completas.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
     {
       path:'ventas-pendientes',
       component:VentasPendientesComponent
+    },
+    {
+      path:'ventas-completas',
+      component:VentasCompletasComponent
     },
     {
       path:'**',

@@ -1,30 +1,34 @@
 <div class="px-10 py-5">
   <div class="py-2 px-2">
-    <h3 class="text-center text-2xl font-bold bg-white p-2 rounded-md shadow-lg">Ventas en proceso de entrega</h3>
-
-
+    <h3 class="text-center text-2xl font-bold bg-white p-2 rounded-md shadow-lg">Ventas concretadas</h3>
+    <div class="my-2 flex justify-end items-center gap-2">
+      <label for="order">Ordenar por</label>
+      <select class="rounded-md border-none" name="orden" id="orden" [(ngModel)]="order" (ngModelChange)="orderVentas()">
+        <option value="desc">Mas recientes</option>
+        <option value="asc">Mas antiguas</option>
+      </select>
+    </div>
     <div *ngFor="let item of ventas" class="px-2 bg-white py-2 rounded-sm mb-5">
       <div>
-        <div>
-          <h3 class="">Detalles de la venta</h3>
-        </div>
-        <div class="flex justify-between px-5">
           <div>
-            <span class="font-semibold text-gray-800 text-md">Fecha de la venta: </span>
-            <i class="font-semibold text-gray-600">{{item.fecha_venta}}</i>
+            <h3 class="">Detalles de la venta</h3>
           </div>
-          <div class="flex items-center gap-3">
+          <div class="flex justify-between px-5 items-end">
+            <div class="flex flex-col gap-2">
+              <div>
+                <span class="font-semibold text-gray-800 text-md">Fecha de la venta: </span>
+                <i class="font-semibold text-gray-600 text-sm">{{item.fecha_venta}}</i>
+              </div>
+              <div>
+                <span class="font-semibold text-gray-800 text-md">Fecha de la entrega: </span>
+                <i class="font-semibold text-gray-600 text-sm">{{item.envio.fecha_entrega}}</i>
+              </div>
+            </div>
             <div>
               <span>Codigo de ratreo: </span>
-              <a target="_blank" href="https://www.fedex.com/fedextrack/?trknbr={{item.envio.numero_guia}}"
-                class="font-semibold text-blue-400 text-sm hover:text-blue-500">{{item.envio.numero_guia}}</a>
-            </div>
-            <div>
-              <button class="border-none bg-gray-700 hover:bg-gray-800 cursor-pointer text-white py-2 px-3 rounded-md text-md"
-                (click)="confirm1(item.envio.id, item.id)">Entregado</button>
+              <a target="_blank" href="https://www.fedex.com/fedextrack/?trknbr={{item.envio.numero_guia}}" class="font-semibold text-blue-400 text-sm hover:text-blue-500">{{item.envio.numero_guia}}</a>
             </div>
           </div>
-        </div>
         <ul class="grid grid-cols-5 text-center text-white py-1 bg-gray-800 text-sm">
           <li>Productos</li>
           <li>Precio</li>

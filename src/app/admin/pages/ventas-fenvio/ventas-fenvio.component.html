@@ -52,18 +52,10 @@
             <span class="text-gray-600">Referencia: {{item.usuario.ubicacion.referencia}}</span>
           </div>
         </div>
-        <form [formGroup]="codeForm">
-          <div class="flex flex-col gap-1 ">
-              <label class="text-gray-800 font-semibold" for="codigo">Ingresa numero de seguimiento</label>
-              <input formControlName="code" type="number" placeholder="Ejem 124578645676" class="rounded-md w-full">
-            <button (click)="addCode(item.id)"
-              class="bg-gray-800 cursor-pointer hover:bg-gray-500 text-white rounded-md border-none px-3 py-2 text-md font-bold">Guardar</button>
-          </div>
-        </form>
+        <app-form-code (dataVenta)="updateVentas($event)" [idVenta]="item.id"></app-form-code>
       </div>
     </div>
-
-
-
   </div>
 </div>
+<p-toast></p-toast>
+<p-confirmDialog />
