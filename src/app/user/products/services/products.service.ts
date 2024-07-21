@@ -35,7 +35,7 @@ export class ProductsService {
     return this.http.post<CardResponse>(`${this.urlApi}carrito/get_card`,data)
   }
   comprarProduct(data:CompraProducto[]){
-    return this.http.post<urlPago>(`${this.urlApi}products/pago`, data)
+    return this.http.post<urlPago>(`${this.urlApi}products/stripe-pago`, data)
   }
   deleteProductByCard(data:{id:number}){
     return this.http.post<ResponseAddCard>(`${this.urlApi}carrito/delete_card`,data)

@@ -12,32 +12,36 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   styleUrl: './layout-page.component.css'
 })
-export class LayoutPageComponent implements OnInit{
+export class LayoutPageComponent implements OnInit {
 
   constructor(
     private loginService: MLoginService,
     private producstService: ProductsService,
-    private messageService:MessageService,
-    private router:Router,
-    ) { }
+    private messageService: MessageService,
+    private router: Router,
+  ) { }
 
   items!: Products[];
   itemsS!: Products[];
-  products!:string[];
+  products!: string[];
   selectedItem: any;
-  routerUser:string = "login";
-  idUser:string = "";
-  numCard:number = 0;
-  touchMale:boolean = false;
-  touchFemale:boolean = false;
+  routerUser: string = "login";
+  idUser: string = "";
+  numCard: number = 0;
+  touchMale: boolean = false;
+  touchFemale: boolean = false;
   ngOnInit(): void {
     const idUser = localStorage.getItem('token');
     if (idUser !== null) {
-      if(!this.isLogin()){
-        this.routerUser = "profile/"+idUser;
-        this.producstService.getProductByCard({id:parseInt(idUser)}).subscribe(data =>{
-          this.numCard = data.detallesCarrito.length
-        })
+      if (!this.isLogin()) {
+        try {
+          this.routerUser = "profile/" + idUser;
+          this.producstService.getProductByCard({ id: parseInt(idUser) }).subscribe(data => {
+            console.log(data)
+            this.numCard = data.detallesCarrito.length
+          })
+        } catch (error) {
+        }
       }
     }
   }
@@ -53,46 +57,46 @@ export class LayoutPageComponent implements OnInit{
     }
     )
   }
-    closeSesion() {
-      this.onConfirm()
-      localStorage.removeItem('token');
-      this.router.navigate(['/login']);
-      this.routerUser = "login";
-    }
+  closeSesion() {
+    this.onConfirm()
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+    this.routerUser = "login";
+  }
 
 
 
-    visible: boolean = false;
+  visible: boolean = false;
 
-    showConfirm() {
-        if (!this.visible) {
-            this.messageService.add(
-              {
-                key: 'confirm', sticky: true, severity: 'warn', summary: '¿Estas seguro que deseas cerrar sesion?'
-              });
-            this.visible = true;
-        }
+  showConfirm() {
+    if (!this.visible) {
+      this.messageService.add(
+        {
+          key: 'confirm', sticky: true, severity: 'warn', summary: '¿Estas seguro que deseas cerrar sesion?'
+        });
+      this.visible = true;
     }
+  }
 
-    onConfirm() {
-        this.messageService.clear('confirm');
-        this.visible = false;
-    }
+  onConfirm() {
+    this.messageService.clear('confirm');
+    this.visible = false;
+  }
 
-    onReject() {
-        this.messageService.clear('confirm');
-        this.visible = false;
-    }
-    activateTouchMale(){
-      this.touchMale = true;
-    }
-    disactivateTouchMale(){
-      this.touchMale = false;
-    }
-    activateTouchFemale(){
-      this.touchFemale = true;
-    }
-    disactivateTouchFemale(){
-      this.touchFemale = false;
-    }
+  onReject() {
+    this.messageService.clear('confirm');
+    this.visible = false;
+  }
+  activateTouchMale() {
+    this.touchMale = true;
+  }
+  disactivateTouchMale() {
+    this.touchMale = false;
+  }
+  activateTouchFemale() {
+    this.touchFemale = true;
+  }
+  disactivateTouchFemale() {
+    this.touchFemale = false;
+  }
 }
