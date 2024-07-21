@@ -28,6 +28,7 @@ export class CardComponent implements OnInit {
   idUser!: string;
   imgNotCard: boolean = true;
   isLoader: boolean = true;
+  btnDisabled: boolean = false;
   ngOnInit(): void {
     const idUser = localStorage.getItem('token')
     if (idUser !== null) {
@@ -123,8 +124,10 @@ export class CardComponent implements OnInit {
             }
           )
         }
+        this.btnDisabled = true;
         this.producsService.comprarProduct(dataByBack).subscribe(data => {
           window.open(data.url);
+          window.close();
         });
       });
     }
