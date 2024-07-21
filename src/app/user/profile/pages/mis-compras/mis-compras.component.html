@@ -16,7 +16,7 @@
 
     <div *ngIf="dataBackup.length > 0">
       <div class="bg-white rounded-md mb-5" *ngFor="let item of filterVenta">
-        <div class="pt-1 pb-2">
+        <div *ngIf="item.estado !== 'PConfirmar'" class="pt-1 pb-2">
           <div class="flex items-center justify-between px-5">
             <p class="px-4">{{item.fecha_venta}}</p>
             <div *ngIf="item.envio !== null">

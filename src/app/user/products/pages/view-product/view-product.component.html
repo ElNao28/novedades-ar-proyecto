@@ -15,7 +15,7 @@
 
 
     <div class="container-datails rounded-md pl-4 pb-4 w-full md:w-3/4">
-      <h2 class="lg:text-3xl">{{product.nombre_producto}}</h2>
+      <h2 class="lg:text-3xl capitalize">{{product.nombre_producto}}</h2>
       <p-rating [cancel]="false" [disabled]="true" [(ngModel)]="rating"></p-rating>
       <div class="lg:h-3/4">
         <div class="detalles">
@@ -66,10 +66,10 @@
     <div class="bg-white px-4" *ngIf="product.comentarios.length !== 0">
       <div class="comentario" *ngFor="let item of product.comentarios">
         <div class="flex justify-between">
-          <p>{{item.usuario}}</p>
-          <p>{{item.fecha}}</p>
+          <p class="capitalize text-gray-800 text-md font-bold">{{item.usuario}}</p>
+          <p class="text-gray-800 text-md font-bold">{{item.fecha}}</p>
         </div>
-        <p>
+        <p class="text-lg text-gray-600 font-semibold capitalize">
           {{item.comentario}}
         </p>
         <hr />
