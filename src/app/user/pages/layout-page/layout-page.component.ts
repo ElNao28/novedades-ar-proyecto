@@ -37,7 +37,6 @@ export class LayoutPageComponent implements OnInit {
         try {
           this.routerUser = "profile/" + idUser;
           this.producstService.getProductByCard({ id: parseInt(idUser) }).subscribe(data => {
-            console.log(data)
             this.numCard = data.detallesCarrito.length
           })
         } catch (error) {

@@ -52,35 +52,7 @@ export class ViewProductComponent implements OnInit {
     });
   }
   addProductToCard() {
-    const idUser = localStorage.getItem('token');
-
-    if (idUser !== null) {
-      const dataCard: SendDataCard = {
-        cantidad: 1,
-        idProduct: parseInt(this.id,),
-        idUser: parseInt(idUser)
-      }
-      this.productsService.addProductToCard(dataCard).subscribe(data => {
-        if (data.status === 200) {
-          this.messageService.add({
-            severity: 'success',
-            detail: 'Producto agregado al carrito'
-          })
-        }
-        else if (data.status === 409) {
-          this.messageService.add({
-            severity: 'warn',
-            detail: 'El producto ya esta en el carrito'
-          })
-        }
-      })
-    }
-    else {
-      this.messageService.add({
-        severity: 'warn',
-        detail: 'Debes iniciar sesion para poder agregar al carrito'
-      })
-    }
+    this.productsService.addProductToCardSer(this.id)
   }
 
   async comprarProduct() {

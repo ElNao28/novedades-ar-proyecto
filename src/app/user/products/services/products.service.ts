@@ -7,13 +7,17 @@ import { CompraProducto, urlPago } from '../interfaces/CompraProduct.iinterface'
 import { ResponseAddCard } from '../interfaces/ResponseCard.interface';
 import { Domicilio } from '../interfaces/Domicilio.interface';
 import { DataInicio } from '../interfaces/DataInicio.interface';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  constructor(private http:HttpClient) { }
+  constructor(
+    private http:HttpClient,
+    private messageService:MessageService,
+  ) { }
   private urlApi:string = 'http://localhost:3000/'; //'https://back-novedadesar-production.up.railway.app/';
 
   getProducts() {
@@ -51,6 +55,38 @@ export class ProductsService {
   }
   getProductsByGender(gender:string,tipo:string){
     return this.http.get<Products[]>(`${this.urlApi}products/gender/`+gender+'/category/'+tipo)
+  }
+
+  addProductToCardSer(id:string) {
+    const idUser = localStorage.getItem('token');
+
+    if (idUser !== null) {
+      const dataCard: SendDataCard = {
+        cantidad: 1,
+        idProduct: parseInt(id),
+        idUser: parseInt(idUser)
+      }
+      this.addProductToCard(dataCard).subscribe(data => {
+        if (data.status === 200) {
+          this.messageService.add({
+            severity: 'success',
+            detail: 'Producto agregado al carrito'
+          })
+        }
+        else if (data.status === 409) {
+          this.messageService.add({
+            severity: 'warn',
+            detail: 'El producto ya esta en el carrito'
+          })
+        }
+      })
+    }
+    else {
+      this.messageService.add({
+        severity: 'warn',
+        detail: 'Debes iniciar sesion para poder agregar al carrito'
+      })
+    }
   }
 
 }

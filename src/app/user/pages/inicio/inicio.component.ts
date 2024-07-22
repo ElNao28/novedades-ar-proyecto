@@ -11,8 +11,10 @@ import { ProductoIni } from '../../products/interfaces/DataInicio.interface';
   ],
 
 })
-export class InicioComponent implements OnInit {
-  constructor(private productsService: ProductsService) { }
+export class InicioComponent implements OnInit{
+  constructor(
+    private productsService: ProductsService,
+  ) { }
   isLoader: boolean = true;
   novedades!: ProductoIni[];
   descuento!: ProductoIni[];
@@ -35,4 +37,7 @@ export class InicioComponent implements OnInit {
     })
   }
 
+  addCardProduct(idCard:number){
+    this.productsService.addProductToCardSer(idCard.toString());
+  }
 }

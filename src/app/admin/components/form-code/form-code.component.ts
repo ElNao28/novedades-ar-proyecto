@@ -61,7 +61,7 @@ export class FormCodeComponent {
   checkValidation(path: string): string | null {
     if (!this.codeForm.controls[path]) return null;
     const errors = this.codeForm.controls[path].errors || {};
-    for (const key of Object.keys(errors)) {3
+    for (const key of Object.keys(errors)) {
       if (key === 'required') {
         return 'El campo es requerido'
       }

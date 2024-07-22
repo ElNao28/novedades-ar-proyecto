@@ -4,16 +4,24 @@
     <div class="flex justify-between">
       <div class="flex items-center gap-1">
         <span>Filtrar por: </span>
-        <select name="ordenarPor" id="" class="rounded-md"
+        <select name="ordenarPor" id="" class="rounded-md border-none ring-1 ring-gray-400" [(ngModel)]="type" (ngModelChange)="filtrarByGender()"
           >
           <option value="T">Todos</option>
-          <option value="M">Masculino</option>
-          <option value="F">Femenino</option>
+          <option value="H">Masculino</option>
+          <option value="M">Femenino</option>
         </select>
+        <span>Mostrar : </span>
+        <select name="ordenarPor" id="" class="rounded-md border-none ring-1 ring-gray-400" [(ngModel)]="estado" (ngModelChange)="filterByStatus()"
+          >
+          <option value="T">Todos</option>
+          <option value="activo">Activos</option>
+          <option value="inactivo">Inactivos</option>
+        </select>
+        <button (click)="resetFilter()" class="h-full py-2 px-3 text-white font-bold border-none rounded-md bg-slate-500 hover:bg-slate-600 cursor-pointer">Limpiar filtros</button>
       </div>
-      <button routerLink="/admin/registro-producto" class="bg-green-800 hover:bg-green-700 flex items-center gap-1" pButton><i class="pi pi-plus"></i>Agregar producto</button>
+      <button routerLink="/admin/registro-producto" class="bg-green-700 hover:bg-green-800 flex items-center gap-1" pButton><i class="pi pi-plus"></i>Agregar producto</button>
     </div>
-    <ul class="grid grid-cols-8 gap-5 bg-gray-700 py-2 text-center text-white">
+    <ul class="grid grid-cols-9 gap-5 bg-gray-700 py-2 text-center text-white">
       <li class="font-semibold">Preview</li>
       <li class="font-semibold">Nombre</li>
       <li class="font-semibold">Precio</li>
@@ -22,18 +30,21 @@
       <li class="font-semibold">Categoria</li>
       <li class="font-semibold col-span-2">Acciones</li>
     </ul>
-    <ul *ngFor="let item of listProducts" class=" px-2 grid grid-cols-8 bg-gray-200 py-2 text-center items-center text-gray-800 rounded-md">
+    <ul *ngFor="let item of filter" class=" px-2 grid grid-cols-9 bg-gray-200 py-2 text-center items-center text-gray-800 rounded-md">
       <li><img [src]="item.imagen[0].url_imagen" alt="" class="h-20 rounded-md"></li>
       <li>{{item.nombre_producto}}</li>
       <li>{{item.precio}}</li>
       <li>{{item.stock}}</li>
       <li>{{item.tipo}}</li>
       <li>{{item.categoria}}</li>
-      <li class="col-span-2 flex items-center gap-2">
-        <button routerLink="/admin/edit-product/{{item.id}}" class="bg-blue-800 hover:bg-blue-700 flex items-center gap-1" pButton><i class="pi pi-file-edit"></i>Editar</button>
-        <button (click)="changeStatus(item.id,false)" *ngIf="item.status !== 'inactivo'" class="bg-red-800 hover:bg-red-700 flex items-center gap-1" pButton><i class="pi pi-ban"></i>Desactivar</button>
-        <button (click)="changeStatus(item.id,true)" *ngIf="item.status === 'inactivo'" class="bg-yellow-500 hover:bg-yellow-400 flex items-center gap-1" pButton><i class="pi pi-check-circle"></i>Activar</button>
+      <li class="col-span-3 flex items-center gap-2">
+        <button routerLink="/admin/edit-product/{{item.id}}" class="cursor-pointer text-white border-none py-2 px-3 rounded-md bg-gray-700 hover:bg-gray-800 flex items-center gap-1" ><i class="pi pi-file-edit"></i>Editar</button>
+        <button routerLink="/admin/edit-product/{{item.id}}" class="cursor-pointer text-white border-none py-2 px-3 rounded-md bg-blue-700 hover:bg-blue-800 flex items-center gap-1" ><i class="pi pi-file-edit"></i>Ver detalles</button>
+        <button (click)="changeStatus(item.id,false)" *ngIf="item.status !== 'inactivo'" class="cursor-pointer text-white border-none py-2 px-3 rounded-md bg-red-700 hover:bg-red-800 flex items-center gap-1"><i class="pi pi-ban"></i>Desactivar</button>
+        <button (click)="changeStatus(item.id,true)" *ngIf="item.status === 'inactivo'" class="cursor-pointer text-white border-none py-2 px-3 rounded-md bg-yellow-400 hover:bg-yellow-500 flex items-center gap-1"><i class="pi pi-check-circle"></i>Activar</button>
       </li>
     </ul>
   </div>
 </div>
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>

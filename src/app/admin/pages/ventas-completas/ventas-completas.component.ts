@@ -10,7 +10,7 @@ import { VentasPendient } from '../../interfaces/GetVentasPendientes.interface';
 export class VentasCompletasComponent implements OnInit{
   constructor(private adminService: AdminService) { }
   public ventas: VentasPendient[] = [];
-  public order: string = 'asc';
+  public order: string = 'desc';
 
   ngOnInit(): void {
     this.adminService.getVentasPendientes('completo').subscribe(data => {
