@@ -163,7 +163,7 @@ export class CrearCuentaComponent {
              detail: 'Usuario creado correctamente'
            });
            setTimeout(() => {
-             this.router.navigate(['/inicio']);
+             this.router.navigate(['/login']);
            }, 1000);
          }
        })
