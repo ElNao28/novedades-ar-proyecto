@@ -4,7 +4,7 @@ import { ProductCategory } from '../interfaces/ProductCategory.interface';
 import { ResponseCreateUser } from '../../user/modulo-login/interfaces/SendUser.interface';
 import { GetUsers } from '../interfaces/GetUsers.interface';
 import { ListProducts } from '../interfaces/GetProducts.interface';
-import { ResponseBack } from '../interfaces/ResponseBack.interface';
+import { ResponseBack, ResponseBackLogin } from '../interfaces/ResponseBack.interface';
 import { Promociones } from '../interfaces/GetPromociones.interface';
 import { DetallesVenta, VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
 import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
@@ -50,5 +50,8 @@ export class AdminService {
   }
   ventaComplete(idEnvio:number,fecha:string,idVenta:number){
     return this.http.post<ResponseBack>(`${this.urlApi}ventas/venta-complete/`,{idEnvio,fecha,idVenta})
+  }
+  loginAdmin(data:{email:string,password:string}){
+    return this.http.post<ResponseBackLogin>(`${this.urlApi}admin/login`,data)
   }
 }

@@ -11,11 +11,18 @@ import { ViewDescuentosComponent } from './pages/view-descuentos/view-descuentos
 import { VentasFenvioComponent } from './pages/ventas-fenvio/ventas-fenvio.component';
 import { VentasPendientesComponent } from './pages/ventas-pendientes/ventas-pendientes.component';
 import { VentasCompletasComponent } from './pages/ventas-completas/ventas-completas.component';
+import { canMatchGuard } from './guards/can-match.guard';
+import { canActivate } from '../user/guards/guards.guard';
+import { canActivateGuard } from './guards/can-activate.guard';
+import { isLoginMatchGuard } from './guards/is-login-match.guard';
+import { isLoginActivateGuard } from './guards/is-login-activate.guard';
 
 const routes: Routes = [
   {
     path:'login-admin',
-    component:LoginAdminComponent
+    component:LoginAdminComponent,
+    canMatch:[isLoginMatchGuard],
+    canActivate:[isLoginActivateGuard]
   },
   {
   path: '',
@@ -23,43 +30,61 @@ const routes: Routes = [
   children:[
     {
       path:'home',
-      component:HomeAdminComponent
+      component:HomeAdminComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
     },
     {
       path:'productos',
-      component:ListProductsComponent
+      component:ListProductsComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
     },
     {
       path:'edit-product/:id',
-      component:EditProductComponent
+      component:EditProductComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
     },
     {
       path:'descuentos',
-      component:ViewDescuentosComponent
+      component:ViewDescuentosComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
     },
     {
       path:'registro-producto',
-      component:RegistroProductosComponent
+      component:RegistroProductosComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
     },
     {
       path:'usuarios',
-      component:ListUsersComponent
+      component:ListUsersComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
     },
     {
       path:'ventas-por-enviar',
-      component:VentasFenvioComponent
+      component:VentasFenvioComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
     },
     {
       path:'ventas-pendientes',
-      component:VentasPendientesComponent
+      component:VentasPendientesComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
     },
     {
       path:'ventas-completas',
-      component:VentasCompletasComponent
+      component:VentasCompletasComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
     },
     {
       path:'**',
-      redirectTo:'home'
+      redirectTo:'/404'
     }
   ]
  }];
