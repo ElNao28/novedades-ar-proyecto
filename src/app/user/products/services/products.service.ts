@@ -16,10 +16,11 @@ import { ResponseProduct } from '../interfaces/ProductsOne.interface';
 export class ProductsService {
 
   constructor(
-    private http:HttpClient,
-    private messageService:MessageService,
+    private http: HttpClient,
+    private messageService: MessageService,
   ) { }
-  private urlApi:string = 'http://localhost:3000/'; //'https://back-novedadesar-production.up.railway.app/';
+  //private urlApi:string = 'http://localhost:3000/';
+  private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
 
   getProducts() {
     return this.http.get<Products[]>(`${this.urlApi}products`);
@@ -27,41 +28,41 @@ export class ProductsService {
   getProductsNovedades() {
     return this.http.get<DataInicio>(`${this.urlApi}products/data-inicio`);
   }
-  getProductById(id:string) {
-    return this.http.get<Products>(`${this.urlApi}products/`+id);
+  getProductById(id: string) {
+    return this.http.get<Products>(`${this.urlApi}products/` + id);
   }
-  getProductByIdOne(id:string) {
-    return this.http.get<ResponseProduct>(`${this.urlApi}products/one/`+id);
+  getProductByIdOne(id: string) {
+    return this.http.get<ResponseProduct>(`${this.urlApi}products/one/` + id);
   }
-  searchAutocomplete(query:string){
-    return this.http.get<Products[]>(`${this.urlApi}products?q=${{query}}`);
+  searchAutocomplete(query: string) {
+    return this.http.get<Products[]>(`${this.urlApi}products?q=${{ query }}`);
   }
-  addProductToCard(dataCard:SendDataCard){
+  addProductToCard(dataCard: SendDataCard) {
     return this.http.post<ResponseAddCard>(`${this.urlApi}carrito/`, dataCard)
   }
-  getProductByCard(data:{id:number}){
-    return this.http.post<CardResponse>(`${this.urlApi}carrito/get_card`,data)
+  getProductByCard(data: { id: number }) {
+    return this.http.post<CardResponse>(`${this.urlApi}carrito/get_card`, data)
   }
-  comprarProduct(data:CompraProducto[]){
+  comprarProduct(data: CompraProducto[]) {
     return this.http.post<urlPago>(`${this.urlApi}products/stripe-pago`, data)
   }
-  deleteProductByCard(data:{id:number}){
-    return this.http.post<ResponseAddCard>(`${this.urlApi}carrito/delete_card`,data)
+  deleteProductByCard(data: { id: number }) {
+    return this.http.post<ResponseAddCard>(`${this.urlApi}carrito/delete_card`, data)
   }
-  changeCantidad(data:{id:number,cantidad:number}){
-    return this.http.post<ResponseAddCard>(`${this.urlApi}carrito/update_cantidad`,data)
+  changeCantidad(data: { id: number, cantidad: number }) {
+    return this.http.post<ResponseAddCard>(`${this.urlApi}carrito/update_cantidad`, data)
   }
-  getUbicacion(id:string){
-    return this.http.get<Domicilio>(`${this.urlApi}users/ubicacion/`+id)
+  getUbicacion(id: string) {
+    return this.http.get<Domicilio>(`${this.urlApi}users/ubicacion/` + id)
   }
-  getProductsByFilter(data:any){
-    return this.http.post<Products[]>(`${this.urlApi}products/filter`,data)
+  getProductsByFilter(data: any) {
+    return this.http.post<Products[]>(`${this.urlApi}products/filter`, data)
   }
-  getProductsByGender(gender:string,tipo:string){
-    return this.http.get<Products[]>(`${this.urlApi}products/gender/`+gender+'/category/'+tipo)
+  getProductsByGender(gender: string, tipo: string) {
+    return this.http.get<Products[]>(`${this.urlApi}products/gender/` + gender + '/category/' + tipo)
   }
 
-  addProductToCardSer(id:string) {
+  addProductToCardSer(id: string) {
     const idUser = localStorage.getItem('token');
 
     if (idUser !== null) {
