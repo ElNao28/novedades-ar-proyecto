@@ -17,7 +17,21 @@ export class ScreenCompraComponent implements OnInit {
     private routerLink: ActivatedRoute
   ) { }
   idProduct!: string;
-  product!: Product;
+  product: Product={
+    id: 0,
+    nombre_producto: "",
+    precio: 0,
+    descripccion: "",
+    stock: 0,
+    categoria: "",
+    rating: 0,
+    descuento: 0,
+    status: "",
+    imagen: [{
+      id: 0,
+      url_imagen: ""
+    }]
+  }
   domicilio:Domicilio = {
     id: 0,
     estado: "",
@@ -44,7 +58,6 @@ export class ScreenCompraComponent implements OnInit {
 
     this.productService.getProductById(this.idProduct).subscribe(data => {
       this.product = data;
-      console.log(this.product)
     })
     if(user !== null)
     this.productService.getUbicacion(user).subscribe(data => {
@@ -64,7 +77,7 @@ export class ScreenCompraComponent implements OnInit {
         const data: CompraProducto = {
           id: this.product.id,
           title: this.product.nombre_producto,
-          precio: this.product.precio,
+          precio: this.calDesByBack(this.product.precio, this.product.descuento),
           idUser: idUser,
           cantidad:cantidad,
           idCard:'null'
@@ -76,7 +89,7 @@ export class ScreenCompraComponent implements OnInit {
           localStorage.removeItem('product');
           localStorage.removeItem('cantidad');
           this.idProduct = '';
-          this.router.navigate(['/view/'+this.dataByback[0].id])
+          window.close();
         })
       }
     }
@@ -86,5 +99,16 @@ export class ScreenCompraComponent implements OnInit {
     localStorage.removeItem('product');
     localStorage.removeItem('cantidad');
     this.router.navigate(['/view',this.idProduct])
+  }
+
+  calDes(precio:number,descuento:number){
+    let total:number = precio * this.cantidad;
+    let desc = (precio * descuento/100) * this.cantidad;
+    console.log(desc);
+    return Math.floor(total-desc);
+  }
+  calDesByBack(precio:number,descuento:number){
+    let desc = precio - (precio * descuento/100);
+    return Math.floor(desc);
   }
 }

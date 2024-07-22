@@ -21,12 +21,12 @@
       <li class="font-semibold">Telefono</li>
     </ul>
     <ul *ngFor="let item of usersFilter" class="grid grid-cols-6 bg-gray-200 py-2 text-center text-gray-800 rounded-md">
-      <li>{{item.name}}</li>
-      <li>{{item.lastname}}</li>
-      <li>{{item.motherLastname}}</li>
-      <li>{{item.gender}}</li>
-      <li>{{item.email}}</li>
-      <li>{{item.cellphone}}</li>
+      <li class="capitalize">{{item.name}}</li>
+      <li class="capitalize">{{item.lastname}}</li>
+      <li class="capitalize">{{item.motherLastname}}</li>
+      <li class="capitalize">{{item.gender}}</li>
+      <li class="">{{item.email}}</li>
+      <li class="capitalize">{{item.cellphone}}</li>
     </ul>
   </div>
 </div>

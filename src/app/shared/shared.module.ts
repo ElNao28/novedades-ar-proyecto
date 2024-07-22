@@ -1,3 +1,4 @@
+import { NavBarComponent } from './../user/components/nav-bar/nav-bar.component';
 import { NgModule } from "@angular/core";
 import { InicioComponent } from "../user/pages/inicio/inicio.component";
 import { LayoutPageComponent } from "../user/pages/layout-page/layout-page.component";
@@ -12,6 +13,7 @@ import { PrimeNgModule } from "../prime-ng/prime-ng.module";
     LayoutPageComponent,
     Error404Component,
     LoaderComponent,
+    NavBarComponent
   ],
   exports:[
     LoaderComponent,

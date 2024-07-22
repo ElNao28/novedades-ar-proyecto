@@ -5,15 +5,25 @@
 
     <div *ngFor="let item of ventas" class="px-2 bg-white py-2 rounded-sm mb-5">
       <div>
-        <div class="flex items-center">
+        <div>
+          <h3 class="">Detalles de la venta</h3>
+        </div>
+        <div class="flex justify-between px-5">
           <div>
-            <h3 class="">Detalles de la venta</h3>
+            <span class="font-semibold text-gray-800 text-md">Fecha de la venta: </span>
+            <i class="font-semibold text-gray-600">{{item.fecha_venta}}</i>
+          </div>
+          <div class="flex items-center gap-3">
             <div>
-              <span class="font-semibold text-gray-800 text-md">Fecha de la venta: </span>
-              <i class="font-semibold text-gray-600">{{item.fecha_venta}}</i>
+              <span>Codigo de ratreo: </span>
+              <a target="_blank" href="https://www.fedex.com/fedextrack/?trknbr={{item.envio.numero_guia}}"
+                class="font-semibold text-blue-400 text-sm hover:text-blue-500">{{item.envio.numero_guia}}</a>
+            </div>
+            <div>
+              <button class="border-none bg-gray-700 hover:bg-gray-800 cursor-pointer text-white py-2 px-3 rounded-md text-md"
+                (click)="confirm1(item.envio.id, item.id)">Entregado</button>
             </div>
           </div>
-
         </div>
         <ul class="grid grid-cols-5 text-center text-white py-1 bg-gray-800 text-sm">
           <li>Productos</li>
@@ -23,7 +33,7 @@
           <li>Total</li>
         </ul>
         <ul class="grid grid-cols-5 text-center text-gray-600" *ngFor="let data of item.detallesVenta">
-          <li>{{data.producto.nombre_producto}}</li>
+          <li class="capitalize">{{data.producto.nombre_producto}}</li>
           <li>{{data.precio}}</li>
           <li>{{data.descuento}}</li>
           <li>{{data.cantidad}}</li>
@@ -32,10 +42,11 @@
       </div>
       <hr>
       <div class="flex justify-between">
+
         <div class="mb-2">
           <span class="font-semibold text-gray-800">Datos del comprador: </span>
           <div class="flex flex-col gap-1 text-sm">
-            <span class="text-gray-600">Nombre: {{item.usuario.name +" " + item.usuario.lastname + " " +
+            <span class="text-gray-600 capitalize">Nombre: {{item.usuario.name +" " + item.usuario.lastname + " " +
               item.usuario.motherLastname}}</span>
             <span class="text-gray-600">Telefono: {{item.usuario.cellphone}}</span>
             <span class="text-gray-600">Email: {{item.usuario.email}}</span>
@@ -59,3 +70,5 @@
 
   </div>
 </div>
+<p-confirmDialog />
+<p-toast></p-toast>

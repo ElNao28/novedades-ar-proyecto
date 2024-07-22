@@ -10,6 +10,7 @@ import { ScreenCompraComponent } from './pages/screen-compra/screen-compra.compo
 import { SharedModule } from '../../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductsFilterComponent } from './pages/products-filter/products-filter.component';
+import { RatingProductsComponent } from './components/rating-products/rating-products.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ProductsFilterComponent } from './pages/products-filter/products-filter
     ProductsComponent,
     ScreenCompraComponent,
     ProductsFilterComponent,
+    RatingProductsComponent,
   ],
   imports: [
     CommonModule,

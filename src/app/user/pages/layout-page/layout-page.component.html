@@ -1,4 +1,5 @@
-<nav class="bg-white flex flex-col py-3 px-2 md:px-24 md:gap-4 w-full fixed top-0 shadow-lg">
+<app-nav-bar></app-nav-bar>
+<!-- <nav class="bg-white flex flex-col py-3 px-2 md:px-24 md:gap-4 w-full fixed top-0 shadow-lg">
   <div class="flex flex-col md:flex-row content-center items-center md:gap-4 w-full">
     <img class="w-32 rounded" src="../../../../assets/img/logo2.png" alt="Novedades AR">
     <div class="w-full">
@@ -8,7 +9,7 @@
               class="pi pi-home"></span>Inicio
           </li>
           <li class="flex flex-col justify-center gap-1">
-            <div class="cursor-pointer hover:text-gray-500 flex items-center" (mouseenter)="activateTouchFemale()">
+            <div class="cursor-pointer hover:text-gray-500 flex items-center" (click)="activateTouchFemale()">
               <img src="../../../../assets/img/mujer.png" alt="icon-male" class="w-5">
               <p>Dama</p>
             </div>
@@ -30,7 +31,7 @@
           </li>
 
           <li class="flex flex-col justify-center gap-1">
-            <div class="cursor-pointer hover:text-gray-500 flex items-center" (mouseenter)="activateTouchMale()">
+            <div class="cursor-pointer hover:text-gray-500 flex items-center" (click)="activateTouchMale()">
               <img src="../../../../assets/img/hombre.png" alt="icon-male" class="w-5">
               <p>Caballero</p>
             </div>
@@ -54,12 +55,11 @@
           </li>
         </ul>
       </div>
-
     </div>
     <ul class="flex gap-5 text-black">
       <li routerLink="productos" class="cursor-pointer flex items-center gap-1 hover:text-gray-500"><span
           class="pi pi-tags"></span>Productos</li>
-      <li routerLink="profile/1/mis-compras" class="cursor-pointer flex items-center gap-1 hover:text-gray-500"><span
+      <li routerLink="/profile/mis-compras" class="cursor-pointer flex items-center gap-1 hover:text-gray-500"><span
           class="pi pi-shopping-bag"></span>Compras</li>
       <li routerLink="login" *ngIf="isLogin()" class="cursor-pointer flex items-center gap-1 hover:text-gray-500">
         <span class="pi pi-sign-in"></span>
@@ -74,18 +74,10 @@
     </ul>
   </div>
 
-</nav>
+</nav> -->
 <br><br> <br> <br>
 
-<p-toast position="top-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
-  <ng-template let-message pTemplate="message">
-    <div class="flex flex-col items-start" style="flex: 1">
-      <div class="font-medium my-3 text-md">{{ message.summary }}</div>
-      <button class="bg-red-400 border-none hover:bg-red-500 h-8" pButton label="Confirmar"
-        (click)="closeSesion()"></button>
-    </div>
-  </ng-template>
-</p-toast>
+
 <router-outlet></router-outlet>
 <footer class="bg-gray-800 text-white p-5">
   <div class="container mx-auto">
@@ -103,28 +95,22 @@
       </div>
       <div class="w-full md:w-1/4 text-center md:text-left">
         <h2 class="text-lg font-semibold">Siguenos</h2>
-        <ul class="list-reset flex flex-col">
-          <li class="mx-2"><a href="#" class="text-gray-400 hover:text-gray-200">Facebook</a></li>
-          <li class="mx-2"><a href="#" class="text-gray-400 hover:text-gray-200">Twitter</a></li>
-          <li class="mx-2"><a href="#" class="text-gray-400 hover:text-gray-200">Instagram</a></li>
-        </ul>
+        <p class="my-2 cursor-pointer" routerLink="/mision">Facebook</p>
+        <p class="my-2 cursor-pointer" routerLink="/vision">Twitter</p>
+        <p class="my-2 cursor-pointer" routerLink="/vision">Instagram</p>
       </div>
       <div class="w-full md:w-1/4 text-center md:text-left">
         <h2 class="text-lg font-semibold">¿Dudas?</h2>
         <p class="my-2">Haznos saber tus duda directo a nuestro correo</p>
         <form class="w-full max-w-sm">
-          <div class="flex items-center border-b-2 border-gray-200 py-2">
-            <input
-              class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-              type="text" placeholder="Email">
-            <button class="flex-shrink-0 bg-gray-900 text-white py-1 px-2 rounded" type="button">
-              Enviar
-            </button>
+          <div class="flex items-center border-b-2 border-gray-200 gap-2">
+            <p>Email:</p>
+            <span>novedadesar04{{'@'}}gmail.com</span>
           </div>
         </form>
       </div>
     </div>
-    <div class="mt-5 border-t-2 border-gray-600 pt-5 text-center">
+    <div class="border-t-2 border-gray-600 pt-5 text-center">
       <p>&copy; 2024 NovedadesA&R. All rights reserved.</p>
     </div>
   </div>

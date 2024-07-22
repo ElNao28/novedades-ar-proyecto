@@ -4,38 +4,63 @@
     <div class="flex justify-between items-center">
       <h2>Mis compras</h2>
       <div class="flex items-center gap-3">
-        <label for="">Ordenar por</label>
-        <select name="" id="" class="rounded-md border-none">
-          <option value="">Fecha</option>
-          <option value="">Precio</option>
+        <label for="">Filtrar por</label>
+        <select name="" id="" class="rounded-md border-none" [(ngModel)]="type" (ngModelChange)="filterData()">
+          <option value="all">Todos</option>
+          <option value="completo">Entregado</option>
+          <option value="proceso">Pendientes de entrega</option>
+          <option value="Fenvio">Pendientes de envio</option>
         </select>
       </div>
     </div>
-
-
-    <div class="bg-white rounded-md mb-5" *ngFor="let item of dataVentas.detallesVenta">
-      <div class="pt-1 pb-2">
-        <div>
-          <p class="px-4">{{item.fecha_venta}}</p>
-          <hr class="opacity-50">
+    <div *ngIf="dataBackup.length > 0">
+      <div *ngIf="filterVenta.length <= 0">
+        <div class="flex items-center flex-col bg-white rounded-md py-10">
+          <img src="../../../../../assets/img/no_vents.png" alt="no hay compras" class="h-96 rounded-md">
+          <h3 class="text-red-900 text-3xl font-normal">No hay compras que mostrar</h3>
         </div>
-        <div class="px-8 flex items-center justify-between mb-5" *ngFor="let product of item.detallesVenta">
-          <div class="flex items-center gap-5">
-            <img class="w-32" src="../../.../../../.././../assets/img/user-icon.png" alt="">
-            <div class="">
-              <p class="text-xl p-0 m-0">{{product.producto.nombre_producto}}</p>
-              <p class="text-md text-gray-600">Entregado {{item}}</p>
-              <p class="text-sm text-gray-600">Codigo de rastreo <span class="text-blue-300">771147848319</span></p>
-              <p class="text-green-500 text-sm">Entregado</p>
+      </div>
+      <div class="bg-white rounded-md mb-5" *ngFor="let item of filterVenta">
+        <div *ngIf="item.estado !== 'PConfirmar'" class="pt-1 pb-2">
+          <div class="flex items-center justify-between px-5">
+            <p class="px-4">{{item.fecha_venta}}</p>
+            <div *ngIf="item.envio !== null">
+              <a class="bg-blue-600 hover:bg-blue-500 py-2 px-3 rounded-md" target="_blank"
+                href="https://www.fedex.com/fedextrack/?trknbr={{item.envio.numero_guia}}">Seguir envio</a>
             </div>
+
           </div>
-          <div>
-            <a href="https://www.fedex.com/fedextrack/?trknbr=771147848319" pButton>Seguir envio</a>
+          <hr class="opacity-50">
+          <div class="px-8 flex items-center justify-between mb-5" *ngFor="let product of item.detallesVenta">
+            <div class="flex items-center gap-5">
+              <img class="w-36 h-44" [src]="product.producto.imagen[0].url_imagen" alt="imagen">
+              <div class="">
+                <p class="text-xl p-0 m-0">{{product.producto.nombre_producto}}</p>
+                <p *ngIf="item.envio !== null && item.envio.fecha_entrega !== null" class="text-md text-gray-600">
+                  Entregado {{item.envio.fecha_entrega}}</p>
+                <p *ngIf="item.envio !== null" class="text-sm text-gray-600">Codigo de rastreo <span
+                    class="text-blue-300">{{item.envio.numero_guia}}</span></p>
+                <p *ngIf="item.envio !== null && item.estado === 'completo'" class="text-green-500 text-sm">Entregado
+                </p>
+                <p *ngIf="item.estado === 'Fenvio'" class="text-pink-300 text-sm">Estamos preparando tu pedido</p>
+                <p *ngIf="item.estado === 'proceso'" class="text-yellow-500 text-sm">Despachamos tu pedido</p>
+              </div>
+            </div>
+            <div *ngIf="item.estado === 'completo'">
+              <app-form-rating (ready)="alertRating($event)" [idProduct]="product.producto.id" [idVenta]="product.id" [raking]="product.calificacion"></app-form-rating>
+            </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <div *ngIf="dataBackup.length <= 0" class="flex items-center flex-col bg-white rounded-md py-10">
+        <img src="../../../../../assets/img/card_sad.jpg" alt="no hay compras" class="h-96 rounded-md">
+        <h3 class="text-red-900 text-3xl font-normal">Parece que aun no realizas alguna compra</h3>
+        <a routerLink="/productos" class="text-blue-500 hover:text-blue-600 cursor-pointer text-xl font-bold">Empezar a
+          comprar</a>
+      </div>
+
     </div>
-
-
   </div>
-</div>
+<p-toast></p-toast>

@@ -1,31 +1,27 @@
 <p-toast></p-toast>
 <div class="flex justify-center">
-  <div class="bg-white p-8 mt-8 w-2/5 rounded-md">
-
-    <!-- <app-layout-form
-      [dataForm]="form"
-      [datosForm]="datosForm"
-      (onChangeFile)="onChangeFile($event)"
-    >
-    </app-layout-form> -->
-
+  <div class="bg-white p-8 mt-8 w-3/5 rounded-md">
     <h2 class="text-center">Registro de producto</h2>
     <form class="grid grid-cols-2 gap-3" [formGroup]="form">
       <div class="flex flex-col">
         <label for="name">Nombre</label>
         <input formControlName="nombre_producto" class="rounded-sm" type="text" name="" id="">
+        <span *ngIf="form.controls['nombre_producto'].touched && form.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('nombre_producto')}}</span>
       </div>
       <div class="flex flex-col">
         <label for="name">Precio</label>
         <input formControlName="precio" class="rounded-sm" type="number" name="" id="">
+        <span *ngIf="form.controls['precio'].touched && form.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('precio')}}</span>
       </div>
       <div class="col-span-2 flex flex-col">
         <label for="name">Descripccion</label>
         <textarea formControlName="descripccion" class="rounded-sm" name="" id="" cols="30" rows="10"></textarea>
+        <span *ngIf="form.controls['descripccion'].touched && form.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('descripccion')}}</span>
       </div>
       <div class="flex flex-col">
         <label for="name">Stock</label>
         <input formControlName="stock" class="rounded-sm" type="number" name="" id="" value="0">
+        <span *ngIf="form.controls['stock'].touched && form.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('stock')}}</span>
       </div>
       <div class="flex flex-col">
         <label for="name">Genero</label>
@@ -49,24 +45,41 @@
           <option value="Polo">Polo</option>
           <option value="Sueter">Sueter</option>
         </select>
+        <span *ngIf="form.controls['tipo'].touched && form.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('tipo')}}</span>
       </div>
       <div class="flex flex-col">
         <label for="name">Descuento</label>
         <input formControlName="descuento" class="rounded-sm" type="number" name="" id="" value="0">
+        <span *ngIf="form.controls['descuento'].touched && form.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('descuento')}}</span>
       </div>
 
       <div class="flex flex-col col-span-2">
-        <label for="name">Imagenes</label>
-        <input formControlName="imagenes" (change)="onChangeFile($event)" class="rounded-sm" type="file"  name="" id="" multiple>
+        <label for="name">Imagen N.1</label>
+        <input accept="image/*" formControlName="imgUno" (change)="onChangeFile($event,'imgUno')" class="rounded-sm" type="file"  name="imagenes" id="imagenes">
+        <span *ngIf="form.controls['imgUno'].touched && form.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('imgUno')}}</span>
       </div>
-
-
-
+      <div class="flex flex-col col-span-2">
+        <label for="name">Imagen N.2</label>
+        <input accept="image/*" formControlName="imgDos" (change)="onChangeFile($event,'imgDos')" class="rounded-sm" type="file"  name="imagenes" id="imagenes">
+        <span *ngIf="form.controls['imgDos'].touched && form.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('imgDos')}}</span>
+      </div>
+      <div class="flex flex-col col-span-2">
+        <label for="name">Imagen N.3</label>
+        <input accept="image/*" formControlName="imgTres" (change)="onChangeFile($event,'imgTres')" class="rounded-sm" type="file"  name="imagenes" id="imagenes">
+        <span *ngIf="form.controls['imgTres'].touched && form.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('imgTres')}}</span>
+      </div>
+      <div class="flex flex-col col-span-2">
+        <label for="name">Imagen N.4</label>
+        <input  accept="image/*" formControlName="imgCuatro" (change)="onChangeFile($event,'imgCuatro')" class="rounded-sm" type="file"  name="imagenes" id="imagenes">
+        <span *ngIf="form.controls['imgCuatro'].touched && form.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('imgCuatro')}}</span>
+      </div>
 
     </form>
     <div class="mt-4 flex justify-between gap-3">
-      <p-button routerLink="/admin/productos" label="Cancelar" class="" styleClass="p-button-danger"></p-button>
-      <p-button label="Agregar" [disabled]="validBtn" type="submit" (click)="addNewProduct()" styleClass="p-button-secondary"></p-button>
+      <p-button [disabled]="validBtn" (click)="isCanceled()" label="Cancelar" class="" styleClass="p-button-danger"></p-button>
+      <p-button *ngIf="!validBtn" label="Agregar" [disabled]="validBtn" type="submit" (click)="addNewProduct()" styleClass="p-button-secondary"></p-button>
+      <p-button [disabled]="true" *ngIf="validBtn" label="Agregando producto" styleClass="p-button-secondary gap-3"><i class="pi pi-spin pi-spinner"></i></p-button>
     </div>
   </div>
 </div>
+<p-confirmDialog></p-confirmDialog>

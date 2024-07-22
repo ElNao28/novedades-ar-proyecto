@@ -4,9 +4,9 @@ import { ProductCategory } from '../interfaces/ProductCategory.interface';
 import { ResponseCreateUser } from '../../user/modulo-login/interfaces/SendUser.interface';
 import { GetUsers } from '../interfaces/GetUsers.interface';
 import { ListProducts } from '../interfaces/GetProducts.interface';
-import { ResponseBack } from '../interfaces/ResponseBack.interface';
+import { ResponseBack, ResponseBackLogin } from '../interfaces/ResponseBack.interface';
 import { Promociones } from '../interfaces/GetPromociones.interface';
-import { VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
+import { DetallesVenta, VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
 import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
 
 @Injectable({
@@ -15,7 +15,8 @@ import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
 export class AdminService {
 
   constructor(private http:HttpClient) { }
-  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/'; //'https://back-novedadesar-production.up.railway.app/';
+  //private urlApi:string = 'http://localhost:3000/';
+  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
 
   addProduct(newProduct:any){
     return this.http.post<ResponseCreateUser>(`${this.urlApi}products`,newProduct)
@@ -47,5 +48,11 @@ export class AdminService {
   }
   addCodeRastreo(id:number,code:number){
     return this.http.post<ResponseBack>(`${this.urlApi}ventas/add-code-rastreo/`+id,{code:code})
+  }
+  ventaComplete(idEnvio:number,fecha:string,idVenta:number){
+    return this.http.post<ResponseBack>(`${this.urlApi}ventas/venta-complete/`,{idEnvio,fecha,idVenta})
+  }
+  loginAdmin(data:{email:string,password:string}){
+    return this.http.post<ResponseBackLogin>(`${this.urlApi}admin/login`,data)
   }
 }

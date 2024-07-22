@@ -15,7 +15,7 @@ export class DataEnvioComponent {
     private profileService: ProfileService,
     private messageService: MessageService
   ) { }
-  isLoader:boolean = true;
+  isLoader: boolean = true;
   editName: boolean = true;
   dataForm: RespEnvio = {
     status: 0,
@@ -25,8 +25,8 @@ export class DataEnvioComponent {
     colonia: '',
     referencia: ''
   };
-  dataByCopomex!:RespCopomex;
-
+  dataByCopomex!: RespCopomex;
+  idDisabled: boolean = false;
   public ubicacionForm: FormGroup = new FormGroup({
     estado: new FormControl('', [Validators.required]),
     municipio: new FormControl('', [Validators.required]),
@@ -41,13 +41,13 @@ export class DataEnvioComponent {
       this.profileService.getDataUbicacion(userId).subscribe(res => {
         this.dataForm = res;
         this.ubicacionForm = this.fb.group({
-        estado:[res.estado,[Validators.required]],
-        municipio:[res.municipio,[Validators.required]],
-        cp:[res.cp,[Validators.required,Validators.minLength(5),Validators.maxLength(5)]],
-        colonia:[res.colonia,[Validators.required]],
-        referencia:[res.referencia,[Validators.required]],
+          estado: [res.estado, [Validators.required]],
+          municipio: [res.municipio, [Validators.required]],
+          cp: [res.cp, [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+          colonia: [res.colonia, [Validators.required]],
+          referencia: [res.referencia, [Validators.required, Validators.minLength(10)]],
         });
-        this.profileService.getDataCopomex(res.cp).subscribe(data=>{
+        this.profileService.getDataCopomex(res.cp).subscribe(data => {
           this.dataByCopomex = data;
         });
         setTimeout(() => {
@@ -57,13 +57,13 @@ export class DataEnvioComponent {
     }
 
   }
-  searchDataByCp(){
-    if(this.ubicacionForm.controls['cp'].valid){
-      this.profileService.getDataCopomex(this.ubicacionForm.controls['cp'].value).subscribe(data =>{
+  searchDataByCp() {
+    if (this.ubicacionForm.controls['cp'].valid) {
+      this.profileService.getDataCopomex(this.ubicacionForm.controls['cp'].value).subscribe(data => {
         this.dataByCopomex = data;
-        this.ubicacionForm.patchValue({estado:data.response.estado});
-        this.ubicacionForm.patchValue({municipio:data.response.municipio});
-        this.ubicacionForm.patchValue({colonia:data.response.asentamiento[0]});
+        this.ubicacionForm.patchValue({ estado: data.response.estado });
+        this.ubicacionForm.patchValue({ municipio: data.response.municipio });
+        this.ubicacionForm.patchValue({ colonia: data.response.asentamiento[0] });
       })
     }
   }
@@ -84,8 +84,17 @@ export class DataEnvioComponent {
           });
         break;
       case 3:
+        this.idDisabled = true;
         const userId = localStorage.getItem('token');
-        if (userId !== null){
+        if (this.ubicacionForm.invalid) {
+          this.idDisabled = false;
+          return this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Por favor llene todos los campos'
+          })
+        }
+        if (userId !== null) {
           this.profileService.updateUserUbicacion(userId, this.ubicacionForm.value).subscribe(data => {
             if (data.status === 200) {
               this.messageService.add({
@@ -98,12 +107,13 @@ export class DataEnvioComponent {
                 this.ubicacionForm = this.fb.group({
                   estado: [data.estado, [Validators.required]],
                   municipio: [data.municipio, [Validators.required]],
-                  cp: [data.cp, [Validators.required,Validators.minLength(5),Validators.maxLength(5)]],
+                  cp: [data.cp, [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
                   colonia: [data.colonia, [Validators.required]],
-                  referencia: [data.referencia, [Validators.required]],
+                  referencia: [data.referencia, [Validators.required, Validators.minLength(10)]],
                 });
               })
               this.editName = !this.editName;
+              this.idDisabled = false;
             }
           });
         }

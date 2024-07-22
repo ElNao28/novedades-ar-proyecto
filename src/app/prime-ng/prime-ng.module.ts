@@ -9,7 +9,6 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { MenubarModule } from 'primeng/menubar';
 import { CardModule } from 'primeng/card';
 import { DataViewModule } from 'primeng/dataview';
-import { RatingModule } from 'primeng/rating';
 import { TreeModule } from 'primeng/tree';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { PaginatorModule } from 'primeng/paginator';
@@ -24,6 +23,7 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { GalleriaModule } from 'primeng/galleria';
 import { BadgeModule } from 'primeng/badge';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   declarations: [],

@@ -1,0 +1,9 @@
+<form [formGroup]="codeForm">
+  <div class="flex flex-col gap-1 ">
+      <label class="text-gray-800 font-semibold" for="codigo">Ingresa numero de seguimiento</label>
+      <input formControlName="code" type="text" placeholder="Ejem 124578645676" class="rounded-md w-full">
+      <span class="text-red-600 text-sm capitalize font-normal w-full" *ngIf="codeForm.touched && codeForm.invalid">{{checkValidation('code')}}</span>
+    <button (click)="addCode(idVenta)"
+      class="bg-gray-800 cursor-pointer hover:bg-gray-500 text-white rounded-md border-none px-3 py-2 text-md font-bold">Guardar</button>
+  </div>
+</form>

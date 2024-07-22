@@ -8,23 +8,23 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-size: cover;
     background-position: center;
-    text-align: center; 
+    text-align: center;
     font-family: 'Century Gothic'
 }
 
 
 .error-image {
-    max-width: 25%;
+    max-width: 50%;
     height: auto;
-    margin-right: 30px; 
-    margin-left: auto; 
-    margin-right: auto; 
-    display: block; 
-    
+    margin-right: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
 }
 
 h1 {
-    color: #e74694; 
+    color: #e74694;
     font-size: 33px;
     margin-bottom: 20px;
 }
@@ -34,12 +34,3 @@ p {
     margin-bottom: 20px;
 }
 
-a {
-    color: #9957aa; 
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    text-decoration: underline;
-}

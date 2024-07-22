@@ -24,7 +24,7 @@ export class DataCuentaComponent {
   };
 
   public cuentaForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required,Validators.email]),
     cellphone: new FormControl('', [Validators.required]),
   });
 
@@ -34,8 +34,8 @@ export class DataCuentaComponent {
       this.profileService.getDataCuenta(userId).subscribe(res => {
         this.dataForm = res;
         this.cuentaForm = this.fb.group({
-          email: [{ value: res.email, disabled: true }, [Validators.required, Validators.minLength(3)]],
-          cellphone: [{ value: res.cellphone, disabled: true }, [Validators.required, Validators.minLength(10)]]
+          email: [{ value: res.email, disabled: true }, [Validators.required,Validators.email, Validators.minLength(3)]],
+          cellphone: [{ value: res.cellphone, disabled: true }, [Validators.required, Validators.minLength(10),Validators.maxLength(10)]]
         });
         setTimeout(() => {
           this.isLoader = false;
@@ -64,6 +64,11 @@ export class DataCuentaComponent {
         break;
       case 3:
         const userId = localStorage.getItem('token');
+        if(this.cuentaForm.invalid) return this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No puedes dejar campos vacios o incompletos'
+        })
         if (userId !== null)
           this.profileService.updateUserPersonal(userId, this.cuentaForm.value).subscribe(data => {
             if (data.status === 200) {
@@ -75,12 +80,17 @@ export class DataCuentaComponent {
               this.profileService.getDataCuenta(userId).subscribe(data => {
                 this.dataForm = data;
                 this.cuentaForm = this.fb.group({
-                  email: [{ value: data.email, disabled: true }, [Validators.required, Validators.minLength(3)]],
-                  cellphone: [{ value: data.cellphone, disabled: true }, [Validators.required, Validators.minLength(3)]],
+                  email: [{ value: data.email, disabled: true }, [Validators.required, Validators.email, Validators.minLength(3)]],
+                  cellphone: [{ value: data.cellphone, disabled: true }, [Validators.required, Validators.minLength(3),Validators.maxLength(10)]],
                 });
               })
               this.editName = !this.editName;
             }
+            else if(data.status === 409) return this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'El correo electrónico o numero de telefono ya se encuentra registrado'
+            })
           })
         break;
     }

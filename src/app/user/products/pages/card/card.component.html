@@ -1,29 +1,29 @@
 <app-loader *ngIf="isLoader"></app-loader>
-<div class="container mx-auto my-5" *ngIf="!isLoader">
+<div *ngIf="!isLoader && imgNotCard" class="flex items-center flex-col bg-white rounded-md py-10">
+  <img src="../../../../../assets/img/no_vents.png" alt="no hay compras" class="h-96 rounded-md">
+  <h3 class="text-red-900 text-3xl font-normal">No haz agregado productos aun al carrito</h3>
+  <a routerLink="/productos" class="text-blue-700 cursor-pointer hover:text-blue-900 font-bold text-xl">Pulsa aqui para empezar a comprar</a>
+</div>
+<div class="container mx-auto my-5" *ngIf="!isLoader && !imgNotCard">
   <div class="flex justify-center">
-    <div *ngIf="imgNotCard" class="flex items-center flex-col text-4xl mb-5">
-      <img src="../../../../../assets/img/not_card2.png" alt="notFound" class="rounded-md w-2/4 p-0 m-0">
-      <h3 class="m-0 p-0">Ohhhh! Parece que no tienes productos en tu carrito</h3>
-      <p class="text-blue-500 hover:text-blue-700 cursor-pointer" routerLink="/productos"><span>Pulsa aqui y descubre increibles productos!!!</span></p>
-    </div>
-    <div *ngIf="!imgNotCard" class="bg-white p-5 rounded-lg shadow-lg w-full max-w-3xl">
+    <div *ngIf="!imgNotCard" class="bg-white p-5 rounded-lg shadow-lg w-full max-w-4xl">
       <div class="items-center mb-5">
         <h2 class="text-2xl font-semibold">Resumen de compra</h2>
       </div>
       <div class="space-y-3" *ngIf="!islogin">
-        <div class="flex justify-between ring-1 ring-orange-300 rounded-md py-1 px-3 shadow-lg gap-5"
+        <div class="flex justify-between py-1 px-3 gap-5"
           *ngFor="let item of productsCard.detallesCarrito">
           <img [src]="item.product.imagen[0].url_imagen" [alt]="item.product.nombre_producto" class="h-36 w-32 rounded-md">
           <div class="flex justify-between w-full">
             <div class="">
-              <p>{{item.product.nombre_producto}}</p>
+              <a routerLink="/view/{{item.id}}" class="text-black cursor-pointer">{{item.product.nombre_producto}}</a>
               <p class="text-red-500 cursor-pointer" (click)="deleteProductByCard(item.id)">Eliminar</p>
               <div class="flex items-center gap-2">
-                <input [disabled]="item.cantidad<=1" type="button" class="bg-red-500 border-none px-3 rounded-sm text-lg
+                <input [disabled]="item.cantidad<=1" type="button" class="bg-red-500 text-white border-none px-3 rounded-md text-lg
                         hover:bg-red-600 hover:shadow-lg cursor-pointer" value="-"
                   (click)="changeCantidad('-',item.id)">
                 <p>{{item.cantidad}}</p>
-                <input type="button" class="bg-orange-500 border-none px-3 rounded-sm text-lg hover:bg-orange-600 hover:shadow-lg
+                <input type="button" class="bg-blue-500 text-white border-none px-3 rounded-md text-lg hover:bg-blue-600 hover:shadow-lg
                         cursor-pointer" value="+" [disabled]="item.cantidad === item.product.stock"
                   (click)="changeCantidad('+',item.id)">
               </div>
@@ -36,16 +36,16 @@
             </div>
           </div>
         </div>
-        <hr class="border-1 border-orange-200" />
+        <hr class="border-1" />
         <div class="flex justify-between items-center text-lg font-semibold">
           <p>Total:</p>
           <p>${{total}}</p>
         </div>
         <div class="flex justify-between">
-          <button class="bg-blue-500 text-white py-2 px-4 rounded border-none cursor-pointer"
+          <button class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded border-none cursor-pointer"
             routerLink="/productos">Seguir comprando</button>
-          <button class="bg-orange-500 text-white py-2 px-4 rounded border-none cursor-pointer"
-            (click)="comprarCard()">Proceder al pago</button>
+          <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded border-none cursor-pointer"
+            (click)="comprarCard()" [disabled]="btnDisabled">Proceder al pago</button>
         </div>
       </div>
       <div class="space-y-3" *ngIf="islogin">
@@ -54,3 +54,4 @@
     </div>
   </div>
 </div>
+<p-toast></p-toast>
