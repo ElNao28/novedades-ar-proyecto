@@ -148,6 +148,7 @@ export class CrearCuentaComponent {
       }
       try {
        this.loginService.createUser(formData).subscribe(data =>{
+        console.log(data)
          if(data.status === 409){
            this.messageService.add({
              severity: 'error',
