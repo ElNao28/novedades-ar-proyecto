@@ -13,13 +13,13 @@ export class MLoginService {
   constructor(private http: HttpClient) { }
 
   tokenApiCopomex: string = "pruebas";//pruebas 313f4530-9ec9-43d8-89c8-a55d9b43ca76
-  //private urlApi:string = 'http://localhost:3000';
-  private urlApi:string = 'https://back-novedadesar-production.up.railway.app';
+  private urlApi:string = 'http://localhost:3000/';
+  //private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
   validUser(data: ValidUser) {
-    return this.http.post<ResponseLogin>(this.urlApi + '/login', data);
+    return this.http.post<ResponseLogin>(this.urlApi + 'login', data);
   }
   createUser(user: any) {
-    return this.http.post<ResponseCreateUser>(this.urlApi + '/users', user);
+    return this.http.post<ResponseCreateUser>(this.urlApi + 'users', user);
   }
   getEstado() {
     return this.http.get<EstadoData>("https://api.copomex.com/query/get_estados?token=" + this.tokenApiCopomex + "")
@@ -35,16 +35,16 @@ export class MLoginService {
   }
 
   getUser(email: string): Observable<User> {
-    return this.http.get<User>(this.urlApi + '/users/' + email);
+    return this.http.get<User>(this.urlApi + 'users/' + email);
   }
   verifEmail(email: CheckEmail) {
-    return this.http.post<RecoverPassword>(this.urlApi + '/check-email', email);
+    return this.http.post<RecoverPassword>(this.urlApi + 'check-email', email);
   }
   sendCodePassword(email: Email) {
-    return this.http.post<ResponseEmail>(this.urlApi + '/email', email);
+    return this.http.post<ResponseEmail>(this.urlApi + 'email', email);
   }
   updatePassword(email: string, password: PasswordSend) {
-    return this.http.patch<ResponseCreateUser>(this.urlApi + '/users/password/' + email, password)
+    return this.http.patch<ResponseCreateUser>(this.urlApi + 'users/password/' + email, password)
   }
 
   checkLogin(): boolean {
@@ -53,15 +53,15 @@ export class MLoginService {
     return false
   }
   checkUbicacion(id: string) {
-    return this.http.get<{ message: string, status: number }>(this.urlApi + '/users/isubicacion/' + id)
+    return this.http.get<{ message: string, status: number }>(this.urlApi + 'users/isubicacion/' + id)
   }
 
   getQuestion(email: string) {
-    return this.http.get<RecoverPasswordByQuestion>(this.urlApi + '/recover-password/' + email)
+    return this.http.get<RecoverPasswordByQuestion>(this.urlApi + 'recover-password/' + email)
   }
 
   patito(sendData: SendAnser) {
-    return this.http.post<RecoverPasswordByQuestion>(this.urlApi + '/recover-password/answer', sendData)
+    return this.http.post<RecoverPasswordByQuestion>(this.urlApi + 'recover-password/answer', sendData)
   }
   getIp() {
     return this.http.get<{ ip: string }>("https://api.ipify.org/?format=json")
