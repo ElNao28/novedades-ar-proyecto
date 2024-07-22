@@ -112,8 +112,7 @@ export class ProductsComponent implements OnInit {
     }
     this.productService.getProductsByFilter(dataSend).subscribe(data => {
       this.products = [];
-      this.products = data
-      console.log(this.products)
+      this.products = data;
     })
   }
 }

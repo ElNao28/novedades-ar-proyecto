@@ -11,7 +11,7 @@
 
   <div class="mx-auto">
 
-    <div class="flex flex-col md:flex-row md:justify-between gap-3">
+    <div class="flex flex-col md:flex-row gap-3">
       <div class="bg-white w-1/5 rounded-md py-2 px-5">
         <p class="text-xl font-bold">Filtrar por:</p>
         <form class="" [formGroup]="formFilter">
@@ -84,7 +84,7 @@
         </form>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-4/5">
+      <div *ngIf="products.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-4/5">
         <div *ngFor="let item of products" class="bg-white p-5 rounded-lg shadow-md">
           <img [src]="item.imagen[0].url_imagen" [alt]="item.nombre_producto" class="w-full h-72 object-cover mb-3">
           <app-rating-products [rating]="item.rating"></app-rating-products>
@@ -95,6 +95,12 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="!isLoader && products.length <= 0" class="flex items-center flex-col bg-white rounded-md py-10 w-4/5">
+        <img src="../../../../../assets/img/no_vents.png" alt="no hay compras" class="h-96 rounded-md">
+        <h3 class="text-red-900 text-3xl font-normal">No hay productos que mostrar</h3>
+      </div>
+
     </div>
 
 

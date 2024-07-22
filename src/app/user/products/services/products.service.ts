@@ -8,6 +8,7 @@ import { ResponseAddCard } from '../interfaces/ResponseCard.interface';
 import { Domicilio } from '../interfaces/Domicilio.interface';
 import { DataInicio } from '../interfaces/DataInicio.interface';
 import { MessageService } from 'primeng/api';
+import { ResponseProduct } from '../interfaces/ProductsOne.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,9 @@ export class ProductsService {
   }
   getProductById(id:string) {
     return this.http.get<Products>(`${this.urlApi}products/`+id);
+  }
+  getProductByIdOne(id:string) {
+    return this.http.get<ResponseProduct>(`${this.urlApi}products/one/`+id);
   }
   searchAutocomplete(query:string){
     return this.http.get<Products[]>(`${this.urlApi}products?q=${{query}}`);

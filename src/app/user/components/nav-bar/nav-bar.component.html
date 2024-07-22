@@ -1,0 +1,79 @@
+<nav class="bg-white px-2 md:px-20 md:gap-5 w-full fixed top-0 shadow-lg">
+  <ul class="flex items-center justify-center gap-5 font-bold text-md">
+    <li class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600">
+      <i class="pi pi-home"></i>
+      <a routerLink="/inicio" class="text-gray-900 hover:text-gray-600">Inicio</a>
+    </li>
+    <li class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600">
+      <i class="pi pi-tags"></i>
+      <a routerLink="/productos" class="text-gray-900 hover:text-gray-600">Productos</a>
+    </li>
+    <li (click)="touchFemale =! touchFemale" class="flex items-center gap-1">
+      <img src="../../../../assets/img/mujer.png" alt="icon-male" class="w-5">
+      <a class="text-gray-900 cursor-pointer hover:text-gray-600">Dama</a>
+      <div *ngIf="touchFemale" class="bg-white absolute px-4 py-2 top-16 rounded-md text-gray-900"
+        (mouseleave)="touchFemale =! touchFemale">
+        <p routerLink="/productos/gender/M/category/Blusa" class="cursor-pointer hover:text-gray-700">Blusas</p>
+        <p routerLink="/productos/gender/M/category/Falda" class="cursor-pointer hover:text-gray-700">Faldas</p>
+        <p routerLink="/productos/gender/M/category/Vestido" class="cursor-pointer hover:text-gray-700">Vestidos</p>
+        <p routerLink="/productos/gender/M/category/Pantalon" class="cursor-pointer hover:text-gray-700">Pantalones</p>
+        <p routerLink="/productos/gender/M/category/Playera" class="cursor-pointer hover:text-gray-700">Playeras</p>
+        <p routerLink="/productos/gender/M/category/Jean" class="cursor-pointer hover:text-gray-700">Jeans</p>
+        <p routerLink="/productos/gender/M/category/Short" class="cursor-pointer hover:text-gray-700">Shorts</p>
+        <p routerLink="/productos/gender/M/category/Sudadera" class="cursor-pointer hover:text-gray-700">Sudaderas</p>
+        <p routerLink="/productos/gender/M/category/Camisa" class="cursor-pointer hover:text-gray-700">Camisas</p>
+        <p routerLink="/productos/gender/M/category/Polo" class="cursor-pointer hover:text-gray-700">Polos</p>
+        <p routerLink="/productos/gender/M/category/Sueter" class="cursor-pointer hover:text-gray-700">Sueteres</p>
+      </div>
+    </li>
+    <li (click)="touchMale =! touchMale" class="flex items-center gap-1">
+      <img src="../../../../assets/img/hombre.png" alt="icon-male" class="w-5">
+      <a class="text-gray-900 cursor-pointer hover:text-gray-600">Caballero</a>
+      <div *ngIf="touchMale" class="bg-white absolute px-4 py-2 top-16 rounded-md text-gray-900"
+        (mouseleave)="touchMale =! touchMale">
+        <p routerLink="/productos/gender/H/category/Pantalon" class="cursor-pointer hover:text-gray-700">Pantalones</p>
+        <p routerLink="/productos/gender/H/category/Playera" class="cursor-pointer hover:text-gray-700">Playeras</p>
+        <p routerLink="/productos/gender/H/category/Jean" class="cursor-pointer hover:text-gray-700">Jeans</p>
+        <p routerLink="/productos/gender/H/category/Short" class="cursor-pointer hover:text-gray-700">Shorts</p>
+        <p routerLink="/productos/gender/H/category/Sudadera" class="cursor-pointer hover:text-gray-700">Sudaderas</p>
+        <p routerLink="/productos/gender/H/category/Camisa" class="cursor-pointer hover:text-gray-700">Camisas</p>
+        <p routerLink="/productos/gender/H/category/Polo" class="cursor-pointer hover:text-gray-700">Polos</p>
+        <p routerLink="/productos/gender/H/category/Sueter" class="cursor-pointer hover:text-gray-700">Sueteres</p>
+      </div>
+    </li>
+    <li class="flex items-center gap-1 mx-5 cursor-pointer">
+      <a routerLink="/inicio" class="text-gray-900 cursor-pointer hover:text-gray-600">
+        <img src="../../../../assets/img/logo2.png" alt="Novedades AR" class="w-40 rounded">
+      </a>
+    </li>
+    <li routerLink="{{routerUser}}" class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600">
+      <i class="pi pi-user"></i>
+      <a class="text-gray-900 hover:text-gray-600">Usuario</a>
+    </li>
+    <li class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600">
+      <i class="pi pi-shopping-bag"></i>
+      <a routerLink="/profile/mis-compras" class="text-gray-900 cursor-pointer hover:text-gray-600">Compras</a>
+    </li>
+    <li routerLink="/carrito" class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600">
+      <i class="pi pi-shopping-cart text-lg" pBadge [severity]="'info'" [value]="numCard.toString()"></i>
+    </li>
+    <li routerLink="/login" *ngIf="isLogin()" class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600">
+      <i class="pi pi-sign-in"></i>
+      <a class="text-gray-900 hover:text-gray-600">Ingresar</a>
+    </li>
+    <li *ngIf="!isLogin()" (click)="showConfirm()" class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600">
+      <i class="pi pi-sign-out"></i>
+      <a class="text-gray-900 hover:text-gray-600">Salir</a>
+    </li>
+  </ul>
+</nav>
+<br>
+<p-toast position="top-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+    <div class="flex flex-col items-start" style="flex: 1">
+      <div class="font-medium my-3 text-md">{{ message.summary }}</div>
+      <button class="bg-red-400 border-none hover:bg-red-500 h-8" pButton label="Confirmar"
+        (click)="closeSesion()"></button>
+    </div>
+  </ng-template>
+</p-toast>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { ResVentas, ResVentasDetallesVenta } from '../../interfaces/ResProfile.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mis-compras',
@@ -10,7 +10,11 @@ import { MessageService } from 'primeng/api';
   styleUrl: './mis-compras.component.css'
 })
 export class MisComprasComponent implements OnInit {
-  constructor(private profileService: ProfileService,private messageService:MessageService) { }
+  constructor(
+    private profileService: ProfileService,
+    private messageService:MessageService,
+    private router: Router,
+  ) { }
   isLoader: boolean = true;
   filterVenta: ResVentasDetallesVenta[] = [];
   dataBackup: ResVentasDetallesVenta[] = [];
@@ -26,6 +30,8 @@ export class MisComprasComponent implements OnInit {
           this.isLoader = false;
         }, 500);
       });
+    else
+      this.router.navigate(['/login']);
   }
 
   filterData() {

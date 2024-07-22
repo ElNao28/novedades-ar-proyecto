@@ -13,8 +13,13 @@
         </select>
       </div>
     </div>
-
     <div *ngIf="dataBackup.length > 0">
+      <div *ngIf="filterVenta.length <= 0">
+        <div class="flex items-center flex-col bg-white rounded-md py-10">
+          <img src="../../../../../assets/img/no_vents.png" alt="no hay compras" class="h-96 rounded-md">
+          <h3 class="text-red-900 text-3xl font-normal">No hay compras que mostrar</h3>
+        </div>
+      </div>
       <div class="bg-white rounded-md mb-5" *ngFor="let item of filterVenta">
         <div *ngIf="item.estado !== 'PConfirmar'" class="pt-1 pb-2">
           <div class="flex items-center justify-between px-5">
@@ -48,7 +53,6 @@
           </div>
         </div>
       </div>
-
 
       <div *ngIf="dataBackup.length <= 0" class="flex items-center flex-col bg-white rounded-md py-10">
         <img src="../../../../../assets/img/card_sad.jpg" alt="no hay compras" class="h-96 rounded-md">

@@ -1,3 +1,4 @@
+import { profileGuardGuardActivate, profileGuardGuardMatch } from './../guards/profile-guard.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ViewProfileComponent } from './pages/view-profile/view-profile.component';
@@ -10,32 +11,44 @@ import { ComentariosComponent } from './pages/comentarios/comentarios.component'
 
 const routes: Routes = [
   {
+    path:'profile/mis-compras',
+    component:MisComprasComponent,
+  },
+  {
     path:'profile/:id',
     component:ViewProfileComponent,
+    canActivate: [profileGuardGuardActivate],
+    canMatch:[profileGuardGuardMatch]
   },
   {
     path:'profile/:id/personal',
-    component:DataPersonalComponent
+    component:DataPersonalComponent,
+    canActivate: [profileGuardGuardActivate],
+    canMatch:[profileGuardGuardMatch]
   },
   {
     path:'profile/:id/cuenta',
-    component:DataCuentaComponent
+    component:DataCuentaComponent,
+    canActivate: [profileGuardGuardActivate],
+    canMatch:[profileGuardGuardMatch]
   },
   {
     path:'profile/:id/seguridad',
-    component:DataSeguridadComponent
+    component:DataSeguridadComponent,
+    canActivate: [profileGuardGuardActivate],
+    canMatch:[profileGuardGuardMatch]
   },
   {
     path:'profile/:id/ubicacion',
-    component:DataEnvioComponent
-  },
-  {
-    path:'profile/:id/mis-compras',
-    component:MisComprasComponent
+    component:DataEnvioComponent,
+    canActivate: [profileGuardGuardActivate],
+    canMatch:[profileGuardGuardMatch]
   },
   {
     path:'profile/:id/opiniones',
-    component:ComentariosComponent
+    component:ComentariosComponent,
+    canActivate: [profileGuardGuardActivate],
+    canMatch:[profileGuardGuardMatch]
   }
 ];
 

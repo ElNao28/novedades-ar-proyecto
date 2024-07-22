@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
-import { Products } from '../../interfaces/products.interface';
-import { SendDataCard } from '../../interfaces/SendDataCard.interface';
-import { CompraProducto } from '../../interfaces/CompraProduct.iinterface';
 import { MessageService } from 'primeng/api';
 import { MLoginService } from '../../../modulo-login/services/m-login.service';
-import { of } from 'rxjs';
+import { Data } from '../../interfaces/ProductsOne.interface';
 
 @Component({
   selector: 'app-view-product',
@@ -22,8 +19,8 @@ export class ViewProductComponent implements OnInit {
     private loginService: MLoginService
   ) { }
   id!: string;
-  rating:number = 0;
-  product: Products = {
+  rating: number = 0;
+  product: Data = {
     id: 0,
     nombre_producto: "",
     precio: 0,
@@ -42,13 +39,17 @@ export class ViewProductComponent implements OnInit {
   imagenCarrucel: string = "";
   ngOnInit(): void {
     this.id = this.routerLink.snapshot.paramMap.get('id')!;
-    this.productsService.getProductById(this.id).subscribe(data => {
-      this.product = data
-      this.rating = data.rating;
+    this.productsService.getProductByIdOne(this.id).subscribe(data => {
+      if (data.status === 404) {
+        this.router.navigate(['/404']);
+        return
+      }
+      this.product = data.data
+      this.rating = 5;
       setTimeout(() => {
         this.isLoader = false;
       }, 500);
-      this.imagenCarrucel = data.imagen[0].url_imagen;
+      this.imagenCarrucel = data.data.imagen[0].url_imagen;
     });
   }
   addProductToCard() {
@@ -56,6 +57,15 @@ export class ViewProductComponent implements OnInit {
   }
 
   async comprarProduct() {
+    if (this.loginService.checkLogin()) {
+      return this.messageService.add(
+        {
+          severity: 'warn',
+          detail: 'Debes iniciar sesion para poder comprar el producto'
+        }
+      )
+    }
+    console.log('comprar')
     let id = localStorage.getItem('token');
     if (id !== null) {
       this.loginService.checkUbicacion(id).subscribe(resp => {
@@ -65,14 +75,7 @@ export class ViewProductComponent implements OnInit {
             detail: 'Debes agregar tus datos de envio para poder comprar'
           })
         }
-        if (this.loginService.checkLogin()) {
-          return this.messageService.add(
-            {
-              severity: 'warn',
-              detail: 'Debes iniciar sesion para poder comprar el producto'
-            }
-          )
-        }
+
         this.router.navigate(['compra/', this.id]);
         localStorage.setItem('product', this.id);
         localStorage.setItem('cantidad', this.cantidad.toString());
@@ -93,15 +96,14 @@ export class ViewProductComponent implements OnInit {
   }
 
   changeImgCarrucel(id: number) {
-    for (let i = 0; i < this.product.imagen.length; i++) {
+    for (let i = 0; i < this.imagenCarrucel.length; i++) {
       if (id === this.product.imagen[i].id) {
         this.imagenCarrucel = this.product.imagen[i].url_imagen;
       }
     }
-
   }
-  calDes(precio:number,descuento:number){
-    let dato = precio - (precio * descuento/100);
+  calDes(precio: number, descuento: number) {
+    let dato = precio - (precio * descuento / 100);
     return Math.floor(dato);
   }
 }

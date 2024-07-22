@@ -1,4 +1,5 @@
-<nav class="bg-white flex flex-col py-3 px-2 md:px-24 md:gap-4 w-full fixed top-0 shadow-lg">
+<app-nav-bar></app-nav-bar>
+<!-- <nav class="bg-white flex flex-col py-3 px-2 md:px-24 md:gap-4 w-full fixed top-0 shadow-lg">
   <div class="flex flex-col md:flex-row content-center items-center md:gap-4 w-full">
     <img class="w-32 rounded" src="../../../../assets/img/logo2.png" alt="Novedades AR">
     <div class="w-full">
@@ -54,12 +55,11 @@
           </li>
         </ul>
       </div>
-
     </div>
     <ul class="flex gap-5 text-black">
       <li routerLink="productos" class="cursor-pointer flex items-center gap-1 hover:text-gray-500"><span
           class="pi pi-tags"></span>Productos</li>
-      <li routerLink="profile/1/mis-compras" class="cursor-pointer flex items-center gap-1 hover:text-gray-500"><span
+      <li routerLink="/profile/mis-compras" class="cursor-pointer flex items-center gap-1 hover:text-gray-500"><span
           class="pi pi-shopping-bag"></span>Compras</li>
       <li routerLink="login" *ngIf="isLogin()" class="cursor-pointer flex items-center gap-1 hover:text-gray-500">
         <span class="pi pi-sign-in"></span>
@@ -74,18 +74,10 @@
     </ul>
   </div>
 
-</nav>
+</nav> -->
 <br><br> <br> <br>
 
-<p-toast position="top-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
-  <ng-template let-message pTemplate="message">
-    <div class="flex flex-col items-start" style="flex: 1">
-      <div class="font-medium my-3 text-md">{{ message.summary }}</div>
-      <button class="bg-red-400 border-none hover:bg-red-500 h-8" pButton label="Confirmar"
-        (click)="closeSesion()"></button>
-    </div>
-  </ng-template>
-</p-toast>
+
 <router-outlet></router-outlet>
 <footer class="bg-gray-800 text-white p-5">
   <div class="container mx-auto">
