@@ -27,7 +27,7 @@ export class VentasPendientesComponent implements OnInit {
       acceptLabel: 'Si',
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
-        const fecha = new Date().toISOString();
+        const fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
         this.adminService.ventaComplete(idEnvio, fecha, idVenta).subscribe(data => {
           if (data.status === 200) {
             this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'La venta ha sido completada' });

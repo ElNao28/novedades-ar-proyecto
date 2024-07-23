@@ -10,8 +10,8 @@ import { GetComentarios } from '../interfaces/GetComentarios.interface';
 export class ProfileService {
 
   constructor(private http: HttpClient) { }
-  //private urlApi:string = 'http://localhost:3000/';
-  private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
+  private urlApi:string = 'http://localhost:3000/';
+  //private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
 
   getProfile(id: string) {
     return this.http.get<RespProfile>(`${this.urlApi}users/profile/` + id);

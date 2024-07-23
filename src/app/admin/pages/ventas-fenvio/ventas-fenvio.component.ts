@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../services/admin-service.service';
 import { VentasFenvi } from '../../interfaces/GetVentasFenvio.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-ventas-fenvio',
