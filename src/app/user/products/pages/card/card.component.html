@@ -16,7 +16,7 @@
           <img [src]="item.product.imagen[0].url_imagen" [alt]="item.product.nombre_producto" class="h-36 w-32 rounded-md">
           <div class="flex justify-between w-full">
             <div class="">
-              <a routerLink="/view/{{item.id}}" class="text-black cursor-pointer">{{item.product.nombre_producto}}</a>
+              <a routerLink="/view/{{item.product.id}}" class="text-black cursor-pointer">{{item.product.nombre_producto}}</a>
               <p class="text-red-500 cursor-pointer" (click)="deleteProductByCard(item.id)">Eliminar</p>
               <div class="flex items-center gap-2">
                 <input [disabled]="item.cantidad<=1" type="button" class="bg-red-500 text-white border-none px-3 rounded-md text-lg
