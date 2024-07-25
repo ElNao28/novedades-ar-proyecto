@@ -115,4 +115,7 @@ export class ProductsComponent implements OnInit {
       this.products = data;
     })
   }
+  addProductToCard(id:number){
+    this.productService.addProductToCardSer(id.toString());
+  }
 }
