@@ -55,4 +55,7 @@ export class ProfileService {
   getComentarios(id: string) {
     return this.http.get<GetComentarios>(`${this.urlApi}ventas/get-comentarios/${id}`)
   }
+  canceledVenta(id:number){
+    return this.http.post<ResponseBack>(`${this.urlApi}ventas/canceled`, { id })
+  }
 }

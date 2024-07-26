@@ -56,4 +56,22 @@ export class MisComprasComponent implements OnInit {
         detail: 'Gracias por calificar'})
     }
   }
+  canceledVenta(id:number){
+    this.profileService.canceledVenta(id).subscribe(data =>{
+      console.log(data)
+      if(data.status === 200){
+        this.messageService.add({
+          severity:'success',
+          summary: 'Cancelación',
+          detail: 'La venta fue cancelada correctamente'})
+        this.filterData();
+      }else{
+        this.messageService.add({
+          severity:'error',
+          summary: 'Cancelación',
+          detail: 'Hubo un error al cancelar la venta'})
+      }
+    })
+    window.location.reload();
+  }
 }
