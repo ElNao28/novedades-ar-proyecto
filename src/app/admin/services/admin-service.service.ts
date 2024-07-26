@@ -8,6 +8,7 @@ import { ResponseBack, ResponseBackLogin } from '../interfaces/ResponseBack.inte
 import { Promociones } from '../interfaces/GetPromociones.interface';
 import { DetallesVenta, VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
 import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
+import { ResponseBackData } from '../interfaces/DataSet.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
 export class AdminService {
 
   constructor(private http:HttpClient) { }
-  //private urlApi:string = 'http://localhost:3000/';
-  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
+  private urlApi:string = 'http://localhost:3000/';
+  //private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
 
   addProduct(newProduct:any){
     return this.http.post<ResponseCreateUser>(`${this.urlApi}products`,newProduct)
@@ -54,5 +55,14 @@ export class AdminService {
   }
   loginAdmin(data:{email:string,password:string}){
     return this.http.post<ResponseBackLogin>(`${this.urlApi}admin/login`,data)
+  }
+  getUsers(){
+    return this.http.get<{idUsers:number[]}>(`https://m3-proyect.onrender.com/predict`)
+  }
+  getUserData(ids:number[]){
+    return this.http.post<ResponseBackData>(`${this.urlApi}users/dataSet`,{ids})
+  }
+  sendEmails(ids:number[]){
+    return this.http.post<ResponseBack>(`${this.urlApi}email/promociones`,{ids})
   }
 }
