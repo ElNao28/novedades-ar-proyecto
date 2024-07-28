@@ -23,6 +23,7 @@ export class NavBarComponent implements OnInit {
   visible: boolean = false;
   routerUser: string = "login";
   numCard: number = 0;
+  isOpen:boolean = false;
 
   ngOnInit(): void {
     const userId = localStorage.getItem('token');
@@ -33,7 +34,9 @@ export class NavBarComponent implements OnInit {
       })
     }
   }
-
+  isClass(){
+    this.isOpen =! this.isOpen
+  }
   closeSesion() {
     this.onConfirm()
     localStorage.removeItem('token');

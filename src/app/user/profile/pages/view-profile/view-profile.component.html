@@ -1,16 +1,12 @@
 <app-loader *ngIf="isLoader"></app-loader>
-<div class="flex gap-40" *ngIf="!isLoader">
-  <div class="bg-white w-1/5 rounded-md shadow-md">
+<div class="flex flex-col md:flex-row gap-5 md:gap-10 px-5 md:pr-5 md:pl-0" *ngIf="!isLoader">
+  <div class="bg-white lg:w-1/5 rounded-md shadow-md">
     <h2 class="text-center">Mi cuenta</h2>
-    <div class="pl-2">
+    <div class="px-5 md:px-2">
       <div routerLink="/profile/mis-compras" class="flex items-center gap-3 hover:opacity-80 cursor-pointer">
         <i class="pi pi-shopping-bag text-xl text-blue-700"></i>
         <p>Mis compras</p>
       </div>
-      <!-- <div class="flex items-center gap-3 hover:opacity-80 cursor-pointer">
-        <i class="pi pi-heart-fill text-xl text-blue-700"></i>
-        <p>Favoritos</p>
-      </div> -->
       <div routerLink="/profile/{{idUser}}/opiniones" class="flex items-center gap-3 hover:opacity-80 cursor-pointer">
         <i class="pi pi-comment text-xl text-blue-700"></i>
         <p>Opiniones</p>
@@ -21,12 +17,12 @@
       </div>
     </div>
   </div>
-  <div class="bg-white w-3/5 mt-5 rounded-md px-8 py-4 shadow-md mb-5">
+  <div class="bg-white md:w-4/5 mt-2 rounded-md px-8 py-4 shadow-md mb-5">
     <div class="flex gap-4 items-center">
-      <img src="../.././../../../assets/img/user-icon.png" alt="perfil" class="h-20 cursor-pointer">
+      <img src="../.././../../../assets/img/user-icon.png" alt="perfil" class="h-16 cursor-pointer">
       <div>
-        <p class="text-xl p-0 m-0">{{name.toUpperCase()}}</p>
-        <p class="p-0 m-0">{{email}}</p>
+        <p class="text-md p-0 m-0 capitalize">{{name}}</p>
+        <p class="p-0 m-0 text-md">{{email}}</p>
       </div>
     </div>
     <hr class="opacity-50 mb-8">

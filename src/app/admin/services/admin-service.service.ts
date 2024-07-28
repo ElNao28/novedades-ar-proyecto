@@ -16,8 +16,8 @@ import { ResponseBackData } from '../interfaces/DataSet.interface';
 export class AdminService {
 
   constructor(private http:HttpClient) { }
-  private urlApi:string = 'http://localhost:3000/';
-  //private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
+  //private urlApi:string = 'http://localhost:3000/';
+  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
 
   addProduct(newProduct:any){
     return this.http.post<ResponseCreateUser>(`${this.urlApi}products`,newProduct)

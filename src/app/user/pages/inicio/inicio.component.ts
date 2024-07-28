@@ -26,15 +26,20 @@ export class InicioComponent implements OnInit{
   ];
 
   ngOnInit(): void {
-    this.productsService.getProductsNovedades().subscribe(data => {
-      this.novedades = data.novedades;
-      this.descuento = data.descuento;
-      this.dama = data.dama;
-      this.caballero = data.caballero;
-      setTimeout(() => {
-        this.isLoader = false;
-      }, 500);
-    })
+    this.productsService.getProductsNovedades().subscribe(
+      data => {
+        this.novedades = data.novedades;
+        this.descuento = data.descuento;
+        this.dama = data.dama;
+        this.caballero = data.caballero;
+        setTimeout(() => {
+          this.isLoader = false;
+        }, 500);
+      },
+      error => {
+        console.log('Error de conexión');
+      }
+    );
   }
 
   addCardProduct(idCard:number){

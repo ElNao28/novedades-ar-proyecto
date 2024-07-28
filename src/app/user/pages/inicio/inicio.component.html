@@ -19,7 +19,7 @@
             <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
           </div>
           <div>
-            <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-lg">{{ product.nombre_producto }}</h4>
+            <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{ product.nombre_producto }}</h4>
             <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
             <div class="mt-5 flex items-center justify-center gap-2">
               <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
@@ -41,7 +41,7 @@
               <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
-              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-lg">{{ product.nombre_producto }}</h4>
+              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{ product.nombre_producto }}</h4>
               <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
               <div class="mt-5 flex items-center justify-center gap-2">
                 <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
@@ -64,7 +64,7 @@
               <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
-              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-lg">{{ product.nombre_producto }}</h4>
+              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{ product.nombre_producto }}</h4>
               <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
               <div class="mt-5 flex items-center justify-center gap-2">
                 <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
@@ -87,7 +87,7 @@
               <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
-              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-lg">{{ product.nombre_producto }}</h4>
+              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{ product.nombre_producto }}</h4>
               <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
               <div class="mt-5 flex items-center justify-center gap-2">
                 <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
