@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
-import { ResVentas, ResVentasDetallesVenta } from '../../interfaces/ResProfile.interface';
+import { ResVentasDetallesVenta } from '../../interfaces/ResProfile.interface';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 
@@ -24,8 +24,12 @@ export class MisComprasComponent implements OnInit {
     const idUser = localStorage.getItem('token');
     if (idUser !== null)
       this.profileService.getVentas(parseInt(idUser)).subscribe(data => {
-        this.dataBackup = data.detallesVenta;
-        this.filterVenta = data.detallesVenta;
+        for(let i = 0; i < data.detallesVenta.length; i++){
+          if(data.detallesVenta[i].estado !== 'PConfirmar'){
+            this.dataBackup = data.detallesVenta;
+            this.filterVenta = data.detallesVenta;
+          }
+        }
         setTimeout(() => {
           this.isLoader = false;
         }, 500);
