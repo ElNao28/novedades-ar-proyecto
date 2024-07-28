@@ -104,7 +104,6 @@ export class ScreenCompraComponent implements OnInit {
   calDes(precio:number,descuento:number){
     let total:number = precio * this.cantidad;
     let desc = (precio * descuento/100) * this.cantidad;
-    console.log(desc);
     return Math.floor(total-desc);
   }
   calDesByBack(precio:number,descuento:number){

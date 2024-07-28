@@ -16,7 +16,7 @@
     <div class="ring-1 md:w-full mx-5 md:mr-5 px-5 rounded-md ring-gray-200 py-2">
       <h1 class="text-2xl font-bold capitalize">{{ product.nombre_producto }}</h1>
       <p-rating [(ngModel)]="product.rating" [cancel]="false" [disabled]="true"></p-rating>
-      <p class="font-semibold text-xl">Precio: ${{ product.precio }}.00 <i class="line-through font-normal">${{product.precio}}.00</i></p>
+      <p class="font-semibold text-xl">Precio: ${{ calDes(product.precio, product.descuento) }}.00 <i class="line-through font-normal">${{product.precio}}.00</i></p>
       <p class="text-lg" *ngIf="product.descuento > 0">Descuento de: {{product.descuento}}%</p>
       <p class="text-green-500 text-lg">Envios a toda la republica mexicana</p>
       <p class="text-lg">Stock disponible: {{product.stock}}</p>
@@ -26,10 +26,10 @@
         <span class="text-lg">{{cantidad}}</span>
         <button [disabled]="cantidad >= product.stock" (click)="changeCantidad('+')" class="bg-green-500 hover:bg-green-600 cursor-pointer rounded-md border-none text-white  text-lg px-3">+</button>
       </div>
-      <div class="mt-2 flex gap-2 items-center">
-        <button (click)="comprarProduct()" class="bg-purple-500 hover:bg-purple-600 cursor-pointer rounded-md border-none text-white lg:text-lg py-2 font-semibold px-3">
+      <div class="mt-5 flex gap-2 items-center">
+        <button (click)="comprarProduct()" class="bg-purple-500 hover:bg-purple-600 cursor-pointer rounded-md border-none text-white lg:text-lg py-2 font-semibold px-3 flex items-center gap-1">
           <i class="pi pi-credit-card"></i> Comprar</button>
-        <button (click)="addProductToCard()" class="bg-cyan-700 hover:bg-cyan-600 cursor-pointer rounded-md border-none text-white lg:text-lg py-2 font-semibold px-3">
+        <button (click)="addProductToCard()" class="bg-cyan-700 hover:bg-cyan-600 cursor-pointer rounded-md border-none text-white lg:text-lg py-2 font-semibold px-3 flex items-center gap-1">
           <i class="pi pi-cart-plus"></i>Agregar al carrito</button>
       </div>
     </div>
