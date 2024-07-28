@@ -55,6 +55,12 @@ export class ProductsComponent implements OnInit {
     this.productService.getProductByPage(this.page).subscribe(data => {
       this.products = data.data[0];
       this.limit = data.data[1];
+      window.scroll(
+        {
+          top: 0,
+          behavior:'instant'
+        }
+      )
     })
   }
   // Función para ordenar los productos según el precio
