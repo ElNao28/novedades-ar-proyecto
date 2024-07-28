@@ -16,7 +16,7 @@
           <img [src]="item.product.imagen[0].url_imagen" [alt]="item.product.nombre_producto" class="h-36 w-32 rounded-md">
           <div class="flex justify-between w-full">
             <div class="">
-              <a routerLink="/view/{{item.product.id}}" class="text-black cursor-pointer">{{item.product.nombre_producto}}</a>
+              <a routerLink="/view/{{item.product.id}}" class="font-bold text-black text-sm cursor-pointer">{{item.product.nombre_producto}}</a>
               <p class="text-red-500 cursor-pointer" (click)="deleteProductByCard(item.id)">Eliminar</p>
               <div class="flex items-center gap-2">
                 <input [disabled]="item.cantidad<=1" type="button" class="bg-red-500 text-white border-none px-3 rounded-md text-lg
@@ -28,9 +28,9 @@
                   (click)="changeCantidad('+',item.id)">
               </div>
             </div>
-            <div class="text-center">
+            <div class="text-sm">
               <p>Precio: ${{item.product.precio}}</p>
-              <p>Descuento: {{item.product.descuento}} %</p>
+              <p>Descuento: {{item.product.descuento}}%</p>
               <p>stock: {{item.product.stock}}</p>
             </div>
           </div>
@@ -41,9 +41,9 @@
           <p>${{total}}</p>
         </div>
         <div class="flex justify-between">
-          <button class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded border-none cursor-pointer"
+          <button [disabled]="desactiveBtn" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded border-none cursor-pointer"
             routerLink="/productos">Seguir comprando</button>
-          <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded border-none cursor-pointer"
+          <button [disabled]="desactiveBtn" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded border-none cursor-pointer"
             (click)="comprarCard()" [disabled]="btnDisabled">Proceder al pago</button>
         </div>
       </div>
@@ -54,3 +54,4 @@
   </div>
 </div>
 <p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>

@@ -47,9 +47,11 @@ export class DataEnvioComponent {
           colonia: [res.colonia, [Validators.required]],
           referencia: [res.referencia, [Validators.required, Validators.minLength(10)]],
         });
-        this.profileService.getDataCopomex(res.cp).subscribe(data => {
-          this.dataByCopomex = data;
-        });
+        if (res.cp !== 0) {
+          this.profileService.getDataCopomex(res.cp).subscribe(data => {
+            this.dataByCopomex = data;
+          });
+        }
         setTimeout(() => {
           this.isLoader = false;
         }, 500);

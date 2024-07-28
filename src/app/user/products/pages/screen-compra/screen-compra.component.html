@@ -1,10 +1,10 @@
 <div class="flex justify-center p-10">
-  <div class="bg-white w-3/5 px-20 rounded-md pb-10">
+  <div class="bg-white md:w-3/5 px-10 rounded-md pb-10">
     <h2 class="text-center text-3xl">Detalles compra</h2>
     <div class="flex justify-center">
       <img [src]="product.imagen[0].url_imagen" [alt]="product.nombre_producto" class="h-40 rounded-md">
     </div>
-    <div class="grid grid-cols-2">
+    <div class="sm:grid grid-cols-2">
       <div class="text-md">
         <p><strong>Producto: </strong>{{product.nombre_producto}}</p>
         <p><strong>Piezas: </strong>{{cantidad}}</p>
@@ -12,8 +12,8 @@
           {{domicilio.municipio+" "+domicilio.estado+","+domicilio.colonia+","+domicilio.cp}}.Referencia: {{domicilio.referencia}}
         </p>
       </div>
-      <div class="text-md flex justify-end">
-        <div class="flex flex-col">
+      <div class="text-md flex sm:justify-end">
+        <div class="">
           <p><strong>Precio: </strong>${{product.precio}}</p>
           <p><strong>Descuento: </strong>{{product.descuento}}%</p>
           <p><strong>Total: </strong>${{calDes(product.precio, product.descuento)}}.00</p>
@@ -21,11 +21,12 @@
       </div>
     </div>
 
-    <div class="flex justify-end gap-2 md:justify-between">
+    <div class="flex gap-2 justify-between">
       <p-button label="Cancelar" severity="danger"
+      [disabled]="desactiveBtn"
       (click)="cancellCompra()"
       ></p-button>
-      <p-button label="Confirmar" severity="primary" (click)="compraProducto()"></p-button>
+      <p-button [disabled]="desactiveBtn" label="Confirmar" severity="primary" (click)="compraProducto()"></p-button>
     </div>
   </div>
 </div>

@@ -55,6 +55,7 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts().subscribe(data => {
       this.products = data;
     })
+    this.showIsOpen();
   }
   filtrarProducts() {
     if(
@@ -114,6 +115,7 @@ export class ProductsComponent implements OnInit {
     this.productService.getProductsByFilter(dataSend).subscribe(data => {
       this.products = [];
       this.products = data;
+      this.showIsOpen();
     })
   }
   addProductToCard(id:number){

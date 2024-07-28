@@ -15,6 +15,12 @@ const routes: Routes = [
     component:MisComprasComponent,
   },
   {
+    path:'profile/opiniones',
+    component:ComentariosComponent,
+    canActivate: [profileGuardGuardActivate],
+    canMatch:[profileGuardGuardMatch]
+  },
+  {
     path:'profile/:id',
     component:ViewProfileComponent,
     canActivate: [profileGuardGuardActivate],
@@ -44,12 +50,7 @@ const routes: Routes = [
     canActivate: [profileGuardGuardActivate],
     canMatch:[profileGuardGuardMatch]
   },
-  {
-    path:'profile/:id/opiniones',
-    component:ComentariosComponent,
-    canActivate: [profileGuardGuardActivate],
-    canMatch:[profileGuardGuardMatch]
-  }
+
 ];
 
 @NgModule({
