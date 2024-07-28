@@ -11,13 +11,3 @@
 .precio{
   text-decoration: line-through;
 }
-ul{
-  list-style: none;
-}
-li{
-  margin-bottom: 1rem;
-}
-.carrucel{
-  width: 60%;
-}
-

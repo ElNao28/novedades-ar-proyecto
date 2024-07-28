@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
   productsFilter!: Products[];
   layout: string = 'list';
   isLoader: boolean = true;
+  isOpen:boolean = true;
   formFilter: FormGroup = this.fb.group({
     dama: [false],
     caballero: [false],
@@ -117,5 +118,8 @@ export class ProductsComponent implements OnInit {
   }
   addProductToCard(id:number){
     this.productService.addProductToCardSer(id.toString());
+  }
+  showIsOpen(){
+    this.isOpen =!this.isOpen;
   }
 }

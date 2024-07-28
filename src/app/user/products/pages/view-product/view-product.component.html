@@ -1,67 +1,55 @@
 <app-loader *ngIf="isLoader"></app-loader>
 <div *ngIf="!isLoader">
-  <div class="flex flex-col lg:flex-row mx-5 rounded-md shadow-lg p-3 my-5 gap-2 h-2/6">
 
 
-    <div class="flex carrucel w-full sm:w-1/4">
-      <div class="w-full md:w-1/6 h-40">
-        <img *ngFor="let item of product.imagen" [src]="item.url_imagen" alt="" (mousemove)="changeImgCarrucel(item.id)"
-          class="w-full h-full rounded-md">
+
+  <div class="bg-white mb-5 mx-5 py-3 flex flex-col md:flex-row gap-5">
+
+    <div class="flex flex-col md:flex-row-reverse justify-end gap-2">
+      <div class="flex justify-center">
+        <img [src]="imagenCarrucel" alt="imgSelected" class="w-56 sm:w-80 rounded-sm">
       </div>
-      <div class="flex justify-center w-full md:w-5/6 px-5">
-        <img [src]="imagenCarrucel" alt="" class="h-screen rounded-sm w-full">
+      <div class="flex  md:flex-col gap-3 items-center justify-center px-5">
+            <img (click)="changeImgCarrucel(item.id)" *ngFor="let item of product.imagen" [src]="item.url_imagen" alt="img" class="w-20 rounded-sm">
+      </div>
+    </div>
+    <div class="ring-1 md:w-full mx-5 md:mr-5 px-5 rounded-md ring-gray-200 py-2">
+      <h1 class="text-2xl font-bold capitalize">{{ product.nombre_producto }}</h1>
+      <p-rating [(ngModel)]="product.rating" [cancel]="false" [disabled]="true"></p-rating>
+      <p class="font-semibold text-xl">Precio: ${{ product.precio }}.00 <i class="line-through font-normal">${{product.precio}}.00</i></p>
+      <p class="text-lg" *ngIf="product.descuento > 0">Descuento de: {{product.descuento}}%</p>
+      <p class="text-green-500 text-lg">Envios a toda la republica mexicana</p>
+      <p class="text-lg">Stock disponible: {{product.stock}}</p>
+      <p class="text-lg">¡Compralo ahora!</p>
+      <div class="flex items-center gap-2">
+        <button [disabled]="cantidad <= 1" (click)="changeCantidad('-')" class="bg-blue-500 hover:bg-blue-600 cursor-pointer rounded-md border-none text-white font-bold text-lg px-3">-</button>
+        <span class="text-lg">{{cantidad}}</span>
+        <button [disabled]="cantidad >= product.stock" (click)="changeCantidad('+')" class="bg-green-500 hover:bg-green-600 cursor-pointer rounded-md border-none text-white  text-lg px-3">+</button>
+      </div>
+      <div class="mt-2 flex gap-2 items-center">
+        <button (click)="comprarProduct()" class="bg-purple-500 hover:bg-purple-600 cursor-pointer rounded-md border-none text-white lg:text-lg py-2 font-semibold px-3">
+          <i class="pi pi-credit-card"></i> Comprar</button>
+        <button (click)="addProductToCard()" class="bg-cyan-700 hover:bg-cyan-600 cursor-pointer rounded-md border-none text-white lg:text-lg py-2 font-semibold px-3">
+          <i class="pi pi-cart-plus"></i>Agregar al carrito</button>
       </div>
     </div>
 
-
-    <div class="container-datails rounded-md pl-4 pb-4 w-full md:w-3/4">
-      <h2 class="lg:text-3xl capitalize">{{product.nombre_producto}}</h2>
-      <p-rating [cancel]="false" [disabled]="true" [(ngModel)]="rating"></p-rating>
-      <div class="lg:h-3/4">
-        <div class="detalles">
-          <p *ngIf="product.descuento > 0" class="text-4x1"><b>${{calDes(product.precio,product.descuento)}}.00 </b><i class="precio">${{product.precio}}.00</i></p>
-          <p *ngIf="product.descuento <= 0" class="text-4x1"><b>${{product.precio}}.00 </b></p>
-          <p class="font-italic text-green-500">
-            Envios a toda la republica mexicana
-          </p>
-          <p *ngIf="product.descuento > 0">Descuento de: {{product.descuento}}%</p>
-          <p>Stock disponible: <b>{{product.stock}} pzas</b></p>
-          <p>¡Compralo ahora!</p>
-          <div class="flex gap-2 items-center">
-            <button
-              class="bg-red-500 border-none w-10 h-8 text-4xl rounded-md flex justify-center items-center text-white hover:bg-red-700"
-              (click)="changeCantidad('-')" [disabled]="cantidad === 1">-</button>
-            <p>{{cantidad}}</p>
-            <button
-              class="bg-blue-500 border-none w-10 h-8 text-2xl rounded-md flex justify-center items-center text-white hover:bg-blue-700"
-              (click)="changeCantidad('+')" [disabled]="cantidad === product.stock">+</button>
-          </div>
-          <div class="flex">
-            <p-button class="mr-2 hover:bg-blue-400 rounded-md" label="" (click)="comprarProduct()">Comprar</p-button>
-            <p-button styleClass="p-button-secondary" label="" (click)="addProductToCard()">Agregar al
-              carrito</p-button>
-            <p-toast></p-toast>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="p-3 pb-5 mb-5 rounded-md mx-5 bg-white shadow-3">
-    <h2 class="text-center text-4xl">Detalle del producto</h2>
-    <div class="lg:text-2xl">
-      <ul>
-        <li><b>Genero:</b> Hombre</li>
-        <li><b>Material del producto:</b> Algodon</li>
-        <li><b>Talla:</b> 28</li>
-      </ul>
-      <p class="px-5">
+    <h2 class="text-center text-2xl">Detalle del producto</h2>
+    <div class="lg:text-lg">
+      <div>
+        <p><b>Genero:</b> {{product.categoria}}</p>
+        <p><b>Talla:</b> 28</p>
+      </div>
+      <p>
         {{product.descripccion}}
       </p>
     </div>
   </div>
   <div class="p-3 pb-5 mb-5 border-round mx-5 bg-white shadow-3">
-    <h2 class="text-center text-4xl">Opiniones de compradores</h2>
+    <h2 class="text-center text-2xl">Opiniones de compradores</h2>
 
     <div class="bg-white px-4" *ngIf="product.comentarios.length !== 0">
       <div class="comentario" *ngFor="let item of product.comentarios">
@@ -76,8 +64,9 @@
       </div>
     </div>
     <div class="bg-white px-4 flex justify-center" *ngIf="product.comentarios.length === 0">
-     <img class="rounded-md w-2/5" src="../../../../../assets/img/not_comments.jpg" alt="not-comments">
+      <img class="rounded-md w-2/5" src="../../../../../assets/img/not_comments.jpg" alt="not-comments">
     </div>
   </div>
 
 </div>
+<p-toast></p-toast>

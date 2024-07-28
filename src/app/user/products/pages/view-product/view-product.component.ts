@@ -65,7 +65,6 @@ export class ViewProductComponent implements OnInit {
         }
       )
     }
-    console.log('comprar')
     let id = localStorage.getItem('token');
     if (id !== null) {
       this.loginService.checkUbicacion(id).subscribe(resp => {

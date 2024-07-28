@@ -1,5 +1,5 @@
 <app-loader *ngIf="isLoader"></app-loader>
-<div class="my-4 mr-3" *ngIf="!isLoader">
+<div class="my-4 mx-3" *ngIf="!isLoader">
   <form action="" class="flex justify-end mb-3 items-center gap-3">
     <label for="orden">Ordenar por:</label>
     <select name="ordenarPor" id="" class="rounded-lg border-none" [(ngModel)]="ordenarPorPrecio"
@@ -12,9 +12,12 @@
   <div class="mx-auto">
 
     <div class="flex flex-col md:flex-row gap-3">
-      <div class="bg-white w-1/5 rounded-md py-2 px-5">
-        <p class="text-xl font-bold">Filtrar por:</p>
-        <form class="" [formGroup]="formFilter">
+      <div class="bg-white md:w-1/5 rounded-md py-2 px-5">
+        <div class="flex items-center justify-between">
+          <p class="text-xl font-bold">Filtrar por:</p>
+          <button (click)="showIsOpen()" class="bg-white border-none cursor-pointer"><i class="pi" [ngClass]="{'pi-angle-down': !isOpen,'pi-angle-up':isOpen}"></i></button>
+        </div>
+        <form [class.hidden]="!isOpen" class="hidden" [formGroup]="formFilter">
           <div class="mb-3">
             <p class="font-bold">Genero:</p>
             <div class="flex flex-col gap-1">
@@ -91,7 +94,7 @@
         </form>
       </div>
 
-      <div *ngIf="products.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-4/5">
+      <div *ngIf="products.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 md:w-4/5">
         <div *ngFor="let item of products" class="bg-white p-5 rounded-lg shadow-md">
           <img [src]="item.imagen[0].url_imagen" [alt]="item.nombre_producto" class="w-full h-72 object-cover mb-3">
           <app-rating-products [rating]="item.rating"></app-rating-products>
