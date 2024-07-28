@@ -58,7 +58,7 @@ export class ProductsComponent implements OnInit {
       window.scroll(
         {
           top: 0,
-          behavior:'instant'
+          behavior:'smooth'
         }
       )
     })
