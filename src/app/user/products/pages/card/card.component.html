@@ -1,7 +1,7 @@
 <app-loader *ngIf="isLoader"></app-loader>
 <div *ngIf="!isLoader && imgNotCard" class="flex items-center flex-col bg-white rounded-md py-10">
   <img src="../../../../../assets/img/no_vents.png" alt="no hay compras" class="h-96 rounded-md">
-  <h3 class="text-red-900 text-3xl font-normal">No haz agregado productos aun al carrito</h3>
+  <h3 class="text-red-900 text-center text-xl md:text-3xl font-normal">No haz agregado productos aun al carrito</h3>
   <a routerLink="/productos" class="text-blue-700 cursor-pointer hover:text-blue-900 font-bold text-xl">Pulsa aqui para empezar a comprar</a>
 </div>
 <div class="container mx-auto my-5" *ngIf="!isLoader && !imgNotCard">

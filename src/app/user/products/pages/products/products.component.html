@@ -95,7 +95,7 @@
         </form>
       </div>
 
-      <div class="md:w-4/5">
+      <div *ngIf="products.length > 0" class="md:w-4/5">
         <div *ngIf="products.length > 0"
           class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 mb-5">
           <div *ngFor="let item of products" class="bg-white p-5 rounded-lg shadow-md">
@@ -117,13 +117,14 @@
           </div>
         </div>
         <p-paginator
+          *ngIf="products.length > 0"
           (onPageChange)="onPageChange($event)"
           [first]="first"
           [rows]="rows"
           [totalRecords]="limit"></p-paginator>
       </div>
 
-      <div *ngIf="!isLoader && products.length <= 0" class="flex items-center flex-col bg-white rounded-md py-10 w-4/5">
+      <div *ngIf="!isLoader && products.length <= 0" class="flex items-center flex-col bg-white rounded-md py-10 md:w-4/5">
         <img src="../../../../../assets/img/no_vents.png" alt="no hay compras" class="h-96 rounded-md">
         <h3 class="text-red-900 text-3xl font-normal">No hay productos que mostrar</h3>
       </div>
