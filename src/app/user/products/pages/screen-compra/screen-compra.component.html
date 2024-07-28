@@ -23,9 +23,10 @@
 
     <div class="flex gap-2 justify-between">
       <p-button label="Cancelar" severity="danger"
+      [disabled]="desactiveBtn"
       (click)="cancellCompra()"
       ></p-button>
-      <p-button label="Confirmar" severity="primary" (click)="compraProducto()"></p-button>
+      <p-button [disabled]="desactiveBtn" label="Confirmar" severity="primary" (click)="compraProducto()"></p-button>
     </div>
   </div>
 </div>

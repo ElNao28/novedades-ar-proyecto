@@ -19,20 +19,21 @@
       </div>
       <!---------------------------------------------------------------------------------------------------------->
       <div
-        class="mt-4 mb-1">
+        class="mt-4 mb-1 flex items-center gap-2">
         <!--Mediante el evento click se manda a llamar a la funcion que valida el acceso a la cuenta-->
-        <button
-          (click)="getData()"
-          [disabled]="validButton"
-          class="px-4 py-2 mr-2 bg-pink-400 hover:bg-pink-500 border-none rounded-md cursor-pointer text-white text-sm"
-          pButton
-          >Ingresar
-        </button>
+
         <button
           routerLink="/crear-cuenta"
           class="px-4 py-2 bg-yellow-300 hover:bg-yellow-400 border-none rounded-md cursor-pointer text-white text-sm"
           >
           Crear una cuenta
+        </button>
+        <button
+          (click)="getData()"
+          [disabled]="validButton"
+          class="px-4 py-2 bg-pink-400 hover:bg-pink-500 border-none rounded-md cursor-pointer text-white text-sm"
+          pButton
+          >Ingresar
         </button>
         <p-toast></p-toast>
       </div>

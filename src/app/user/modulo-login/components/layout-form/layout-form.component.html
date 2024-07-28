@@ -63,7 +63,7 @@
         <option *ngFor="let opcion of colonias.response.colonia" value="{{opcion}}">{{ opcion }}</option>
       </select>
       <br>
-      <span class="msj" *ngIf="isValidField(data.formControlName)">{{getFieldError(data.formControlName)}}</span>
+      <span class="msj text-red-600" *ngIf="isValidField(data.formControlName)">{{getFieldError(data.formControlName)}}</span>
     </div>
   </div>
 
@@ -97,7 +97,7 @@
         <option *ngFor="let opcion of data.typeSelect" value="{{opcion.value}}">{{ opcion.option }}</option>
       </select>
       <br>
-      <span *ngIf="isValidField(data.formControlName)">Campo Invalido</span>
+      <span class="text-red-500" *ngIf="isValidField(data.formControlName)">Campo Invalido</span>
     </div>
   </div>
 

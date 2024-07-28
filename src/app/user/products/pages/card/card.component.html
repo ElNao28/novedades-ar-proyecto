@@ -41,9 +41,9 @@
           <p>${{total}}</p>
         </div>
         <div class="flex justify-between">
-          <button class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded border-none cursor-pointer"
+          <button [disabled]="desactiveBtn" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded border-none cursor-pointer"
             routerLink="/productos">Seguir comprando</button>
-          <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded border-none cursor-pointer"
+          <button [disabled]="desactiveBtn" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded border-none cursor-pointer"
             (click)="comprarCard()" [disabled]="btnDisabled">Proceder al pago</button>
         </div>
       </div>
@@ -54,3 +54,4 @@
   </div>
 </div>
 <p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>

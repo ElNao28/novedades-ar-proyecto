@@ -3,7 +3,7 @@ import { ProductsService } from '../../services/products.service';
 import { MLoginService } from '../../../modulo-login/services/m-login.service';
 import { CompraProducto } from '../../interfaces/CompraProduct.iinterface';
 import { CardResponse } from '../../interfaces/ProductsCard.interface';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-card',
@@ -15,7 +15,8 @@ export class CardComponent implements OnInit {
     private producsService: ProductsService,
     private mLoginService: MLoginService,
     private loginService: MLoginService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
   ) { }
 
   productsCard: CardResponse = {
@@ -27,6 +28,7 @@ export class CardComponent implements OnInit {
   islogin = false
   idUser!: string;
   imgNotCard: boolean = true;
+  desactiveBtn: boolean = false;
   isLoader: boolean = true;
   btnDisabled: boolean = false;
   ngOnInit(): void {
@@ -104,33 +106,45 @@ export class CardComponent implements OnInit {
   comprarCard() {
     const dataByBack: CompraProducto[] = [];
     const userId = localStorage.getItem('token');
-    if (userId !== null) {
-      this.loginService.checkUbicacion(userId).subscribe(resp => {
-        if (resp.status === 404) {
-          return this.messageService.add({
-            severity: 'warn',
-            detail: 'Debes agregar tus datos de envio para poder comprar'
+    this.confirmationService.confirm({
+      header: 'Confirmar compra',
+      message: '¿Estás seguro de que deseas comprar?',
+      acceptLabel: 'Comprar',
+      rejectLabel: 'Cancelar',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => {
+        if (userId !== null) {
+          this.loginService.checkUbicacion(userId).subscribe(resp => {
+            if (resp.status === 404) {
+              return this.messageService.add({
+                severity: 'warn',
+                detail: 'Debes agregar tus datos de envio para poder comprar'
+              });
+            }
+            for (let i = 0; i < this.productsCard.detallesCarrito.length; i++) {
+              dataByBack.push(
+                {
+                  id: this.productsCard.detallesCarrito[i].product.id,
+                  title: this.productsCard.detallesCarrito[i].product.nombre_producto,
+                  precio: this.productsCard.detallesCarrito[i].product.precio,
+                  idUser: userId,
+                  cantidad: this.productsCard.detallesCarrito[i].cantidad.toString(),
+                  idCard: this.productsCard.id.toString()
+                }
+              )
+            }
+            this.btnDisabled = true;
+            this.producsService.comprarProduct(dataByBack).subscribe(data => {
+              window.location.href = data.url;
+            });
           });
         }
-        for (let i = 0; i < this.productsCard.detallesCarrito.length; i++) {
-          dataByBack.push(
-            {
-              id: this.productsCard.detallesCarrito[i].product.id,
-              title: this.productsCard.detallesCarrito[i].product.nombre_producto,
-              precio: this.productsCard.detallesCarrito[i].product.precio,
-              idUser: userId,
-              cantidad: this.productsCard.detallesCarrito[i].cantidad.toString(),
-              idCard: this.productsCard.id.toString()
-            }
-          )
-        }
-        this.btnDisabled = true;
-        this.producsService.comprarProduct(dataByBack).subscribe(data => {
-          window.open(data.url);
-          window.close();
-        });
-      });
-    }
+      },
+      reject: () => {
+        this.btnDisabled = false;
+      }
+    })
+
   }
 
 

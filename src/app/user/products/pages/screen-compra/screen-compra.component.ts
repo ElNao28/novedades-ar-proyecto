@@ -17,7 +17,8 @@ export class ScreenCompraComponent implements OnInit {
     private routerLink: ActivatedRoute
   ) { }
   idProduct!: string;
-  product: Product={
+  desactiveBtn: boolean = false;
+  product: Product = {
     id: 0,
     nombre_producto: "",
     precio: 0,
@@ -32,7 +33,7 @@ export class ScreenCompraComponent implements OnInit {
       url_imagen: ""
     }]
   }
-  domicilio:Domicilio = {
+  domicilio: Domicilio = {
     id: 0,
     estado: "",
     municipio: "",
@@ -40,8 +41,8 @@ export class ScreenCompraComponent implements OnInit {
     colonia: "",
     referencia: ""
   };
-  cantidad:number = 0;
-  dataByback:CompraProducto[] = [];
+  cantidad: number = 0;
+  dataByback: CompraProducto[] = [];
   ngOnInit(): void {
     const user = localStorage.getItem('token');
     const productId = localStorage.getItem('product');
@@ -49,27 +50,28 @@ export class ScreenCompraComponent implements OnInit {
 
     if (user === null)
       this.router.navigate(['404'])
-    if(productId === null)
+    if (productId === null)
       this.router.navigate(['404'])
 
     this.idProduct = this.routerLink.snapshot.paramMap.get('id')!;
-    if(productId !== this.idProduct)
+    if (productId !== this.idProduct)
       this.router.navigate(['404'])
 
     this.productService.getProductById(this.idProduct).subscribe(data => {
       this.product = data;
     })
-    if(user !== null)
-    this.productService.getUbicacion(user).subscribe(data => {
-      this.domicilio = data;
-    })
-    if(cantStorage!== null){
+    if (user !== null)
+      this.productService.getUbicacion(user).subscribe(data => {
+        this.domicilio = data;
+      })
+    if (cantStorage !== null) {
       this.cantidad = parseInt(cantStorage)
     }
 
   }
   compraProducto() {
-    if(this.idProduct === '') this.router.navigate(['/404'])
+    this.desactiveBtn = true;
+    if (this.idProduct === '') this.router.navigate(['/404'])
     if (this.idProduct !== null) {
       const idUser = localStorage.getItem('token');
       const cantidad = localStorage.getItem('cantidad');
@@ -79,35 +81,33 @@ export class ScreenCompraComponent implements OnInit {
           title: this.product.nombre_producto,
           precio: this.calDesByBack(this.product.precio, this.product.descuento),
           idUser: idUser,
-          cantidad:cantidad,
-          idCard:'null'
+          cantidad: cantidad,
+          idCard: 'null'
         }
         this.dataByback.push(data);
         this.productService.comprarProduct(this.dataByback).subscribe(data => {
-          console.log(data);
-          window.open(data.url);
           localStorage.removeItem('product');
           localStorage.removeItem('cantidad');
           this.idProduct = '';
-          window.close();
+          window.location.href = data.url;
         })
       }
     }
   }
 
-  cancellCompra(){
+  cancellCompra() {
     localStorage.removeItem('product');
     localStorage.removeItem('cantidad');
-    this.router.navigate(['/view',this.idProduct])
+    this.router.navigate(['/view', this.idProduct])
   }
 
-  calDes(precio:number,descuento:number){
-    let total:number = precio * this.cantidad;
-    let desc = (precio * descuento/100) * this.cantidad;
-    return Math.floor(total-desc);
+  calDes(precio: number, descuento: number) {
+    let total: number = precio * this.cantidad;
+    let desc = (precio * descuento / 100) * this.cantidad;
+    return Math.floor(total - desc);
   }
-  calDesByBack(precio:number,descuento:number){
-    let desc = precio - (precio * descuento/100);
+  calDesByBack(precio: number, descuento: number) {
+    let desc = precio - (precio * descuento / 100);
     return Math.floor(desc);
   }
 }
