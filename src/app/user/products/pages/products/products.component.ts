@@ -3,6 +3,7 @@ import { Products } from '../../interfaces/products.interface';
 import { ProductsService } from '../../services/products.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { DatumClass } from '../../interfaces/ProductsPage.interface';
 
 @Component({
   selector: 'app-products',
@@ -11,12 +12,12 @@ import { MessageService } from 'primeng/api';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private productService: ProductsService, private fb: FormBuilder,private messageService:MessageService) { }
-  products!: Products[];
-  productsFilter!: Products[];
+  constructor(private productService: ProductsService, private fb: FormBuilder, private messageService: MessageService) { }
+  products!: DatumClass[];
+  productsFilter!: DatumClass[];
   layout: string = 'list';
   isLoader: boolean = true;
-  isOpen:boolean = true;
+  isOpen: boolean = true;
   formFilter: FormGroup = this.fb.group({
     dama: [false],
     caballero: [false],
@@ -24,7 +25,7 @@ export class ProductsComponent implements OnInit {
     playera: [false],
     blusa: [false],
     falda: [false],
-    vestido:[false],
+    vestido: [false],
     jean: [false],
     short: [false],
     sudadera: [false],
@@ -32,16 +33,30 @@ export class ProductsComponent implements OnInit {
     polo: [false],
     sueter: [false],
   });
+  ordenarPorPrecio: string = 'asc';
+  page: number = 0;
+  first:number = 0
+  rows:number = 10
+  limit:number = 0;
   ngOnInit(): void {
-    this.productService.getProducts().subscribe(data => {
-      this.products = data;
+    this.productService.getProductByPage(this.page).subscribe(data => {
+      this.products = data.data[0];
+      this.limit = data.data[1];
       setTimeout(() => {
         this.isLoader = false
       }, 500);
     })
   }
-  ordenarPorPrecio: string = 'asc'; // Por defecto, ordenar de menor a mayor precio
 
+  onPageChange(event: any) {
+    this.page = event.page;
+    this.first = event.first;
+
+    this.productService.getProductByPage(this.page).subscribe(data => {
+      this.products = data.data[0];
+      this.limit = data.data[1];
+    })
+  }
   // Función para ordenar los productos según el precio
   ordenarProductosPorPrecio(): void {
     if (this.ordenarPorPrecio === 'asc') {
@@ -55,10 +70,9 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts().subscribe(data => {
       this.products = data;
     })
-    this.showIsOpen();
   }
   filtrarProducts() {
-    if(
+    if (
       !this.formFilter.controls['pantalon'].value &&
       !this.formFilter.controls['playera'].value &&
       !this.formFilter.controls['blusa'].value &&
@@ -72,12 +86,12 @@ export class ProductsComponent implements OnInit {
       !this.formFilter.controls['camisa'].value &&
       !this.formFilter.controls['polo'].value &&
       !this.formFilter.controls['sueter'].value
-    )return this.messageService.add({
+    ) return this.messageService.add({
       severity: 'info',
       summary: 'Filtrado',
       detail: 'No se han seleccionado ningún filtro'
     })
-    if(
+    if (
       !this.formFilter.controls['pantalon'].value &&
       !this.formFilter.controls['playera'].value &&
       !this.formFilter.controls['blusa'].value &&
@@ -89,7 +103,7 @@ export class ProductsComponent implements OnInit {
       !this.formFilter.controls['camisa'].value &&
       !this.formFilter.controls['polo'].value &&
       !this.formFilter.controls['sueter'].value
-    )return this.messageService.add({
+    ) return this.messageService.add({
       severity: 'info',
       summary: 'Filtrado',
       detail: 'Debe seleccionar al menos un tipo'
@@ -115,13 +129,12 @@ export class ProductsComponent implements OnInit {
     this.productService.getProductsByFilter(dataSend).subscribe(data => {
       this.products = [];
       this.products = data;
-      this.showIsOpen();
     })
   }
-  addProductToCard(id:number){
+  addProductToCard(id: number) {
     this.productService.addProductToCardSer(id.toString());
   }
-  showIsOpen(){
-    this.isOpen =!this.isOpen;
+  showIsOpen() {
+    this.isOpen = !this.isOpen;
   }
 }

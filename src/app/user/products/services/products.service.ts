@@ -9,6 +9,7 @@ import { Domicilio } from '../interfaces/Domicilio.interface';
 import { DataInicio } from '../interfaces/DataInicio.interface';
 import { MessageService } from 'primeng/api';
 import { ResponseProduct } from '../interfaces/ProductsOne.interface';
+import { ProductPagination } from '../interfaces/ProductsPage.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -94,4 +95,7 @@ export class ProductsService {
     }
   }
 
+  getProductByPage(page:number){
+    return this.http.get<ProductPagination>(`${this.urlApi}products/page/${page}`);
+  }
 }
