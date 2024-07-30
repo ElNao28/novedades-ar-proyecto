@@ -1,7 +1,8 @@
-<div class="container mt-5 mb-5 p-5 mx-28">
-  <div class="row">
-    <div class="col-md-8 offset-md-2 py-3 ">
-      <h2 class="text-center">Aviso de Privacidad</h2>
+<app-loader *ngIf="isLoader"></app-loader>
+<div *ngIf="!isLoader"  class="flex justify-center my-10">
+  <div class="bg-white w-5/6 md:w-3/4 px-10 rounded-md py-5">
+    <div>
+      <h1 class="text-center">Aviso de Privacidad</h1>
       <hr />
       <p><i> Última actualización: 22/09/2023</i></p>
       <p>
@@ -339,32 +340,8 @@
         que necesite
       </p>
     </div>
+    <div class="flex items-center justify-end">
+      <button class="border-none rounded-md text-white font-bold bg-purple-500 hover:bg-purple-600 py-2 px-3 cursor-pointer" (click)="scrollRolUp()">Ir arriba</button>
+    </div>
   </div>
 </div>
-<style>
-  h2 {
-    text-align: center;
-    font-size: 50px;
-  }
-
-  .container {
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
-    border-radius: 6px;
-  }
-
-  .options {
-    list-style-type: none;
-  }
-
-  .options li {
-    margin-bottom: 5px;
-  }
-
-  i {
-    color: rgb(27, 27, 27);
-  }
-
-  .title {
-    font-size: 20px;
-  }
-</style>

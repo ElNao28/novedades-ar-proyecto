@@ -1,0 +1,15 @@
+<div class="px-10 py-5">
+  <div class="bg-white rounded-md px-5 pt-1 pb-5">
+    <h3 class="text-center text-3xl">Mision</h3>
+    <div class="flex justify-end py-2 gap-2">
+      <button (click)="changeEdit(0)" *ngIf="!isEdit" class="rounded-sm border-none py-2 px-3 bg-gray-600 hover:bg-gray-700 cursor-pointer text-white font-bold">Editar</button>
+      <button (click)="changeEdit(1)" *ngIf="isEdit" class="rounded-sm border-none py-2 px-3 bg-red-600 hover:bg-red-700 cursor-pointer text-white font-bold">Cancelar</button>
+      <button (click)="changeEdit(2)" *ngIf="isEdit" class="rounded-sm border-none py-2 px-3 bg-green-600 hover:bg-green-700 cursor-pointer text-white font-bold">Guardar</button>
+    </div>
+    <form [formGroup]="formMision">
+      <div class="flex justify-center">
+        <textarea formControlName="mision" class="w-full" name="mision" id="mision" rows="10" ></textarea>
+      </div>
+    </form>
+  </div>
+</div>
