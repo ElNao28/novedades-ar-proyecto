@@ -70,17 +70,11 @@
           <i *ngIf="showNosotrosList" class="pi pi-chevron-up"></i>
         </div>
         <ul *ngIf="showNosotrosList" class="pl-4 flex flex-col gap-2 mt-1">
-          <li class="cursor-pointer flex items-center gap-1 hover:text-white">
+          <li routerLink="mision" class="cursor-pointer flex items-center gap-1 hover:text-white">
             <i class="pi pi-chart-line"></i>Mision
           </li>
-          <li class="cursor-pointer flex items-center gap-1 hover:text-white">
+          <li routerLink="vision" class="cursor-pointer flex items-center gap-1 hover:text-white">
             <i class="pi pi-eye"></i>Vision
-          </li>
-          <li class="cursor-pointer flex items-center gap-1 hover:text-white">
-            <i class="pi pi-book"></i>Politicas Privacidad
-          </li>
-          <li class="cursor-pointer flex items-center gap-1 hover:text-white">
-            <i class="pi pi-globe"></i>Cookies
           </li>
         </ul>
       </li>

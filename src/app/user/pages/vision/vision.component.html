@@ -1,13 +1,9 @@
-<div class="flex justify-center">
+<app-loader *ngIf="isLoader"></app-loader>
+<div *ngIf="!isLoader" class="flex justify-center my-10">
   <div class="bg-white  w-3/5 my-10 px-5 pb-5">
     <h1 class="text-center">Vision</h1>
     <p>
-      Ser la tienda líder y de confianza en moda para personas de todas las edades y
-      géneros, destacando por ofrecer una amplia y actualizada selección de prendas de alta
-      calidad que se adapten a todos los estilos de vida. Nos esforzamos por ser reconocidos
-      no solo por la diversidad de ropa que ofrecemos, sino también por la experiencia única
-      de compra que brindamos a nuestros clientes, brindando moda accesible y de alta
-      calidad para toda la familia.
+      {{vision}}
     </p>
   </div>
 </div>

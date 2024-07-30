@@ -17,6 +17,10 @@ import { canActivateGuard } from './guards/can-activate.guard';
 import { isLoginMatchGuard } from './guards/is-login-match.guard';
 import { isLoginActivateGuard } from './guards/is-login-activate.guard';
 import { ViewStockComponent } from './pages/view-stock/view-stock.component';
+import { VisionComponent } from '../user/pages/vision/vision.component';
+import { MisionComponent } from '../user/pages/mision/mision.component';
+import { EditVisionComponent } from './pages/edit-vision/edit-vision.component';
+import { EditMisionComponent } from './pages/edit-mision/edit-mision.component';
 
 const routes: Routes = [
   {
@@ -86,6 +90,18 @@ const routes: Routes = [
     {
       path:'ventas-completas',
       component:VentasCompletasComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
+    },
+    {
+      path:'vision',
+      component:EditVisionComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
+    },
+    {
+      path:'mision',
+      component:EditMisionComponent,
       canMatch:[canMatchGuard],
       canActivate:[canActivateGuard]
     },

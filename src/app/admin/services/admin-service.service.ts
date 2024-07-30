@@ -11,6 +11,7 @@ import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
 import { ResponseBackData } from '../interfaces/DataSet.interface';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
+import { GetMision, GetVision, Mision, Vision } from '../interfaces/GetMision.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +72,18 @@ export class AdminService {
   updateStock(stock:number,id:number){
     return this.http.patch<ResponseBack>(`${this.urlApi}products/update-stock`, { id:id,stock: stock })
   }
-
+  getMision(){
+    return this.http.get<GetMision>(`${this.urlApi}about-us/mision`)
+  }
+  getVision(){
+    return this.http.get<GetVision>(`${this.urlApi}about-us/vision`)
+  }
+  updateMision(mision:Mision){
+    return this.http.patch<ResponseBack>(`${this.urlApi}about-us/update-mision`, mision)
+  }
+  updateVision(vision:Vision){
+    return this.http.patch<ResponseBack>(`${this.urlApi}about-us/update-vision`, vision)
+  }
   // public sendMessage(event: string, message: any): void {
   //   this.socket.emit(event, message);
   // }

@@ -12,18 +12,14 @@
   </div>
   <div class="bg-white py-2 px-2 rounded-md shadow-md">
     <h3 class="text-center text-2xl font-bold">Lista de usuarios</h3>
-    <ul class="grid grid-cols-6 gap-5 bg-gray-700 py-2 text-center text-white">
+    <ul class="grid grid-cols-4 gap-5 bg-gray-700 py-2 text-center text-white">
       <li class="font-semibold">Nombre</li>
-      <li class="font-semibold">Apellido paternos</li>
-      <li class="font-semibold">Apellido materno</li>
       <li class="font-semibold">Genero</li>
       <li class="font-semibold">Correo electronico</li>
       <li class="font-semibold">Telefono</li>
     </ul>
-    <ul *ngFor="let item of usersFilter" class="grid grid-cols-6 bg-gray-200 py-2 text-center text-gray-800 rounded-md">
-      <li class="capitalize">{{item.name}}</li>
-      <li class="capitalize">{{item.lastname}}</li>
-      <li class="capitalize">{{item.motherLastname}}</li>
+    <ul *ngFor="let item of usersFilter" class="grid grid-cols-4 bg-gray-200 py-2 text-center text-gray-800 rounded-md">
+      <li class="capitalize">{{item.name + " " + item.lastname + " " + item.motherLastname}}</li>
       <li class="capitalize">{{item.gender}}</li>
       <li class="">{{item.email}}</li>
       <li class="capitalize">{{item.cellphone}}</li>
