@@ -3,11 +3,11 @@ import { ListProducts } from '../../interfaces/GetProducts.interface';
 import { AdminService } from '../../services/admin-service.service';
 
 @Component({
-  selector: 'app-view-descuentos',
-  templateUrl: './view-descuentos.component.html',
-  styleUrl: './view-descuentos.component.css'
+  selector: 'app-view-stock',
+  templateUrl: './view-stock.component.html',
+  styleUrl: './view-stock.component.css'
 })
-export class ViewDescuentosComponent implements OnInit{
+export class ViewStockComponent implements OnInit{
 
   constructor(private adminService:AdminService){}
 
@@ -17,14 +17,15 @@ export class ViewDescuentosComponent implements OnInit{
   ngOnInit(): void {
     this.adminService.getAllProducts().subscribe(data => {
       this.listProducts = data;
-    });
+    }
+  );
   }
 
   orderData(){
     if(this.order === "asc"){
-      this.listProducts.sort((a,b) => a.descuento - b.descuento);
+      this.listProducts.sort((a,b) => a.stock - b.stock);
     }else{
-      this.listProducts.sort((a,b) => b.descuento - a.descuento);
+      this.listProducts.sort((a,b) => b.stock - a.stock);
     }
   }
 }

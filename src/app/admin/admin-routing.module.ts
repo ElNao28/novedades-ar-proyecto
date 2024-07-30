@@ -16,7 +16,7 @@ import { canActivate } from '../user/guards/guards.guard';
 import { canActivateGuard } from './guards/can-activate.guard';
 import { isLoginMatchGuard } from './guards/is-login-match.guard';
 import { isLoginActivateGuard } from './guards/is-login-activate.guard';
-import { PromocionesUserComponent } from './pages/promociones-user/promociones-user.component';
+import { ViewStockComponent } from './pages/view-stock/view-stock.component';
 
 const routes: Routes = [
   {
@@ -29,10 +29,6 @@ const routes: Routes = [
   path: '',
   component:LayoutPageComponent,
   children:[
-    {
-      path:'clientes-top',
-      component:PromocionesUserComponent
-    },
     {
       path:'home',
       component:HomeAdminComponent,
@@ -54,6 +50,12 @@ const routes: Routes = [
     {
       path:'descuentos',
       component:ViewDescuentosComponent,
+      canMatch:[canMatchGuard],
+      canActivate:[canActivateGuard]
+    },
+    {
+      path:'stock-productos',
+      component:ViewStockComponent,
       canMatch:[canMatchGuard],
       canActivate:[canActivateGuard]
     },

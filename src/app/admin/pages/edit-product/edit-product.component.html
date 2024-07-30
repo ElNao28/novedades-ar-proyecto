@@ -1,24 +1,27 @@
-<p-toast></p-toast>
 <div class="flex justify-center">
-  <div class="bg-white p-8 mt-8 w-2/5 rounded-md">
+  <div class="bg-white p-8 mt-8 w-3/5 rounded-md">
 
     <h2 class="text-center">Editar de producto</h2>
     <form class="grid grid-cols-2 gap-3" [formGroup]="productForm">
       <div class="flex flex-col">
         <label for="name">Nombre</label>
         <input formControlName="nombre_producto" class="rounded-sm" type="text" name="" id="">
+        <span *ngIf="productForm.controls['nombre_producto'].touched && productForm.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('nombre_producto')}}</span>
       </div>
       <div class="flex flex-col">
         <label for="name">Precio</label>
         <input formControlName="precio" class="rounded-sm" type="number" name="" id="">
+        <span *ngIf="productForm.controls['precio'].touched && productForm.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('precio')}}</span>
       </div>
       <div class="col-span-2 flex flex-col">
         <label for="name">Descripccion</label>
         <textarea formControlName="descripccion" class="rounded-sm" name="" id="" cols="30" rows="10"></textarea>
+        <span *ngIf="productForm.controls['descripccion'].touched && productForm.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('descripccion')}}</span>
       </div>
       <div class="flex flex-col">
         <label for="name">Stock</label>
         <input formControlName="stock" class="rounded-sm" type="number" name="" id="" value="0">
+        <span *ngIf="productForm.controls['stock'].touched && productForm.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('stock')}}</span>
       </div>
       <div class="flex flex-col">
         <label for="name">Genero</label>
@@ -42,23 +45,16 @@
           <option value="Polo">Polo</option>
           <option value="Sueter">Sueter</option>
         </select>
+        <span *ngIf="productForm.controls['tipo'].touched && productForm.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('tipo')}}</span>
       </div>
       <div class="flex flex-col">
         <label for="name">Descuento</label>
         <input formControlName="descuento" class="rounded-sm" type="number" name="" id="" value="0">
+        <span *ngIf="productForm.controls['descuento'].touched && productForm.invalid" class="text-red-600 text-sm capitalize font-normal">{{checkValidation('descuento')}}</span>
       </div>
-
-      <div class="flex flex-col col-span-2">
-        <label for="name">Imagenes</label>
-        <input class="rounded-sm" type="file"  name="" id="" multiple>
-      </div>
-
-
-
-
     </form>
     <div class="mt-4 flex justify-between gap-3">
-      <p-button routerLink="/admin/productos" label="Cancelar" class="" styleClass="p-button-danger"></p-button>
+      <p-button (click)="isCanceled()" label="Cancelar" class="" styleClass="p-button-danger"></p-button>
       <p-button (click)="updateProduct()" label="Editar" type="submit" styleClass="p-button-secondary"></p-button>
     </div>
   </div>

@@ -1,0 +1,15 @@
+<form [formGroup]="formDes" class="flex flex-col gap-1">
+  <input type="number" formControlName="descuento" class="text-center border-none rounded-sm"
+    [ngClass]="{'bg-gray-200': !isEdit, 'bg-white border-2 ring-1':isEdit}">
+
+
+  <button *ngIf="!isEdit" (click)="editDes(0)"
+    class="border-none text-white bg-gray-700 hover:bg-gray-800 cursor-pointer rounded-sm py-2 font-bold">Editar</button>
+  <button (click)="updateDescuento(0)" *ngIf="isEdit"
+    class="border-none text-white bg-blue-700 hover:bg-blue-800 cursor-pointer rounded-sm py-2 font-bold">Guardar</button>
+  <button *ngIf="isEdit" (click)="editDes(1)"
+    class="border-none text-white bg-red-700 hover:bg-red-800 cursor-pointer rounded-sm py-2 font-bold">Cancelar
+  </button>
+  <button *ngIf="!isEdit && descuento >0" (click)="updateDescuento(1)"
+    class="border-none text-white bg-orange-700 hover:bg-orange-800 cursor-pointer rounded-sm py-2 font-bold">Quitar descuento</button>
+</form>

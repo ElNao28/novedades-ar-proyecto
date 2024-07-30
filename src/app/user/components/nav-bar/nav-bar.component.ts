@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { MLoginService } from '../../modulo-login/services/m-login.service';
 import { ProductsService } from '../../products/services/products.service';
+import { AdminService } from '../../../admin/services/admin-service.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -16,6 +17,7 @@ export class NavBarComponent implements OnInit {
     private router: Router,
     private loginService: MLoginService,
     private producstService: ProductsService,
+    private adminService:AdminService,
   ) { }
 
   touchMale: boolean = false;
@@ -26,6 +28,13 @@ export class NavBarComponent implements OnInit {
   isOpen:boolean = false;
 
   ngOnInit(): void {
+
+
+    // this.adminService.onMessage('msg').subscribe(message =>{
+    //   console.log(message);
+    // })
+
+
     const userId = localStorage.getItem('token');
     if (userId !== null) {
       this.routerUser = "profile/" + userId;
@@ -64,4 +73,12 @@ export class NavBarComponent implements OnInit {
   isLogin(): boolean {
     return this.loginService.checkLogin();
   }
+
+  // sendMessage() {
+  //   this.adminService.sendMessage('chat-message', { text: 'Hello Socket.IO!' });
+  // }
+
+
+
+
 }

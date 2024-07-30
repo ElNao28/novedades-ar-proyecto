@@ -1,0 +1,24 @@
+<div class="px-10 py-5">
+  <div class="bg-white py-2 px-2 rounded-md shadow-md">
+    <h3 class="text-center text-2xl font-bold">Administrar stock</h3>
+    <div class="flex gap-2 items-center justify-end">
+      <label for="filtro">Ordenar por:</label>
+      <select name="order" id="order" class="rounded-md" [(ngModel)]="order" (ngModelChange)="orderData()">
+        <option value="des">Mas stock</option>
+        <option value="asc">Menos stock</option>
+      </select>
+    </div>
+    <ul class="grid grid-cols-3 gap-5 bg-gray-700 py-2 text-center text-white">
+      <li class="font-semibold">Preview</li>
+      <li class="font-semibold">Nombre</li>
+      <li class="font-semibold">Stock</li>
+    </ul>
+    <ul *ngFor="let item of listProducts" class=" px-2 grid grid-cols-3 bg-gray-200 py-2 text-center items-center text-gray-800 rounded-md">
+      <li><img [src]="item.imagen[0].url_imagen" alt="" class="h-20 rounded-md"></li>
+      <li>{{item.nombre_producto | titlecase}}</li>
+      <li>
+        <app-form-stock [stock]="item.stock" [id]="item.id"></app-form-stock>
+      </li>
+    </ul>
+  </div>
+</div>
