@@ -25,8 +25,8 @@ export class AdminService {
     //   console.log('Recibido desde el server:', message);
     // });
   }
-  private urlApi:string = 'http://localhost:3000/';
-  //private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
+  //private urlApi:string = 'http://localhost:3000/';
+  private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
 
   addProduct(newProduct: any) {
     return this.http.post<ResponseCreateUser>(`${this.urlApi}products`, newProduct)
