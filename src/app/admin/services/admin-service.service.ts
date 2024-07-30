@@ -9,60 +9,84 @@ import { Promociones } from '../interfaces/GetPromociones.interface';
 import { DetallesVenta, VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
 import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
 import { ResponseBackData } from '../interfaces/DataSet.interface';
+import { io, Socket } from 'socket.io-client';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
+  private socket!: Socket;
+  constructor(
+    private http: HttpClient,
+  ) {
+    // this.socket = io('http://localhost:3000');
+    // this.socket.on('new-message', (message: any) => {
+    //   console.log('Recibido desde el server:', message);
+    // });
+  }
+  private urlApi:string = 'http://localhost:3000/';
+  //private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
 
-  constructor(private http:HttpClient) { }
-  //private urlApi:string = 'http://localhost:3000/';
-  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
-
-  addProduct(newProduct:any){
-    return this.http.post<ResponseCreateUser>(`${this.urlApi}products`,newProduct)
+  addProduct(newProduct: any) {
+    return this.http.post<ResponseCreateUser>(`${this.urlApi}products`, newProduct)
   }
 
-  getProductByCategory(type:string){
-    return this.http.get<ProductCategory[]>(`${this.urlApi}products/category/`+type)
+  getProductByCategory(type: string) {
+    return this.http.get<ProductCategory[]>(`${this.urlApi}products/category/` + type)
   }
-  getAllUsers(){
+  getAllUsers() {
     return this.http.get<GetUsers[]>(`${this.urlApi}users`)
   }
-  getAllProducts(){
+  getAllProducts() {
     return this.http.get<ListProducts[]>(`${this.urlApi}products/all-products-admin`)
   }
-  changeStatus(id:number,action:boolean){
-    return this.http.patch<ResponseBack>(`${this.urlApi}products/change-status`,{id:id,action:action})
+  changeStatus(id: number, action: boolean) {
+    return this.http.patch<ResponseBack>(`${this.urlApi}products/change-status`, { id: id, action: action })
   }
-  updateProduct(id:number,dataUp:any){
-    return this.http.patch<ResponseBack>(`${this.urlApi}products/update-product/`+id,dataUp)
+  updateProduct(id: number, dataUp: any) {
+    return this.http.patch<ResponseBack>(`${this.urlApi}products/update-product/` + id, dataUp)
   }
-  getAllProductsByDes(){
+  getAllProductsByDes() {
     return this.http.get<Promociones>(`${this.urlApi}products/get-promociones`)
   }
-  getVentasFenvio(type:string){
-    return this.http.get<VentasFenvio>(`${this.urlApi}ventas/ventas-status/`+type)
+  getVentasFenvio(type: string) {
+    return this.http.get<VentasFenvio>(`${this.urlApi}ventas/ventas-status/` + type)
   }
-  getVentasPendientes(type:string){
-    return this.http.get<VentasPendientes>(`${this.urlApi}ventas/ventas-status/`+type)
+  getVentasPendientes(type: string) {
+    return this.http.get<VentasPendientes>(`${this.urlApi}ventas/ventas-status/` + type)
   }
-  addCodeRastreo(id:number,code:number){
-    return this.http.post<ResponseBack>(`${this.urlApi}ventas/add-code-rastreo/`+id,{code:code})
+  addCodeRastreo(id: number, code: number) {
+    return this.http.post<ResponseBack>(`${this.urlApi}ventas/add-code-rastreo/` + id, { code: code })
   }
-  ventaComplete(idEnvio:number,fecha:string,idVenta:number){
-    return this.http.post<ResponseBack>(`${this.urlApi}ventas/venta-complete/`,{idEnvio,fecha,idVenta})
+  ventaComplete(idEnvio: number, fecha: string, idVenta: number) {
+    return this.http.post<ResponseBack>(`${this.urlApi}ventas/venta-complete/`, { idEnvio, fecha, idVenta })
   }
-  loginAdmin(data:{email:string,password:string}){
-    return this.http.post<ResponseBackLogin>(`${this.urlApi}admin/login`,data)
+  loginAdmin(data: { email: string, password: string }) {
+    return this.http.post<ResponseBackLogin>(`${this.urlApi}admin/login`, data)
   }
-  getUsers(){
-    return this.http.get<{idUsers:number[]}>(`https://m3-proyect.onrender.com/predict`)
+  updateDescuento(descuento:number,id:number){
+    return this.http.patch<ResponseBack>(`${this.urlApi}products/update-descuento`, { id:id,descuento: descuento })
   }
-  getUserData(ids:number[]){
-    return this.http.post<ResponseBackData>(`${this.urlApi}users/dataSet`,{ids})
+  updateStock(stock:number,id:number){
+    return this.http.patch<ResponseBack>(`${this.urlApi}products/update-stock`, { id:id,stock: stock })
   }
-  sendEmails(ids:number[]){
-    return this.http.post<ResponseBack>(`${this.urlApi}email/promociones`,{ids})
-  }
+
+  // public sendMessage(event: string, message: any): void {
+  //   this.socket.emit(event, message);
+  // }
+
+  // public onMessage(event: string): Observable<any> {
+  //   return new Observable(observer => {
+  //     this.socket.on(event, (data) => observer.next(data));
+  //     return () => this.socket.off(event);
+  //   });
+  // }
+
+
+
+
+
+
+
 }

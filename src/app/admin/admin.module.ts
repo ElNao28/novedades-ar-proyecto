@@ -18,7 +18,10 @@ import { VentasFenvioComponent } from './pages/ventas-fenvio/ventas-fenvio.compo
 import { VentasPendientesComponent } from './pages/ventas-pendientes/ventas-pendientes.component';
 import { VentasCompletasComponent } from './pages/ventas-completas/ventas-completas.component';
 import { FormCodeComponent } from './components/form-code/form-code.component';
-import { PromocionesUserComponent } from './pages/promociones-user/promociones-user.component';
+import { FormDescuentoComponent } from './components/form-descuento/form-descuento.component';
+import { ViewStockComponent } from './pages/view-stock/view-stock.component';
+import { FormStockComponent } from './components/form-stock/form-stock.component';
+
 
 
 @NgModule({
@@ -35,7 +38,9 @@ import { PromocionesUserComponent } from './pages/promociones-user/promociones-u
     VentasPendientesComponent,
     VentasCompletasComponent,
     FormCodeComponent,
-    PromocionesUserComponent
+    FormDescuentoComponent,
+    ViewStockComponent,
+    FormStockComponent
   ],
   imports: [
     CommonModule,

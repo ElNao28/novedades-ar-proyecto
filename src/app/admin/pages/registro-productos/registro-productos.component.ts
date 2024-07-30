@@ -14,8 +14,8 @@ export class RegistroProductosComponent {
     private fb: FormBuilder,
     private adminService: AdminService,
     private messageService: MessageService,
-    private confirmationService:ConfirmationService,
-    private router:Router,
+    private confirmationService: ConfirmationService,
+    private router: Router,
   ) { }
 
   public nameFile: string = '';
@@ -26,7 +26,7 @@ export class RegistroProductosComponent {
     nombre_producto: ['', [Validators.required, Validators.minLength(5)]],
     precio: ['', [Validators.required]],
     stock: ['', [Validators.required]],
-    descripccion: ['', [Validators.required,Validators.minLength(10)]],
+    descripccion: ['', [Validators.required, Validators.minLength(10)]],
     categoria: ['H', [Validators.required]],
     tipo: ['Pantalon', [Validators.required]],
     imgUno: [null, [Validators.required]],
@@ -35,10 +35,10 @@ export class RegistroProductosComponent {
     imgCuatro: [null, [Validators.required]],
     descuento: ['', [Validators.required]],
   })
-  public onChangeFile(event: Event,path:string) {
+  public onChangeFile(event: Event, path: string) {
     const target = event.target as HTMLInputElement;
     if (target?.files?.length) {
-      if(target.files.length > 1) return this.messageService.add({
+      if (target.files.length > 1) return this.messageService.add({
         severity: 'error',
         detail: 'Solo se permite subir una imagen por campo'
       })
@@ -65,7 +65,7 @@ export class RegistroProductosComponent {
     }
   }
   addNewProduct() {
-    if(this.form.invalid) return this.messageService.add({
+    if (this.form.invalid) return this.messageService.add({
       severity: 'error',
       summary: 'Error',
       detail: 'No dejes campos vacios y rellena correctamente'
@@ -76,10 +76,10 @@ export class RegistroProductosComponent {
       && this.imagenes !== null
     ) {
       const formData: FormData = new FormData();
-      formData.append('nombre_producto', this.form.get('nombre_producto')!.value);
+      formData.append('nombre_producto', this.form.get('nombre_producto')!.value.toLowerCase());
       formData.append('precio', this.form.get('precio')!.value);
       formData.append('stock', this.form.get('stock')!.value);
-      formData.append('descripccion', this.form.get('descripccion')!.value);
+      formData.append('descripccion', this.form.get('descripccion')!.value.toLowerCase());
       formData.append('imagen', this.imagenes[0]);
       formData.append('imagen', this.imagenes[1]);
       formData.append('imagen', this.imagenes[2]);
@@ -98,7 +98,8 @@ export class RegistroProductosComponent {
             detail: 'Producto agregado correctamente'
           })
         }
-      })
+      }
+      )
     }
   }
   checkValidation(path: string): string | null {
@@ -117,7 +118,7 @@ export class RegistroProductosComponent {
     }
     return null
   }
-  isCanceled(){
+  isCanceled() {
     this.confirmationService.confirm({
       message: '¿Estás seguro que deseas cancelar?',
       header: 'Cancelar',
@@ -126,7 +127,7 @@ export class RegistroProductosComponent {
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: "Aceptar",
       rejectLabel: "Cancelar",
-      rejectButtonStyleClass:'p-button-text',
+      rejectButtonStyleClass: 'p-button-text',
       accept: () => {
         this.form.reset();
         this.imagenes = [];

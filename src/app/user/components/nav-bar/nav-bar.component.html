@@ -1,14 +1,21 @@
 <nav (mouseleave)="isOpen = false"
-  class="bg-white pt-3 pb-3 px-2 lg:px-20 md:gap-5 w-full fixed top-0 shadow-lg navbar">
+  class="bg-white pt-3 pb-3 px-2 lg:px-20 md:gap-5 w-full fixed top-0 shadow-lg navbar ring-1 ring-purple-400 ring-opacity-50">
   <div class="flex items-center gap-5 lg:mb-3 pr-2">
     <button (click)="isClass()" class="lg:hidden border-none bg-white font-bold text-2xl cursor-pointer">☰</button>
-    <div class="flex w-full gap-2 items-center">
+    <div class="flex w-full gap-3 items-center">
       <a routerLink="/inicio"><img src="../../../../assets/img/logo2.png" alt="Novedade-ar" class="w-32"></a>
-      <input placeholder="Jeans Wide Leg Cargo Cintas" type="text" class="w-full rounded-md border-purple-400 focus:border-purple-400 border-opacity-40">
-      <div routerLink="/carrito"
-      class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600 lg:justify-center">
-      <i class="pi pi-shopping-cart text-xl" pBadge [severity]="'info'" [value]="numCard.toString()"></i>
-    </div>
+      <input placeholder="Jeans Wide Leg Cargo Cintas" type="text"
+        class="w-full rounded-md border-purple-400 focus:border-purple-400 border-opacity-40">
+      <div class="flex items-center gap-3">
+        <div (click)="isOpen = false" routerLink="{{routerUser}}"
+          class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600">
+          <i class="pi pi-user text-xl"></i>
+        </div>
+        <div routerLink="/carrito"
+          class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600 lg:justify-center">
+          <i class="pi pi-shopping-cart text-xl" pBadge [severity]="'info'" [value]="numCard.toString()"></i>
+        </div>
+      </div>
     </div>
   </div>
   <div [class.hidden]="!isOpen"
@@ -54,11 +61,7 @@
         <p routerLink="/productos/gender/H/category/Sueter" class="cursor-pointer hover:text-gray-700">Sueteres</p>
       </div>
     </div>
-    <div (click)="isOpen = false" routerLink="{{routerUser}}"
-      class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600">
-      <i class="pi pi-user"></i>
-      <a class="text-gray-900 hover:text-gray-600">Usuario</a>
-    </div>
+
     <div (click)="isOpen = false" class="flex items-center gap-1 cursor-pointer text-gray-900 hover:text-gray-600">
       <i class="pi pi-shopping-bag"></i>
       <a routerLink="/profile/mis-compras" class="text-gray-900 cursor-pointer hover:text-gray-600">Compras</a>
@@ -76,8 +79,7 @@
     </div>
   </div>
 </nav>
-
-
+<br>
 
 
 
