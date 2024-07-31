@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 import { ProfileService } from '../../services/profile.service';
 import { RespPersonal } from '../../interfaces/ResProfile.interface';
 import { MessageService } from 'primeng/api';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-data-personal',
@@ -15,7 +16,8 @@ export class DataPersonalComponent implements OnInit {
     private profileService: ProfileService,
     private messageService: MessageService
   ) { }
-  isLoader:boolean = true;
+  private jwtHelper = new JwtHelperService();
+  isLoader: boolean = true;
   editName: boolean = true;
   dataForm: RespPersonal = {
     status: 0,
@@ -37,7 +39,8 @@ export class DataPersonalComponent implements OnInit {
   ngOnInit(): void {
     const userId = localStorage.getItem('token');
     if (userId !== null) {
-      this.profileService.getDataPersonal(userId).subscribe(res => {
+      const token = this.jwtHelper.decodeToken(userId);
+      this.profileService.getDataPersonal(token.sub).subscribe(res => {
         this.dataForm = res;
         this.nameForm = this.fb.group({
           name: [{ value: res.name.toUpperCase(), disabled: true }, [Validators.required, Validators.minLength(3)]],
@@ -90,42 +93,44 @@ export class DataPersonalComponent implements OnInit {
             birthdate: this.dataForm.birthdate.toUpperCase(),
           });
         break;
-        case 3:
-          if(this.nameForm.invalid) return this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'No dejes campos vacios y rellena correctamente'
-          })
-          const userId = localStorage.getItem('token');
-          this.nameForm.setValue(
-            {
-              name: this.nameForm.controls['name'].value.toLowerCase(),
-              lastname: this.nameForm.controls['lastname'].value.toLowerCase(),
-              motherLastname: this.nameForm.controls['motherLastname'].value.toLowerCase(),
-              gender: this.nameForm.controls['gender'].value.toUpperCase(),
-              birthdate: this.nameForm.controls['birthdate'].value
-            });
-          if(userId !== null)
-            this.profileService.updateUserPersonal(userId,this.nameForm.value).subscribe(data => {
-          if(data.status === 200){
-            this.messageService.add({
-              severity:'success',
-              summary: 'Información',
-              detail: 'Datos actualizados correctamente'
-            });
-            this.profileService.getDataPersonal(userId).subscribe(data => {
-              this.dataForm = data;
-              this.nameForm = this.fb.group({
-                name: [{ value: data.name.toUpperCase(), disabled: true }, [Validators.required, Validators.minLength(3)]],
-                lastname: [{ value: data.lastname.toUpperCase(), disabled: true }, [Validators.required, Validators.minLength(3)]],
-                motherLastname: [{ value: data.motherLastname.toUpperCase(), disabled: true }, [Validators.required, Validators.minLength(3)]],
-                gender: [{ value: data.gender.toUpperCase(), disabled: true }, [Validators.required]],
-                birthdate: [{ value: data.birthdate, disabled: true }, [Validators.required, this.validateAge.bind(this)]],
+      case 3:
+        if (this.nameForm.invalid) return this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No dejes campos vacios y rellena correctamente'
+        })
+        const userId = localStorage.getItem('token');
+        this.nameForm.setValue(
+          {
+            name: this.nameForm.controls['name'].value.toLowerCase(),
+            lastname: this.nameForm.controls['lastname'].value.toLowerCase(),
+            motherLastname: this.nameForm.controls['motherLastname'].value.toLowerCase(),
+            gender: this.nameForm.controls['gender'].value.toUpperCase(),
+            birthdate: this.nameForm.controls['birthdate'].value
+          });
+        if (userId !== null) {
+          const token = this.jwtHelper.decodeToken(userId);
+          this.profileService.updateUserPersonal(token.sub, this.nameForm.value).subscribe(data => {
+            if (data.status === 200) {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Información',
+                detail: 'Datos actualizados correctamente'
               });
-            })
-            this.editName = !this.editName;
-          }
+              this.profileService.getDataPersonal(token.sub).subscribe(data => {
+                this.dataForm = data;
+                this.nameForm = this.fb.group({
+                  name: [{ value: data.name.toUpperCase(), disabled: true }, [Validators.required, Validators.minLength(3)]],
+                  lastname: [{ value: data.lastname.toUpperCase(), disabled: true }, [Validators.required, Validators.minLength(3)]],
+                  motherLastname: [{ value: data.motherLastname.toUpperCase(), disabled: true }, [Validators.required, Validators.minLength(3)]],
+                  gender: [{ value: data.gender.toUpperCase(), disabled: true }, [Validators.required]],
+                  birthdate: [{ value: data.birthdate, disabled: true }, [Validators.required, this.validateAge.bind(this)]],
+                });
+              })
+              this.editName = !this.editName;
+            }
           })
+        }
         break;
     }
   }

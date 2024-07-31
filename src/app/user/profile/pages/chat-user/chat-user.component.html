@@ -1,0 +1,30 @@
+<app-loader *ngIf="isLoader"></app-loader>
+<div *ngIf="!isLoader" class="md:px-10 py-5 overflow-auto flex justify-center my-10">
+  <div class="bg-white rounded-md px-5 pt-2 pb-5 md:w-3/5 w-5/6">
+    <h3 class="text-center text-2xl ">Chat de venta</h3>
+    <span class="text-center">{{idVenta}}</span>
+    <hr>
+    <div *ngIf="messages.length <= 0">
+      <div class="flex items-center flex-col bg-white rounded-md py-10">
+        <img src="../../../../../assets/img/no_vents.png" alt="no hay compras" class="h-96 rounded-md">
+        <h3 class="text-red-900 text-3xl font-normal text-center">Aun no has mandado un mensaje</h3>
+      </div>
+    </div>
+    <div *ngIf="messages.length > 0">
+      <div *ngFor="let item of messages" class="flex flex-col px-5"
+        [ngClass]="{'items-end': item.by === 'user', 'items-start': item.by === 'admin'}">
+        <p class="capitalize rounded-md text-white px-5 py-2 text-sm"
+          [ngClass]="{'bg-purple-800': item.by === 'admin','bg-gray-800': item.by === 'user'}">
+          {{item.mensaje}}
+        </p>
+      </div>
+    </div>
+    <form [formGroup]="messageForm" class="flex gap-1">
+      <input formControlName="message" type="text" placeholder="Escribe aqui tu mensaje" class="w-full rounded-md border-pink-500 focus:ring-pink-700">
+      <button class="border-none rounded-sm bg-pink-600 hover:bg-pink-700 py-2 px-3 text-md cursor-pointer font-bold text-white"
+        (click)="sendMessage()">Enviar</button>
+    </form>
+  </div>
+
+</div>
+<p-toast></p-toast>

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CompraProducto } from '../../interfaces/CompraProduct.iinterface';
 import { Product } from '../../interfaces/ProductsCard.interface';
 import { Domicilio } from '../../interfaces/Domicilio.interface';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-screen-compra',
@@ -16,6 +17,7 @@ export class ScreenCompraComponent implements OnInit {
     private router: Router,
     private routerLink: ActivatedRoute
   ) { }
+  private jwtHelper = new JwtHelperService();
   idProduct!: string;
   desactiveBtn: boolean = false;
   product: Product = {
@@ -60,10 +62,11 @@ export class ScreenCompraComponent implements OnInit {
     this.productService.getProductById(this.idProduct).subscribe(data => {
       this.product = data;
     })
-    if (user !== null)
-      this.productService.getUbicacion(user).subscribe(data => {
+    if (user !== null){
+      const token = this.jwtHelper.decodeToken(user)
+      this.productService.getUbicacion(token.sub).subscribe(data => {
         this.domicilio = data;
-      })
+      })}
     if (cantStorage !== null) {
       this.cantidad = parseInt(cantStorage)
     }
@@ -76,11 +79,12 @@ export class ScreenCompraComponent implements OnInit {
       const idUser = localStorage.getItem('token');
       const cantidad = localStorage.getItem('cantidad');
       if (idUser !== null && cantidad !== null) {
+        const token = this.jwtHelper.decodeToken(idUser)
         const data: CompraProducto = {
           id: this.product.id,
           title: this.product.nombre_producto,
           precio: this.calDesByBack(this.product.precio, this.product.descuento),
-          idUser: idUser,
+          idUser: token.sub,
           cantidad: cantidad,
           idCard: 'null'
         }

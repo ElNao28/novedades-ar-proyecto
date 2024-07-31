@@ -4,6 +4,7 @@ import { ProductsService } from '../../services/products.service';
 import { MessageService } from 'primeng/api';
 import { MLoginService } from '../../../modulo-login/services/m-login.service';
 import { Data } from '../../interfaces/ProductsOne.interface';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-view-product',
@@ -18,6 +19,7 @@ export class ViewProductComponent implements OnInit {
     private messageService: MessageService,
     private loginService: MLoginService
   ) { }
+  private jwtHelper = new JwtHelperService();
   id!: string;
   rating: number = 0;
   product: Data = {
@@ -67,7 +69,8 @@ export class ViewProductComponent implements OnInit {
     }
     let id = localStorage.getItem('token');
     if (id !== null) {
-      this.loginService.checkUbicacion(id).subscribe(resp => {
+      const token = this.jwtHelper.decodeToken(id)
+      this.loginService.checkUbicacion(token.sub).subscribe(resp => {
         if (resp.status === 404) {
           return this.messageService.add({
             severity: 'warn',

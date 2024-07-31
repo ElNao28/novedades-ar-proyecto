@@ -1,0 +1,19 @@
+<div class="px-10 py-5 overflow-auto flex justify-center">
+  <div class="bg-white rounded-md px-5 pt-2 pb-5 w-3/4">
+    <h3 class="text-center text-2xl ">Chat de venta</h3>
+    <span>{{idVenta}}</span>
+    <hr>
+    <div *ngFor="let item of messages" class="flex flex-col px-5"
+      [ngClass]="{'items-start': item.by === 'user', 'items-end': item.by === 'admin'}">
+      <p class="capitalize rounded-md text-white px-5 py-2 text-sm"
+        [ngClass]="{'bg-gray-800': item.by === 'admin','bg-purple-800': item.by === 'user'}">
+        {{item.mensaje}}
+      </p>
+    </div>
+    <form [formGroup]="messageForm" class="flex gap-1">
+      <input formControlName="message" type="text" placeholder="Escribe aqui tu mensaje" class="w-full rounded-md border-pink-500 focus:ring-pink-700">
+      <button class="border-none rounded-sm bg-pink-600 hover:bg-pink-700 py-2 px-3 text-md cursor-pointer font-bold text-white"
+        (click)="sendMessage()">Enviar</button>
+    </form>
+  </div>
+</div>

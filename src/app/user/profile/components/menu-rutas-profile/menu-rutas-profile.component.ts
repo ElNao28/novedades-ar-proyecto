@@ -10,16 +10,11 @@ export class MenuRutasProfileComponent implements OnInit{
   constructor(
     private activateLink:ActivatedRoute,
   ) { }
-  idUser:string  = "";
   ruta:string = "";
   ngOnInit(): void {
-    const userId = localStorage.getItem('token');
     this.activateLink.url.subscribe(data =>{
-        this.ruta = data[2].path
+        this.ruta = data[1].path
     });
-    if(userId !== null){
-      this.idUser = userId;
-    }
   }
 
 

@@ -23,6 +23,7 @@ import { ViewStockComponent } from './pages/view-stock/view-stock.component';
 import { FormStockComponent } from './components/form-stock/form-stock.component';
 import { EditMisionComponent } from './pages/edit-mision/edit-mision.component';
 import { EditVisionComponent } from './pages/edit-vision/edit-vision.component';
+import { ChatTestComponent } from './pages/chat-test/chat-test.component';
 
 
 
@@ -44,7 +45,8 @@ import { EditVisionComponent } from './pages/edit-vision/edit-vision.component';
     ViewStockComponent,
     FormStockComponent,
     EditMisionComponent,
-    EditVisionComponent
+    EditVisionComponent,
+    ChatTestComponent
   ],
   imports: [
     CommonModule,

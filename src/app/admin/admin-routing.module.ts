@@ -21,96 +21,101 @@ import { VisionComponent } from '../user/pages/vision/vision.component';
 import { MisionComponent } from '../user/pages/mision/mision.component';
 import { EditVisionComponent } from './pages/edit-vision/edit-vision.component';
 import { EditMisionComponent } from './pages/edit-mision/edit-mision.component';
+import { ChatTestComponent } from './pages/chat-test/chat-test.component';
 
 const routes: Routes = [
   {
-    path:'login-admin',
-    component:LoginAdminComponent,
-    canMatch:[isLoginMatchGuard],
-    canActivate:[isLoginActivateGuard]
+    path: 'login-admin',
+    component: LoginAdminComponent,
+    canMatch: [isLoginMatchGuard],
+    canActivate: [isLoginActivateGuard]
   },
   {
-  path: '',
-  component:LayoutPageComponent,
-  children:[
-    {
-      path:'home',
-      component:HomeAdminComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'productos',
-      component:ListProductsComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'edit-product/:id',
-      component:EditProductComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'descuentos',
-      component:ViewDescuentosComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'stock-productos',
-      component:ViewStockComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'registro-producto',
-      component:RegistroProductosComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'usuarios',
-      component:ListUsersComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'ventas-por-enviar',
-      component:VentasFenvioComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'ventas-pendientes',
-      component:VentasPendientesComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'ventas-completas',
-      component:VentasCompletasComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'vision',
-      component:EditVisionComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'mision',
-      component:EditMisionComponent,
-      canMatch:[canMatchGuard],
-      canActivate:[canActivateGuard]
-    },
-    {
-      path:'**',
-      redirectTo:'/404'
-    }
-  ]
- }];
+    path: '',
+    component: LayoutPageComponent,
+    children: [
+      {
+        path: 'chat/:id',
+        component: ChatTestComponent,
+      },
+      {
+        path: 'home',
+        component: HomeAdminComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'productos',
+        component: ListProductsComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'edit-product/:id',
+        component: EditProductComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'descuentos',
+        component: ViewDescuentosComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'stock-productos',
+        component: ViewStockComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'registro-producto',
+        component: RegistroProductosComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'usuarios',
+        component: ListUsersComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'ventas-por-enviar',
+        component: VentasFenvioComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'ventas-pendientes',
+        component: VentasPendientesComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'ventas-completas',
+        component: VentasCompletasComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'vision',
+        component: EditVisionComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'mision',
+        component: EditMisionComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: '**',
+        redirectTo: '/404'
+      }
+    ]
+  }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

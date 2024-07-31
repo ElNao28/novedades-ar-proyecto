@@ -6,16 +6,20 @@
     <div *ngFor="let item of ventas" class="px-2 bg-white py-2 rounded-sm mb-5">
 
       <div>
-        <div class="flex items-center">
-          <div>
-            <h3 class="">Detalles de la venta</h3>
-            <div>
-              <span class="font-semibold text-gray-800 text-md">Fecha de la venta: </span>
-              <i class="font-semibold text-gray-600">{{item.fecha_venta}}</i>
-            </div>
-          </div>
 
+        <h3 class="">Detalles de la venta</h3>
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="font-semibold text-gray-800 text-md">Fecha de la venta: </span>
+            <i class="font-semibold text-gray-600">{{item.fecha_venta}}</i>
+          </div>
+          <button
+          routerLink="/admin/chat/{{item.id}}"
+            class="border-none rounded-sm bg-gray-600 hover:bg-gray-700 py-2 px-3 text-md cursor-pointer font-bold text-white">Mensajes
+          </button>
         </div>
+
+
         <ul class="grid grid-cols-5 text-center text-white py-1 bg-gray-800 text-sm">
           <li>Productos</li>
           <li>Precio</li>

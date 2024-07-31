@@ -3,6 +3,7 @@ import { ProfileService } from '../../services/profile.service';
 import { ResVentasDetallesVenta } from '../../interfaces/ResProfile.interface';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-mis-compras',
@@ -12,9 +13,10 @@ import { Router } from '@angular/router';
 export class MisComprasComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
-    private messageService:MessageService,
+    private messageService: MessageService,
     private router: Router,
   ) { }
+  private jwtHelper = new JwtHelperService();
   isLoader: boolean = true;
   filterVenta: ResVentasDetallesVenta[] = [];
   dataBackup: ResVentasDetallesVenta[] = [];
@@ -22,10 +24,11 @@ export class MisComprasComponent implements OnInit {
 
   ngOnInit(): void {
     const idUser = localStorage.getItem('token');
-    if (idUser !== null)
-      this.profileService.getVentas(parseInt(idUser)).subscribe(data => {
-        for(let i = 0; i < data.detallesVenta.length; i++){
-          if(data.detallesVenta[i].estado !== 'PConfirmar'){
+    if (idUser !== null) {
+      const token = this.jwtHelper.decodeToken(idUser);
+      this.profileService.getVentas(token.sub).subscribe(data => {
+        for (let i = 0; i < data.detallesVenta.length; i++) {
+          if (data.detallesVenta[i].estado !== 'PConfirmar') {
             this.dataBackup = data.detallesVenta;
             this.filterVenta = data.detallesVenta;
           }
@@ -34,6 +37,7 @@ export class MisComprasComponent implements OnInit {
           this.isLoader = false;
         }, 500);
       });
+    }
     else
       this.router.navigate(['/login']);
   }
@@ -46,34 +50,38 @@ export class MisComprasComponent implements OnInit {
       this.filterVenta = this.dataBackup.filter(item => item.estado === this.type);
     }
   }
-  alertRating(value:boolean){
+  alertRating(value: boolean) {
     console.log(value);
-    if(!value)
+    if (!value)
       this.messageService.add({
-      severity:'warn',
-      summary: 'Calificación',
-      detail: 'Debes seleccionar una puntuacion y dejar una opinion'})
-    else{
-      this.messageService.add({
-        severity:'success',
+        severity: 'warn',
         summary: 'Calificación',
-        detail: 'Gracias por calificar'})
+        detail: 'Debes seleccionar una puntuacion y dejar una opinion'
+      })
+    else {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Calificación',
+        detail: 'Gracias por calificar'
+      })
     }
   }
-  canceledVenta(id:number){
-    this.profileService.canceledVenta(id).subscribe(data =>{
+  canceledVenta(id: number) {
+    this.profileService.canceledVenta(id).subscribe(data => {
       console.log(data)
-      if(data.status === 200){
+      if (data.status === 200) {
         this.messageService.add({
-          severity:'success',
+          severity: 'success',
           summary: 'Cancelación',
-          detail: 'La venta fue cancelada correctamente'})
+          detail: 'La venta fue cancelada correctamente'
+        })
         this.filterData();
-      }else{
+      } else {
         this.messageService.add({
-          severity:'error',
+          severity: 'error',
           summary: 'Cancelación',
-          detail: 'Hubo un error al cancelar la venta'})
+          detail: 'Hubo un error al cancelar la venta'
+        })
       }
     })
     window.location.reload();

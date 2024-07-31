@@ -6,7 +6,7 @@ export interface ResponseBackLogin{
   message: string;
   status: number;
   data:{
-    id:number;
+    id:string;
     nombre:string;
   }
 }

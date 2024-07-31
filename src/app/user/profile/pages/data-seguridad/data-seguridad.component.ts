@@ -3,6 +3,7 @@ import { RespSeguridad } from '../../interfaces/ResProfile.interface';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
 import { MessageService } from 'primeng/api';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-data-seguridad',
@@ -15,6 +16,7 @@ export class DataSeguridadComponent {
     private profileService: ProfileService,
     private messageService: MessageService
   ) { }
+  private jwtHelper = new JwtHelperService();
   isLoader:boolean = true;
   editName: boolean = true;
   editPassword: boolean = true;
@@ -41,7 +43,8 @@ export class DataSeguridadComponent {
   ngOnInit(): void {
     const userId = localStorage.getItem('token');
     if (userId !== null) {
-      this.profileService.getDataSeguridad(userId).subscribe(res => {
+      const token = this.jwtHelper.decodeToken(userId);
+      this.profileService.getDataSeguridad(token.sub).subscribe(res => {
         this.dataForm = res;
         this.seguridadForm = this.fb.group({
           question: [res.question, [Validators.required]],
@@ -87,14 +90,15 @@ export class DataSeguridadComponent {
         })
         const userId = localStorage.getItem('token');
         if (userId !== null) {
-          this.profileService.updateUserSeguridad(userId, this.seguridadForm.value).subscribe(data => {
+          const token = this.jwtHelper.decodeToken(userId);
+          this.profileService.updateUserSeguridad(token.sub, this.seguridadForm.value).subscribe(data => {
             if (data.status === 200) {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Información',
                 detail: 'Datos actualizados correctamente'
               });
-              this.profileService.getDataSeguridad(userId).subscribe(data => {
+              this.profileService.getDataSeguridad(token.sub).subscribe(data => {
                 this.dataForm = data;
               })
               this.editName = !this.editName;
@@ -120,7 +124,8 @@ export class DataSeguridadComponent {
         })
         const userId = localStorage.getItem('token');
         if (userId !== null) {
-          this.profileService.updateUserPassword(userId, {password:this.passForm.controls['password'].value}).subscribe(data => {
+          const token = this.jwtHelper.decodeToken(userId);
+          this.profileService.updateUserPassword(token.sub, {password:this.passForm.controls['password'].value}).subscribe(data => {
             if (data.status === 200) {
               this.messageService.add({
                 severity: 'success',

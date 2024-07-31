@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { MLoginService } from '../../modulo-login/services/m-login.service';
 import { ProductsService } from '../../products/services/products.service';
 import { AdminService } from '../../../admin/services/admin-service.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,7 +20,7 @@ export class NavBarComponent implements OnInit {
     private producstService: ProductsService,
     private adminService:AdminService,
   ) { }
-
+  private jwtHelper = new JwtHelperService();
   touchMale: boolean = false;
   touchFemale: boolean = false;
   visible: boolean = false;
@@ -37,8 +38,9 @@ export class NavBarComponent implements OnInit {
 
     const userId = localStorage.getItem('token');
     if (userId !== null) {
-      this.routerUser = "profile/" + userId;
-      this.producstService.getProductByCard({ id: parseInt(userId) }).subscribe(data => {
+      const dataToken = this.jwtHelper.decodeToken(userId);
+      this.routerUser = "profile/";
+      this.producstService.getProductByCard({ id: parseInt(dataToken.sub) }).subscribe(data => {
         this.numCard = data.detallesCarrito.length
       })
     }
