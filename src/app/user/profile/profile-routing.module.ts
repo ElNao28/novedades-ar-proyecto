@@ -52,7 +52,7 @@ const routes: Routes = [
     canMatch:[profileGuardGuardMatch]
   },
   {
-    path:'profile/chat/venta/:id',
+    path:'profile/chat/:id',
     component:ChatUserComponent,
     canActivate: [profileGuardGuardActivate],
     canMatch:[profileGuardGuardMatch]

@@ -1,9 +1,10 @@
-<div class="px-10 py-5 overflow-auto">
-  <div class="bg-white rounded-md px-5 pt-2 pb-5">
+<div class="px-10 py-5 overflow-auto flex justify-center">
+  <div class="bg-white rounded-md px-5 pt-2 pb-5 w-3/4">
     <h3 class="text-center text-2xl ">Chat de venta</h3>
+    <span>{{idVenta}}</span>
     <hr>
     <div *ngFor="let item of messages" class="flex flex-col px-5"
-      [ngClass]="{'items-end': item.by === 'user', 'items-start': item.by === 'admin'}">
+      [ngClass]="{'items-start': item.by === 'user', 'items-end': item.by === 'admin'}">
       <p class="capitalize rounded-md text-white px-5 py-2 text-sm"
         [ngClass]="{'bg-gray-800': item.by === 'admin','bg-purple-800': item.by === 'user'}">
         {{item.mensaje}}
@@ -15,5 +16,4 @@
         (click)="sendMessage()">Enviar</button>
     </form>
   </div>
-
 </div>

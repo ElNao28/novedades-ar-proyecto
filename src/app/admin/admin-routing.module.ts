@@ -35,7 +35,7 @@ const routes: Routes = [
     component: LayoutPageComponent,
     children: [
       {
-        path: 'chat',
+        path: 'chat/:id',
         component: ChatTestComponent,
       },
       {

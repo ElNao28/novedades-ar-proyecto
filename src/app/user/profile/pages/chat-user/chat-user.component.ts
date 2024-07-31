@@ -3,6 +3,7 @@ import { MessageServices } from './../../../../admin/services/message.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-chat-user',
   templateUrl: './chat-user.component.html',
@@ -16,14 +17,21 @@ export class ChatUserComponent implements OnInit{
   constructor(
     private messageService: MessageServices,
     private fb:FormBuilder,
-    private messageAlert:MessageService
+    private messageAlert:MessageService,
+    private activatedRoute:ActivatedRoute
   ) {}
-
+  isLoader:boolean = true;
+  idVenta:number = 0;
   ngOnInit(): void {
+    const idVenta = this.activatedRoute.snapshot.paramMap.get('id')!;
+    this.idVenta = parseInt(idVenta);
     this.messageService.onMessage().subscribe(payload => {
       this.messages = payload.messages;
     });
-    this.messageService.onMessagesByJoin(112)
+    this.messageService.onMessagesByJoin(parseInt(idVenta))
+    setTimeout(() => {
+      this.isLoader = false;
+    }, 500);
   }
 
   sendMessage(): void {
@@ -33,7 +41,7 @@ export class ChatUserComponent implements OnInit{
       summary: 'Error',
       detail: 'No dejes el mensaje vacío'
     });
-    this.messageService.sendMessage(this.messageForm.controls['message'].value,112,'user');
+    this.messageService.sendMessage(this.messageForm.controls['message'].value,this.idVenta,'user');
     this.messageForm.reset();
   }
 }

@@ -16,7 +16,7 @@ export class MessageServices {
   private connectServer(){
     const idUser = localStorage.getItem('token')
     if(idUser !== null){
-      this.socket = io('http://localhost:3000', {
+      this.socket = io('https://back-novedadesar-production.up.railway.app', {
         extraHeaders: {
           token: idUser
         }
@@ -34,8 +34,8 @@ export class MessageServices {
 
   onMessage(): Observable<{ messages:Messages[]}> {
     return new Observable(observer => {
-      this.socket.on('chat', (payload: { messages:Messages[] }) => observer.next(payload));
-      return () => this.socket.off('chat');
+      this.socket.on('message', (payload: { messages:Messages[] }) => observer.next(payload));
+      return () => this.socket.off('message');
     });
   }
   onMessagesByJoin(idVenta:number){
