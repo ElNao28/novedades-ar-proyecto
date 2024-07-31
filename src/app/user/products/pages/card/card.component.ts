@@ -4,6 +4,7 @@ import { MLoginService } from '../../../modulo-login/services/m-login.service';
 import { CompraProducto } from '../../interfaces/CompraProduct.iinterface';
 import { CardResponse } from '../../interfaces/ProductsCard.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-card',
@@ -18,7 +19,7 @@ export class CardComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
   ) { }
-
+  private jwtHelper = new JwtHelperService();
   productsCard: CardResponse = {
     id: 0,
     estado: 0,
@@ -34,7 +35,8 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
     const idUser = localStorage.getItem('token')
     if (idUser !== null) {
-      this.getProducts(idUser)
+      const token = this.jwtHelper.decodeToken(idUser)
+      this.getProducts(token.sub)
     }
     else {
       setTimeout(() => {
@@ -114,7 +116,8 @@ export class CardComponent implements OnInit {
       rejectButtonStyleClass: 'p-button-text',
       accept: () => {
         if (userId !== null) {
-          this.loginService.checkUbicacion(userId).subscribe(resp => {
+          const token = this.jwtHelper.decodeToken(userId)
+          this.loginService.checkUbicacion(token.sub).subscribe(resp => {
             if (resp.status === 404) {
               return this.messageService.add({
                 severity: 'warn',

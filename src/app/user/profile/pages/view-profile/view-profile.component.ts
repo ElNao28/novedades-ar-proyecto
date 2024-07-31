@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-view-profile',
@@ -13,6 +14,7 @@ export class ViewProfileComponent implements OnInit{
     private activateLink:ActivatedRoute,
     private router:Router,
   ){}
+  private jwtHelper = new JwtHelperService();
   isLoader :boolean = true;
   email:string = "";
   name:string = "";
@@ -21,9 +23,10 @@ export class ViewProfileComponent implements OnInit{
     const idUser = localStorage.getItem('token');
     const idByUrl = this.activateLink.snapshot.paramMap.get('id')!;
     if(idUser !== null){
-      if(idByUrl !== idUser) this.router.navigate(['/404']);
-      this.idUser = idUser;
-      this.profileService.getProfile(idUser).subscribe(res=>{
+      const token = this.jwtHelper.decodeToken(idUser)
+      //if(idByUrl !== idUser) this.router.navigate(['/404']);
+      this.idUser = token.sub;
+      this.profileService.getProfile(token.sub).subscribe(res=>{
         if(res.status === 200){
           this.email = res.email;
           this.name = res.name;

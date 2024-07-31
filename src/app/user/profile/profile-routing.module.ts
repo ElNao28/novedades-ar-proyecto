@@ -8,6 +8,7 @@ import { DataCuentaComponent } from './pages/data-cuenta/data-cuenta.component';
 import { DataSeguridadComponent } from './pages/data-seguridad/data-seguridad.component';
 import { DataEnvioComponent } from './pages/data-envio/data-envio.component';
 import { ComentariosComponent } from './pages/comentarios/comentarios.component';
+import { ChatUserComponent } from './pages/chat-user/chat-user.component';
 
 const routes: Routes = [
   {
@@ -21,36 +22,41 @@ const routes: Routes = [
     canMatch:[profileGuardGuardMatch]
   },
   {
-    path:'profile/:id',
+    path:'profile',
     component:ViewProfileComponent,
     canActivate: [profileGuardGuardActivate],
     canMatch:[profileGuardGuardMatch]
   },
   {
-    path:'profile/:id/personal',
+    path:'profile/personal',
     component:DataPersonalComponent,
     canActivate: [profileGuardGuardActivate],
     canMatch:[profileGuardGuardMatch]
   },
   {
-    path:'profile/:id/cuenta',
+    path:'profile/cuenta',
     component:DataCuentaComponent,
     canActivate: [profileGuardGuardActivate],
     canMatch:[profileGuardGuardMatch]
   },
   {
-    path:'profile/:id/seguridad',
+    path:'profile/seguridad',
     component:DataSeguridadComponent,
     canActivate: [profileGuardGuardActivate],
     canMatch:[profileGuardGuardMatch]
   },
   {
-    path:'profile/:id/ubicacion',
+    path:'profile/ubicacion',
     component:DataEnvioComponent,
     canActivate: [profileGuardGuardActivate],
     canMatch:[profileGuardGuardMatch]
   },
-
+  {
+    path:'profile/chat/venta/:id',
+    component:ChatUserComponent,
+    canActivate: [profileGuardGuardActivate],
+    canMatch:[profileGuardGuardMatch]
+  },
 ];
 
 @NgModule({

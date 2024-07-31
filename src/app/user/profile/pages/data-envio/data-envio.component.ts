@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ProfileService } from '../../services/profile.service';
 import { MessageService } from 'primeng/api';
 import { RespCopomex, RespCuenta, RespEnvio, RespPersonal } from '../../interfaces/ResProfile.interface';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-data-envio',
@@ -15,6 +16,7 @@ export class DataEnvioComponent {
     private profileService: ProfileService,
     private messageService: MessageService
   ) { }
+  private jwtHelper = new JwtHelperService();
   isLoader: boolean = true;
   editName: boolean = true;
   dataForm: RespEnvio = {
@@ -38,7 +40,8 @@ export class DataEnvioComponent {
   ngOnInit(): void {
     const userId = localStorage.getItem('token');
     if (userId !== null) {
-      this.profileService.getDataUbicacion(userId).subscribe(res => {
+      const token = this.jwtHelper.decodeToken(userId);
+      this.profileService.getDataUbicacion(token.sub).subscribe(res => {
         this.dataForm = res;
         this.ubicacionForm = this.fb.group({
           estado: [res.estado, [Validators.required]],
@@ -97,14 +100,15 @@ export class DataEnvioComponent {
           })
         }
         if (userId !== null) {
-          this.profileService.updateUserUbicacion(userId, this.ubicacionForm.value).subscribe(data => {
+          const token = this.jwtHelper.decodeToken(userId);
+          this.profileService.updateUserUbicacion(token.sub, this.ubicacionForm.value).subscribe(data => {
             if (data.status === 200) {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Información',
                 detail: 'Datos actualizados correctamente'
               });
-              this.profileService.getDataUbicacion(userId).subscribe(data => {
+              this.profileService.getDataUbicacion(token.sub).subscribe(data => {
                 this.dataForm = data;
                 this.ubicacionForm = this.fb.group({
                   estado: [data.estado, [Validators.required]],

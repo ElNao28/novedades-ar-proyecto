@@ -30,7 +30,7 @@ export class LoginAdminComponent {
     });
     this.adminService.loginAdmin(this.formLogin.value).subscribe(res=>{
       if(res.status === 200){
-        localStorage.setItem('tokenAdmin',res.data.id.toString());
+        localStorage.setItem('token',res.data.id);
         this.router.navigate(['/admin/home']);
       }else{
         this.messageService.add({

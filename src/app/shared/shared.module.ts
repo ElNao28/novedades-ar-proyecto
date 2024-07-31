@@ -6,6 +6,7 @@ import { Error404Component } from "./pages/error-404/error-404.component";
 import { LoaderComponent } from "./pages/loader/loader.component";
 import { CommonModule } from "@angular/common";
 import { PrimeNgModule } from "../prime-ng/prime-ng.module";
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,6 @@ import { PrimeNgModule } from "../prime-ng/prime-ng.module";
   imports: [
     CommonModule,
     PrimeNgModule,
-  ],
+  ]
 })
 export class SharedModule { }

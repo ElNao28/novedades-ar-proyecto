@@ -10,6 +10,7 @@ import { DataInicio } from '../interfaces/DataInicio.interface';
 import { MessageService } from 'primeng/api';
 import { ResponseProduct } from '../interfaces/ProductsOne.interface';
 import { ProductPagination } from '../interfaces/ProductsPage.interface';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,9 @@ export class ProductsService {
     private http: HttpClient,
     private messageService: MessageService,
   ) { }
-  //private urlApi:string = 'http://localhost:3000/';
-  private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
+  private urlApi:string = 'http://localhost:3000/';
+  //private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
+  private jwtHelper = new JwtHelperService();
 
   getProducts() {
     return this.http.get<Products[]>(`${this.urlApi}products`);
@@ -67,10 +69,11 @@ export class ProductsService {
     const idUser = localStorage.getItem('token');
 
     if (idUser !== null) {
+      const token = this.jwtHelper.decodeToken(idUser)
       const dataCard: SendDataCard = {
         cantidad: 1,
         idProduct: parseInt(id),
-        idUser: parseInt(idUser)
+        idUser: token.sub
       }
       this.addProductToCard(dataCard).subscribe(data => {
         if (data.status === 200) {

@@ -20,14 +20,9 @@ export class AdminService {
   private socket!: Socket;
   constructor(
     private http: HttpClient,
-  ) {
-    // this.socket = io('http://localhost:3000');
-    // this.socket.on('new-message', (message: any) => {
-    //   console.log('Recibido desde el server:', message);
-    // });
-  }
-  //private urlApi:string = 'http://localhost:3000/';
-  private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
+  ) {}
+  private urlApi:string = 'http://localhost:3000/';
+  //private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
 
   addProduct(newProduct: any) {
     return this.http.post<ResponseCreateUser>(`${this.urlApi}products`, newProduct)
@@ -84,16 +79,16 @@ export class AdminService {
   updateVision(vision:Vision){
     return this.http.patch<ResponseBack>(`${this.urlApi}about-us/update-vision`, vision)
   }
-  // public sendMessage(event: string, message: any): void {
-  //   this.socket.emit(event, message);
-  // }
+  public sendMessage(event: string, message: any): void {
+    this.socket.emit(event, message);
+  }
 
-  // public onMessage(event: string): Observable<any> {
-  //   return new Observable(observer => {
-  //     this.socket.on(event, (data) => observer.next(data));
-  //     return () => this.socket.off(event);
-  //   });
-  // }
+  public onMessage(event: string): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on(event, (data) => observer.next(data));
+      return () => this.socket.off(event);
+    });
+  }
 
 
 

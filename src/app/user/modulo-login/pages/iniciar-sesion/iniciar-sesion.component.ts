@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataForm } from '../../interfaces/FormData.interface';
 import { MLoginService } from '../../services/m-login.service';
 import { MessageService } from 'primeng/api';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -21,6 +22,8 @@ export class IniciarSesionComponent implements OnInit{
     private messageService:MessageService,
     ){}
   fecha = new Date().toLocaleDateString();
+  private jwtHelper = new JwtHelperService();
+
   ngOnInit(): void {
     console.log(this.fecha)
   }
@@ -68,13 +71,14 @@ export class IniciarSesionComponent implements OnInit{
           ip:data.ip,
           fecha:this.fecha
         }).subscribe(res=>{
-          console.log(res);
           if(res.status === 200)
           {
 
             localStorage.setItem('token', res.token);
 
-            //const dataToken = this.jwt.decode(res.token)
+            const dataToken = this.jwtHelper.decodeToken(res.token);
+            console.log(dataToken);
+
             this.alerts(
               'success',
               'Exito',
@@ -98,10 +102,6 @@ export class IniciarSesionComponent implements OnInit{
               'Parece que hubo un error',
               'Numero de intentos alcanzado'
             )
-          }
-          else
-          {
-            return console.log(false, "ola")
           }
         });
     });

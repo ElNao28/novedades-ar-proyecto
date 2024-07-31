@@ -14,6 +14,7 @@ import { MenuRutasProfileComponent } from './components/menu-rutas-profile/menu-
 import { SharedModule } from '../../shared/shared.module';
 import { FormRatingComponent } from './components/form-rating/form-rating.component';
 import { ComentariosComponent } from './pages/comentarios/comentarios.component';
+import { ChatUserComponent } from './pages/chat-user/chat-user.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ComentariosComponent } from './pages/comentarios/comentarios.component'
     MenuRutasProfileComponent,
     FormRatingComponent,
     ComentariosComponent,
+    ChatUserComponent,
   ],
   imports: [
     CommonModule,

@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ProfileService } from '../../services/profile.service';
 import { MessageService } from 'primeng/api';
 import { RespCuenta, RespPersonal } from '../../interfaces/ResProfile.interface';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-data-cuenta',
@@ -15,6 +16,7 @@ export class DataCuentaComponent {
     private profileService: ProfileService,
     private messageService: MessageService
   ) { }
+  private jwtHelper = new JwtHelperService();
   isLoader:boolean = true;
   editName: boolean = true;
   dataForm: RespCuenta = {
@@ -31,7 +33,8 @@ export class DataCuentaComponent {
   ngOnInit(): void {
     const userId = localStorage.getItem('token');
     if (userId !== null) {
-      this.profileService.getDataCuenta(userId).subscribe(res => {
+      const token = this.jwtHelper.decodeToken(userId);
+      this.profileService.getDataCuenta(token.sub).subscribe(res => {
         this.dataForm = res;
         this.cuentaForm = this.fb.group({
           email: [{ value: res.email, disabled: true }, [Validators.required,Validators.email, Validators.minLength(3)]],
@@ -69,15 +72,16 @@ export class DataCuentaComponent {
           summary: 'Error',
           detail: 'No puedes dejar campos vacios o incompletos'
         })
-        if (userId !== null)
-          this.profileService.updateUserPersonal(userId, this.cuentaForm.value).subscribe(data => {
+        if (userId !== null){
+          const token = this.jwtHelper.decodeToken(userId)
+          this.profileService.updateUserPersonal(token.sub, this.cuentaForm.value).subscribe(data => {
             if (data.status === 200) {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Información',
                 detail: 'Datos actualizados correctamente'
               });
-              this.profileService.getDataCuenta(userId).subscribe(data => {
+              this.profileService.getDataCuenta(token.sub).subscribe(data => {
                 this.dataForm = data;
                 this.cuentaForm = this.fb.group({
                   email: [{ value: data.email, disabled: true }, [Validators.required, Validators.email, Validators.minLength(3)]],
@@ -91,7 +95,7 @@ export class DataCuentaComponent {
               summary: 'Error',
               detail: 'El correo electrónico o numero de telefono ya se encuentra registrado'
             })
-          })
+          })}
         break;
     }
   }
