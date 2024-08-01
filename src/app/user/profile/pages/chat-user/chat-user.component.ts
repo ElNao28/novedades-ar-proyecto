@@ -1,6 +1,6 @@
 import { Messages } from './../../../../admin/interfaces/Messages.interface';
 import { MessageServices } from './../../../../admin/services/message.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './chat-user.component.html',
   styleUrl: './chat-user.component.css'
 })
-export class ChatUserComponent implements OnInit{
+export class ChatUserComponent implements OnInit, OnDestroy{
   messages: Messages[] = [];
   messageForm:FormGroup = this.fb.group({
     message: ['', [Validators.required]]
@@ -20,6 +20,9 @@ export class ChatUserComponent implements OnInit{
     private messageAlert:MessageService,
     private activatedRoute:ActivatedRoute
   ) {}
+  ngOnDestroy(): void {
+    this.messageService.offMessagesByJoin(this.idVenta);
+  }
   isLoader:boolean = true;
   idVenta:number = 0;
   ngOnInit(): void {

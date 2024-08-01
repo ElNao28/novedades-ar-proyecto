@@ -6,18 +6,14 @@ import { GetUsers } from '../interfaces/GetUsers.interface';
 import { ListProducts } from '../interfaces/GetProducts.interface';
 import { ResponseBack, ResponseBackLogin } from '../interfaces/ResponseBack.interface';
 import { Promociones } from '../interfaces/GetPromociones.interface';
-import { DetallesVenta, VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
+import { VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
 import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
-import { ResponseBackData } from '../interfaces/DataSet.interface';
-import { io, Socket } from 'socket.io-client';
-import { Observable } from 'rxjs';
 import { GetMision, GetVision, Mision, Vision } from '../interfaces/GetMision.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  private socket!: Socket;
   constructor(
     private http: HttpClient,
   ) {}
@@ -79,21 +75,4 @@ export class AdminService {
   updateVision(vision:Vision){
     return this.http.patch<ResponseBack>(`${this.urlApi}about-us/update-vision`, vision)
   }
-  public sendMessage(event: string, message: any): void {
-    this.socket.emit(event, message);
-  }
-
-  public onMessage(event: string): Observable<any> {
-    return new Observable(observer => {
-      this.socket.on(event, (data) => observer.next(data));
-      return () => this.socket.off(event);
-    });
-  }
-
-
-
-
-
-
-
 }
