@@ -8,14 +8,12 @@ import { Messages } from '../interfaces/Messages.interface';
 })
 export class MessageServices {
   socket!: Socket;
-  constructor() {
-    // Conectar al servidor al inicializar el servicio
-    this.connectServer();
-  }
+  constructor() {}
 
   private connectServer(){
     const idUser = localStorage.getItem('token')
     if(idUser !== null){
+      //this.socket = io('http://localhost:3000', {
       this.socket = io('https://back-novedadesar-production.up.railway.app', {
         extraHeaders: {
           token: idUser
@@ -33,6 +31,7 @@ export class MessageServices {
   }
 
   onMessage(): Observable<{ messages:Messages[]}> {
+    this.connectServer()
     return new Observable(observer => {
       this.socket.on('message', (payload: { messages:Messages[] }) => observer.next(payload));
       return () => this.socket.off('message');
@@ -40,6 +39,11 @@ export class MessageServices {
   }
   onMessagesByJoin(idVenta:number){
     this.socket.emit('joinChat',{
+      idVenta: idVenta
+    })
+  }
+  offMessagesByJoin(idVenta:number){
+    this.socket.emit('offMessage',{
       idVenta: idVenta
     })
   }
