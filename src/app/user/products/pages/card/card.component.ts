@@ -17,7 +17,7 @@ export class CardComponent implements OnInit {
     private mLoginService: MLoginService,
     private loginService: MLoginService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService,
+    private confirmationService: ConfirmationService
   ) { }
   private jwtHelper = new JwtHelperService();
   productsCard: CardResponse = {
@@ -108,6 +108,7 @@ export class CardComponent implements OnInit {
   comprarCard() {
     const dataByBack: CompraProducto[] = [];
     const userId = localStorage.getItem('token');
+
     this.confirmationService.confirm({
       header: 'Confirmar compra',
       message: '¿Estás seguro de que deseas comprar?',
@@ -130,7 +131,7 @@ export class CardComponent implements OnInit {
                   id: this.productsCard.detallesCarrito[i].product.id,
                   title: this.productsCard.detallesCarrito[i].product.nombre_producto,
                   precio: this.productsCard.detallesCarrito[i].product.precio,
-                  idUser: userId,
+                  idUser: token.sub,
                   cantidad: this.productsCard.detallesCarrito[i].cantidad.toString(),
                   idCard: this.productsCard.id.toString()
                 }
