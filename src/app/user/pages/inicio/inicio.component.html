@@ -8,10 +8,32 @@
       </ng-template>
     </p-galleria>
   </div>
-  <h2 class="text-center text-3xl mt-10">-Novedades-</h2>
-  <hr class="w-5/6">
+
+  <div *ngIf="paraTi && paraTi.length > 0">
+    <h2 class="text-center text-3xl mt-10">-Para ti-</h2>
+    <hr class="w-5/6">
+    <p-carousel [value]="paraTi" [numVisible]="3" [numScroll]="3" [circular]="false">
+      <ng-template let-product pTemplate="item">
+        <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
+          <div class="mb-3 novedades">
+            <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
+          </div>
+          <div>
+            <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{
+              product.nombre_producto }}</h4>
+            <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
+            <div class="mt-5 flex items-center justify-center gap-2">
+              <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
 
   <div>
+    <h2 class="text-center text-3xl mt-10">-Novedades-</h2>
+    <hr class="w-5/6">
     <p-carousel [value]="novedades" [numVisible]="3" [numScroll]="3" [circular]="false">
       <ng-template let-product pTemplate="item">
         <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
@@ -19,7 +41,8 @@
             <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
           </div>
           <div>
-            <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{ product.nombre_producto }}</h4>
+            <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{
+              product.nombre_producto }}</h4>
             <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
             <div class="mt-5 flex items-center justify-center gap-2">
               <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
@@ -41,7 +64,8 @@
               <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
-              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{ product.nombre_producto }}</h4>
+              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{
+                product.nombre_producto }}</h4>
               <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
               <div class="mt-5 flex items-center justify-center gap-2">
                 <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
@@ -53,7 +77,7 @@
     </div>
   </div>
 
-<div>
+  <div>
     <h2 class="text-center text-3xl">-Para dama-</h2>
     <hr class="w-5/6">
     <div>
@@ -64,7 +88,8 @@
               <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
-              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{ product.nombre_producto }}</h4>
+              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{
+                product.nombre_producto }}</h4>
               <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
               <div class="mt-5 flex items-center justify-center gap-2">
                 <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
@@ -87,7 +112,8 @@
               <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
-              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{ product.nombre_producto }}</h4>
+              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{
+                product.nombre_producto }}</h4>
               <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
               <div class="mt-5 flex items-center justify-center gap-2">
                 <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />

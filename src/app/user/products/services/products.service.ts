@@ -11,6 +11,7 @@ import { MessageService } from 'primeng/api';
 import { ResponseProduct } from '../interfaces/ProductsOne.interface';
 import { ProductPagination } from '../interfaces/ProductsPage.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { GetParaTI } from '../interfaces/GetParaTi.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,10 @@ export class ProductsService {
   }
   getProductsByGender(gender: string, tipo: string) {
     return this.http.get<Products[]>(`${this.urlApi}products/gender/` + gender + '/category/' + tipo)
+  }
+
+  getProductsByType(idUser:string) {
+    return this.http.get<GetParaTI>(`${this.urlApi}products/products-by-type/${idUser}`)
   }
 
   addProductToCardSer(id: string) {
