@@ -9,6 +9,7 @@ import { TerminosCondicionesComponent } from './pages/terminos-condiciones/termi
 import { CookiesComponent } from './pages/cookies/cookies.component';
 import { MisionComponent } from './pages/mision/mision.component';
 import { VisionComponent } from './pages/vision/vision.component';
+import { ThanksComponent } from './pages/thanks/thanks.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { VisionComponent } from './pages/vision/vision.component';
        CookiesComponent,
        MisionComponent,
        VisionComponent,
+       ThanksComponent,
   ],
   imports: [
     CommonModule,
