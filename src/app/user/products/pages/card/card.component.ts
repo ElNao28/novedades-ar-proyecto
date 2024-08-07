@@ -5,6 +5,7 @@ import { CompraProducto } from '../../interfaces/CompraProduct.iinterface';
 import { CardResponse } from '../../interfaces/ProductsCard.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -17,7 +18,8 @@ export class CardComponent implements OnInit {
     private mLoginService: MLoginService,
     private loginService: MLoginService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router,
   ) { }
   private jwtHelper = new JwtHelperService();
   productsCard: CardResponse = {
@@ -112,35 +114,51 @@ export class CardComponent implements OnInit {
     this.confirmationService.confirm({
       header: 'Confirmar compra',
       message: '¿Estás seguro de que deseas comprar?',
-      acceptLabel: 'Comprar',
-      rejectLabel: 'Cancelar',
+      key: 'env',
       rejectButtonStyleClass: 'p-button-text',
+      acceptLabel: 'Si',
+      rejectLabel: 'No',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
       accept: () => {
         if (userId !== null) {
           const token = this.jwtHelper.decodeToken(userId)
           this.loginService.checkUbicacion(token.sub).subscribe(resp => {
             if (resp.status === 404) {
-              return this.messageService.add({
-                severity: 'warn',
-                detail: 'Debes agregar tus datos de envio para poder comprar'
+              this.confirmationService.confirm({
+                message: '¿Deseas agregarlos en este momento?',
+                header: 'Faltan datos de envio',
+                icon: 'pi pi-exclamation-triangle',
+                rejectButtonStyleClass: 'p-button-text',
+                acceptLabel: 'Si',
+                rejectLabel: 'No',
+                acceptIcon: 'none',
+                rejectIcon: 'none',
+                accept: () => {
+                  this.router.navigate(['/profile/ubicacion']);
+                },
+                reject: () => {
+                }
+              })
+            }
+            else {
+              for (let i = 0; i < this.productsCard.detallesCarrito.length; i++) {
+                dataByBack.push(
+                  {
+                    id: this.productsCard.detallesCarrito[i].product.id,
+                    title: this.productsCard.detallesCarrito[i].product.nombre_producto,
+                    precio: this.productsCard.detallesCarrito[i].product.precio,
+                    idUser: token.sub,
+                    cantidad: this.productsCard.detallesCarrito[i].cantidad.toString(),
+                    idCard: this.productsCard.id.toString()
+                  }
+                )
+              }
+              this.btnDisabled = true;
+              this.producsService.comprarProduct(dataByBack).subscribe(data => {
+                window.location.href = data.url;
               });
             }
-            for (let i = 0; i < this.productsCard.detallesCarrito.length; i++) {
-              dataByBack.push(
-                {
-                  id: this.productsCard.detallesCarrito[i].product.id,
-                  title: this.productsCard.detallesCarrito[i].product.nombre_producto,
-                  precio: this.productsCard.detallesCarrito[i].product.precio,
-                  idUser: token.sub,
-                  cantidad: this.productsCard.detallesCarrito[i].cantidad.toString(),
-                  idCard: this.productsCard.id.toString()
-                }
-              )
-            }
-            this.btnDisabled = true;
-            this.producsService.comprarProduct(dataByBack).subscribe(data => {
-              window.location.href = data.url;
-            });
           });
         }
       },

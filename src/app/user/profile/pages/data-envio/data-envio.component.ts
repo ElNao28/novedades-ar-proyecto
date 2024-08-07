@@ -27,12 +27,25 @@ export class DataEnvioComponent {
     colonia: '',
     referencia: ''
   };
-  dataByCopomex!: RespCopomex;
+  dataByCopomex: RespCopomex = {
+    error: false,
+    code_error: 0,
+    error_message: null,
+    response: {
+      cp: '',
+      asentamiento: [],
+      tipo_asentamiento: '',
+      municipio: '',
+      estado: '',
+      ciudad: '',
+      pais: '',
+    }
+  }
   idDisabled: boolean = false;
   public ubicacionForm: FormGroup = new FormGroup({
     estado: new FormControl('', [Validators.required]),
     municipio: new FormControl('', [Validators.required]),
-    cp: new FormControl('', [Validators.required]),
+    cp: new FormControl('0', [Validators.required,Validators.minLength(5)]),
     colonia: new FormControl('', [Validators.required]),
     referencia: new FormControl('', [Validators.required]),
   });
@@ -63,6 +76,7 @@ export class DataEnvioComponent {
 
   }
   searchDataByCp() {
+    console.log(this.ubicacionForm.invalid)
     if (this.ubicacionForm.controls['cp'].valid) {
       this.profileService.getDataCopomex(this.ubicacionForm.controls['cp'].value).subscribe(data => {
         this.dataByCopomex = data;

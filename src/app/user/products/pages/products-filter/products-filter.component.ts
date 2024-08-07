@@ -16,7 +16,7 @@ export class ProductsFilterComponent implements OnInit{
   constructor(
     private activate:ActivatedRoute,
     private productsService:ProductsService,
-    private router:Router
+    private router:Router,
   ){}
   ngOnInit(): void {
     this.activate.params.subscribe(params => {
@@ -30,5 +30,7 @@ export class ProductsFilterComponent implements OnInit{
       });
     });
   }
-
+  addProductToCard(id: number) {
+    this.productsService.addProductToCardSer(id.toString());
+  }
 }

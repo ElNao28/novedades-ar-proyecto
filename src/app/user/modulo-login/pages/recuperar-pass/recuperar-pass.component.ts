@@ -153,17 +153,15 @@ export class RecuperarPassComponent {
         })
         break;
       case 2:
-        console.log(this.formEmail.controls['email'].value)
         const email = this.formEmail.controls['email'].value;
         this.loginService.getQuestion(email).subscribe(data => {
-          console.log(data)
           if (data.status === 200) {
             this.dataSend =
             {
               to: this.formEmail.controls['email'].value,
             }
             switch (data.response) {
-              case 'perro':
+              case 'mascota':
                 this.datosFormQuestion[0].label = '¿Cual es el nombre de tu perro?';
                 break;
               case 'comida':
@@ -195,7 +193,6 @@ export class RecuperarPassComponent {
       if (data.status === 409) return console.log("respuesta incorrecta")
       this.validAllForms = true;
       this.answerIsValid = false;
-      console.log("exito")
     })
   }
 
@@ -232,7 +229,6 @@ export class RecuperarPassComponent {
         summary: 'Exito',
         detail: 'El codigo ingresado es correcto'
       })
-      console.log('validatedCode')
       this.validAllForms = true;
       this.validCode = true;
     }
