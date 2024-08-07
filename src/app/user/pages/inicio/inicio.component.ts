@@ -36,7 +36,6 @@ export class InicioComponent implements OnInit{
       let tokenN = this.jwt.decodeToken(token);
       this.productsService.getProductsByType(tokenN.sub).subscribe(data =>{
         this.paraTi = data.data;
-        console.log(this.paraTi);
         setTimeout(() => {
           this.isLoader = false;
         }, 500);
