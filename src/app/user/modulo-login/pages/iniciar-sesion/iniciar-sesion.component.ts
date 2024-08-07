@@ -88,7 +88,7 @@ export class IniciarSesionComponent implements OnInit{
               'Login correcto "Bienvenido"'
             )
             setTimeout(() =>{
-              window.location.href = 'http://localhost:4200/'
+              window.location.href = 'https://novedades-ar.netlify.app/'
             },1000)
           }
           else if(res.status === 400 || res.status === 302){
