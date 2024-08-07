@@ -29,18 +29,23 @@
               <p class="px-4">{{item.fecha_venta}}</p>
               <!-- <button *ngIf="item.estado !== 'canceled'" (click)="canceledVenta(item.id)" class="bg-red-500 rounded-md font-bold cursor-pointer py-2 px-2 text-white border-none">Cancelar</button> -->
             </div>
-            <div *ngIf="item.envio !== null">
-              <a class="bg-blue-600 hover:bg-blue-500 py-2 px-3 rounded-md" target="_blank"
-                href="https://www.fedex.com/fedextrack/?trknbr={{item.envio.numero_guia}}">Seguir envio</a>
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-1">
+              <button class="bg-blue-600 hover:bg-blue-500 py-2 px-3 rounded-md border-none" *ngIf="item.envio !== null">
+                <a target="_blank"
+                  href="https://www.fedex.com/fedextrack/?trknbr={{item.envio.numero_guia}}">Seguir envio</a>
+              </button>
+              <button routerLink="/profile/chat/{{item.id}}"
+                class="border-none rounded-md cursor-pointer bg-pink-600 hover:bg-pink-700 py-2 px-3 text-white text-md">Mensajes</button>
             </div>
 
           </div>
           <hr class="opacity-50">
-          <div class="px-8 flex items-center justify-between mb-5" *ngFor="let product of item.detallesVenta">
+          <div class="px-8 flex flex-col md:flex-row md:items-center md:justify-between mb-5" *ngFor="let product of item.detallesVenta">
+
             <div class="flex items-center gap-5">
               <img class="w-16 h-24 sm:w-36 sm:h-44" [src]="product.producto.imagen[0].url_imagen" alt="imagen">
               <div class="">
-                <p class="text-md sm:text-xl p-0 m-0">{{product.producto.nombre_producto}}</p>
+                <p class="text-md sm:text-xl p-0 m-0 capitalize">{{product.producto.nombre_producto}}</p>
                 <p *ngIf="item.envio !== null && item.envio.fecha_entrega !== null" class="text-md text-gray-600">
                   Entregado {{item.envio.fecha_entrega}}</p>
                 <p *ngIf="item.envio !== null" class="text-sm text-gray-600">Codigo de rastreo <span
@@ -49,24 +54,27 @@
                 </p>
                 <p *ngIf="item.estado === 'Fenvio'" class="text-pink-300 text-sm">Estamos preparando tu pedido</p>
                 <p *ngIf="item.estado === 'proceso'" class="text-yellow-500 text-sm">Despachamos tu pedido</p>
-                <button routerLink="/profile/chat/{{item.id}}" class="border-none rounded-md cursor-pointer bg-pink-600 hover:bg-pink-700 py-2 px-3 text-white font-bold">Mensajes</button>
               </div>
             </div>
+
             <div *ngIf="item.estado === 'completo'">
-              <app-form-rating (ready)="alertRating($event)" [idProduct]="product.producto.id" [idVenta]="product.id" [raking]="product.calificacion"></app-form-rating>
+              <app-form-rating (ready)="alertRating($event)" [idProduct]="product.producto.id" [idVenta]="product.id"
+                [raking]="product.calificacion"></app-form-rating>
             </div>
-            </div>
+
           </div>
         </div>
-    </div>
-
-      <div *ngIf="dataBackup.length <= 0" class="flex items-center flex-col bg-white rounded-md py-10">
-        <img src="../../../../../assets/img/card_sad.jpg" alt="no hay compras" class="w-full md:w-auto md:h-96 rounded-md">
-        <h3 class="text-red-900 text-xl md:text-3xl font-normal text-center">Parece que aun no realizas alguna compra</h3>
-        <a routerLink="/productos" class="text-blue-500 hover:text-blue-600 cursor-pointer text-xl font-bold">Empezar a
-          comprar</a>
       </div>
-
     </div>
+
+    <div *ngIf="dataBackup.length <= 0" class="flex items-center flex-col bg-white rounded-md py-10">
+      <img src="../../../../../assets/img/card_sad.jpg" alt="no hay compras"
+        class="w-full md:w-auto md:h-96 rounded-md">
+      <h3 class="text-red-900 text-xl md:text-3xl font-normal text-center">Parece que aun no realizas alguna compra</h3>
+      <a routerLink="/productos" class="text-blue-500 hover:text-blue-600 cursor-pointer text-xl font-bold">Empezar a
+        comprar</a>
+    </div>
+
   </div>
+</div>
 <p-toast></p-toast>

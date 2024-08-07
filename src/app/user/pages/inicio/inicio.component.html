@@ -1,13 +1,12 @@
 <app-loader *ngIf="isLoader"></app-loader>
-<div *ngIf="!isLoader" class="mt-5">
-  <div>
-    <p-galleria [value]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false"
-      [autoPlay]="true" [transitionInterval]="3000">
-      <ng-template pTemplate="item" let-item>
-        <img [src]="item" class=" imgSlider w-5/6 rounded-md" />
-      </ng-template>
-    </p-galleria>
-  </div>
+<div *ngIf="!isLoader" class="mt-3">
+ <div class="mx-5">
+   <p-carousel [value]="images" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [showIndicators]="false" [showNavigators]="false">
+     <ng-template let-product pTemplate="item">
+           <img [src]="product" [alt]="" class="imgSlider w-full rounded-sm" />
+     </ng-template>
+   </p-carousel>
+ </div>
 
   <div *ngIf="paraTi && paraTi.length > 0">
     <h2 class="text-center text-3xl mt-10">-Para ti-</h2>
@@ -19,9 +18,11 @@
             <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
           </div>
           <div>
-            <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{
+            <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg capitalize text-gray-700 hover:text-black">{{
               product.nombre_producto }}</h4>
-            <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
+            <p class="mt-0 mb-3 text-lg text-gray-600">{{ '$' + product.precio }}</p>
+            <span *ngIf="product.descuento > 0" class="text-gray-600 font-mono text-lg">Descuento {{product.descuento}}%</span>
+            <span *ngIf="product.descuento <= 0" class="text-gray-600 font-mono text-lg">S/D</span>
             <div class="mt-5 flex items-center justify-center gap-2">
               <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
             </div>
@@ -41,9 +42,11 @@
             <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
           </div>
           <div>
-            <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{
+            <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg capitalize text-gray-700 hover:text-black">{{
               product.nombre_producto }}</h4>
-            <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
+            <p class="mt-0 mb-3 text-lg text-gray-600">{{ '$' + product.precio }}</p>
+            <span *ngIf="product.descuento > 0" class="text-gray-600 font-mono text-lg">Descuento {{product.descuento}}%</span>
+            <span *ngIf="product.descuento <= 0" class="text-gray-600 font-mono text-lg">S/D</span>
             <div class="mt-5 flex items-center justify-center gap-2">
               <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
             </div>
@@ -64,9 +67,11 @@
               <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
-              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{
+              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg capitalize text-gray-700 hover:text-black">{{
                 product.nombre_producto }}</h4>
-              <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
+              <p class="mt-0 mb-3 text-lg text-gray-600">{{ '$' + product.precio }}</p>
+              <span *ngIf="product.descuento > 0" class="text-gray-600 font-mono text-lg">Descuento {{product.descuento}}%</span>
+              <span *ngIf="product.descuento <= 0" class="text-gray-600 font-mono text-lg">S/D</span>
               <div class="mt-5 flex items-center justify-center gap-2">
                 <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
               </div>
@@ -88,9 +93,11 @@
               <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
-              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{
+              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg capitalize text-gray-700 hover:text-black">{{
                 product.nombre_producto }}</h4>
-              <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
+              <p class="mt-0 mb-3 text-lg text-gray-600">{{ '$' + product.precio }}</p>
+              <span *ngIf="product.descuento > 0" class="text-gray-600 font-mono text-lg">Descuento {{product.descuento}}%</span>
+              <span *ngIf="product.descuento <= 0" class="text-gray-600 font-mono text-lg">S/D</span>
               <div class="mt-5 flex items-center justify-center gap-2">
                 <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
               </div>
@@ -112,9 +119,11 @@
               <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
             </div>
             <div>
-              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg">{{
+              <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg capitalize text-gray-700 hover:text-black">{{
                 product.nombre_producto }}</h4>
-              <h6 class="mt-0 mb-3">{{ '$' + product.precio }}</h6>
+              <p class="mt-0 mb-3 text-lg text-gray-600">{{ '$' + product.precio }}</p>
+              <span *ngIf="product.descuento > 0" class="text-gray-600 font-mono text-lg">Descuento {{product.descuento}}%</span>
+              <span *ngIf="product.descuento <= 0" class="text-gray-600 font-mono text-lg">S/D</span>
               <div class="mt-5 flex items-center justify-center gap-2">
                 <p-button (click)="addCardProduct(product.id)" icon="pi pi-shopping-cart" [rounded]="true" />
               </div>

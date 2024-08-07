@@ -4,6 +4,7 @@ import { Products } from '../../products/interfaces/products.interface';
 import { ProductoIni } from '../../products/interfaces/DataInicio.interface';
 import { ProductsParaTi } from '../../products/interfaces/GetParaTi.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { TagTemplates } from 'primeng/tag';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',

@@ -22,10 +22,13 @@ export class IniciarSesionComponent implements OnInit{
     private messageService:MessageService,
     ){}
   fecha = new Date().toLocaleDateString();
+  isLoader:boolean = true;
   private jwtHelper = new JwtHelperService();
 
   ngOnInit(): void {
-    console.log(this.fecha)
+    setTimeout(() => {
+      this.isLoader = false;
+    }, 500);
   }
   //Variable que contiene los campos que tendra el formulario y que se envian al componente "layout-form"
   datosForm:DataForm[] = [
@@ -85,7 +88,7 @@ export class IniciarSesionComponent implements OnInit{
               'Login correcto "Bienvenido"'
             )
             setTimeout(() =>{
-              this.router.navigate(['/inicio'])
+              window.location.href = 'http://localhost:4200/'
             },1000)
           }
           else if(res.status === 400 || res.status === 302){

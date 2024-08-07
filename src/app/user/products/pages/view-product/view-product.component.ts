@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { MLoginService } from '../../../modulo-login/services/m-login.service';
 import { Data } from '../../interfaces/ProductsOne.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -17,7 +17,8 @@ export class ViewProductComponent implements OnInit {
     private productsService: ProductsService,
     private router: Router,
     private messageService: MessageService,
-    private loginService: MLoginService
+    private loginService: MLoginService,
+    private confirmationService:ConfirmationService,
   ) { }
   private jwtHelper = new JwtHelperService();
   id!: string;
@@ -72,15 +73,27 @@ export class ViewProductComponent implements OnInit {
       const token = this.jwtHelper.decodeToken(id)
       this.loginService.checkUbicacion(token.sub).subscribe(resp => {
         if (resp.status === 404) {
-          return this.messageService.add({
-            severity: 'warn',
-            detail: 'Debes agregar tus datos de envio para poder comprar'
+          this.confirmationService.confirm({
+            message: '¿Deseas agregarlos en este momento?',
+            header: 'Faltan datos de envio',
+            icon: 'pi pi-exclamation-triangle',
+            rejectButtonStyleClass:'p-button-text',
+            acceptLabel: 'Si',
+            rejectLabel: 'No',
+            acceptIcon: 'none',
+            rejectIcon: 'none',
+            accept: () => {
+              this.router.navigate(['/profile/ubicacion']);
+            },
+            reject: () => {
+            }
           })
         }
-
-        this.router.navigate(['compra/', this.id]);
-        localStorage.setItem('product', this.id);
-        localStorage.setItem('cantidad', this.cantidad.toString());
+        else {
+          this.router.navigate(['compra/', this.id]);
+          localStorage.setItem('product', this.id);
+          localStorage.setItem('cantidad', this.cantidad.toString());
+        }
       })
     }
   }
