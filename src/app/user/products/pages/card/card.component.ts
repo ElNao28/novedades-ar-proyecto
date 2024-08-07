@@ -101,8 +101,9 @@ export class CardComponent implements OnInit {
       if (data.status === 200) {
         const idUser = localStorage.getItem('token')
         if (idUser !== null) {
+          const token = this.jwtHelper.decodeToken(idUser)
           this.total = 0;
-          this.getProducts(idUser);
+          this.getProducts(token.sub);
         }
       }
     })
