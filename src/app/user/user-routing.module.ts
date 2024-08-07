@@ -8,6 +8,7 @@ import { AvisoPrivacidadComponent } from './pages/aviso-privacidad/aviso-privaci
 import { CookiesComponent } from './pages/cookies/cookies.component';
 import { MisionComponent } from './pages/mision/mision.component';
 import { VisionComponent } from './pages/vision/vision.component';
+import { ThanksComponent } from './pages/thanks/thanks.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
       {
         path:'vision',
         component:VisionComponent
+      },
+      {
+        path:'full',
+        component:ThanksComponent
       },
       {
         path:'',
