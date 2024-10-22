@@ -10,6 +10,7 @@ import { CookiesComponent } from './pages/cookies/cookies.component';
 import { MisionComponent } from './pages/mision/mision.component';
 import { VisionComponent } from './pages/vision/vision.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
+import { PruebaTestComponent } from './components/prueba-test/prueba-test.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ThanksComponent } from './pages/thanks/thanks.component';
        MisionComponent,
        VisionComponent,
        ThanksComponent,
+       PruebaTestComponent,
   ],
   imports: [
     CommonModule,
