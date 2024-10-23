@@ -4,6 +4,7 @@ import { InicioComponent } from './inicio.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MessageService } from 'primeng/api';
+import { PrimeNgModule } from '../../../prime-ng/prime-ng.module';
 
 describe('InicioComponent', () => {
   let component: InicioComponent;
@@ -11,7 +12,7 @@ describe('InicioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, PrimeNgModule],
       declarations: [InicioComponent],
       providers: [ProductsService,MessageService]
     })
