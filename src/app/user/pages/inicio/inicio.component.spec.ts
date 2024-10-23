@@ -3,7 +3,7 @@ import { ProductsService } from '../../products/services/products.service';
 import { InicioComponent } from './inicio.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe('PruebaTestComponent', () => {
+describe('InicioComponent', () => {
   let component: InicioComponent;
   let fixture: ComponentFixture<InicioComponent>;
 
