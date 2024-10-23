@@ -1,0 +1,45 @@
+name: CI for Angular Project
+
+on:
+  push:
+    branches:
+      - mabel
+  pull_request:
+    branches:
+      - mabel
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Configurar el repositorio
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Configurar Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Instalar dependencias
+      - name: Install dependencies
+        run: npm install
+
+      # Ejecutar pruebas con Jest
+      - name: Run tests
+        run: npm run test -- --watch=false --no-progress
+
+      # Generar un reporte de cobertura de código
+      - name: Run tests with coverage
+        run: npm run test -- --coverage --watch=false --no-progress
+
+      # Opcional: Subir los reportes de cobertura a un servicio como Codecov
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          flags: unittests
+          name: code-coverage-report
