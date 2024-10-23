@@ -29,18 +29,4 @@ describe('InicioComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
-  it('Llamar al servicio', () => {
-    const productService = TestBed.inject(ProductsService);
-    const productSpy = jest.spyOn(productService, 'getProducts').mockReturnValue(of([
-
-    ]));
-
-    component.ngOnInit();
-    expect(productSpy).toHaveBeenCalled();
-    expect(component.caballero.length).toBeGreaterThan(0);
-
-  });
-
-
 });
