@@ -2,6 +2,7 @@ import { of } from 'rxjs';
 import { ProductsService } from '../../products/services/products.service';
 import { InicioComponent } from './inicio.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('InicioComponent', () => {
   let component: InicioComponent;
@@ -9,7 +10,9 @@ describe('InicioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [InicioComponent]
+      imports: [HttpClientTestingModule],
+      declarations: [InicioComponent],
+      providers: [ProductsService]
     })
     .compileComponents();
 
