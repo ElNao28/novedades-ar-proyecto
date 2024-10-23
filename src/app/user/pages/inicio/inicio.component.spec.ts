@@ -10,19 +10,28 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 describe('InicioComponent', () => {
   let component: InicioComponent;
   let fixture: ComponentFixture<InicioComponent>;
+  let originalError: any;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, PrimeNgModule],
       declarations: [InicioComponent],
       providers: [ProductsService, MessageService],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA] // Ignora elementos no reconocidos y errores de CSS
-    })
-    .compileComponents();
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(InicioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    // Silenciar console.error durante las pruebas
+    originalError = console.error;
+    console.error = jest.fn();
+  });
+
+  afterEach(() => {
+    // Restaurar el comportamiento normal de console.error
+    console.error = originalError;
   });
 
   it('Se crea correctamente', () => {
@@ -49,5 +58,4 @@ describe('InicioComponent', () => {
     // Verificar que getProductsNovedades fue llamado una vez
     expect(getProductsSpy).toHaveBeenCalledTimes(1);
   }));
-
 });
