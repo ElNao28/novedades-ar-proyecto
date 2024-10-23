@@ -5,6 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MessageService } from 'primeng/api';
 import { PrimeNgModule } from '../../../prime-ng/prime-ng.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('InicioComponent', () => {
   let component: InicioComponent;
@@ -14,7 +15,8 @@ describe('InicioComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, PrimeNgModule],
       declarations: [InicioComponent],
-      providers: [ProductsService,MessageService]
+      providers: [ProductsService,MessageService],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
 
