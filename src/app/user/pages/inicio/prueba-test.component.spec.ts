@@ -18,12 +18,12 @@ describe('PruebaTestComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Se crea correctamente', () => {
     expect(component).toBeTruthy();
   });
 
 
-  it('should call the product service to fetch products', () => {
+  it('Llamar al servicio', () => {
     const productService = TestBed.inject(ProductsService);
     const productSpy = jest.spyOn(productService, 'getProducts').mockReturnValue(of([
 
