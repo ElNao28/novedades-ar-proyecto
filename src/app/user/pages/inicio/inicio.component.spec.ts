@@ -3,6 +3,7 @@ import { ProductsService } from '../../products/services/products.service';
 import { InicioComponent } from './inicio.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MessageService } from 'primeng/api';
 
 describe('InicioComponent', () => {
   let component: InicioComponent;
@@ -12,7 +13,7 @@ describe('InicioComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [InicioComponent],
-      providers: [ProductsService]
+      providers: [ProductsService,MessageService]
     })
     .compileComponents();
 
