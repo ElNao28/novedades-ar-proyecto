@@ -15,8 +15,8 @@ describe('InicioComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, PrimeNgModule],
       declarations: [InicioComponent],
-      providers: [ProductsService,MessageService],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      providers: [ProductsService, MessageService],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA] // Ignora elementos no reconocidos y errores de CSS
     })
     .compileComponents();
 
@@ -31,7 +31,7 @@ describe('InicioComponent', () => {
 
   it('Debe cambiar isLoader a false después de 500ms', fakeAsync(() => {
     const productService = TestBed.inject(ProductsService);
-    jest.spyOn(productService, 'getProductsNovedades').mockReturnValue(of({
+    const getProductsSpy = jest.spyOn(productService, 'getProductsNovedades').mockReturnValue(of({
       novedades: [],
       descuento: [],
       dama: [],
@@ -40,12 +40,14 @@ describe('InicioComponent', () => {
       status: 200
     }));
 
-    const fixture = TestBed.createComponent(InicioComponent);
-    const component = fixture.componentInstance;
-
-    component.ngOnInit();
+    component.ngOnInit(); // Llamar al ciclo de vida inicial
     tick(500); // Simula el paso de 500ms
+
+    // Verificar que isLoader cambió a false
     expect(component.isLoader).toBe(false);
+
+    // Verificar que getProductsNovedades fue llamado una vez
+    expect(getProductsSpy).toHaveBeenCalledTimes(1);
   }));
 
 });
