@@ -5,7 +5,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MessageService } from 'primeng/api';
 import { PrimeNgModule } from '../../../prime-ng/prime-ng.module';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('InicioComponent', () => {
   let component: InicioComponent;
@@ -16,7 +16,7 @@ describe('InicioComponent', () => {
       imports: [HttpClientTestingModule, PrimeNgModule],
       declarations: [InicioComponent],
       providers: [ProductsService,MessageService],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
