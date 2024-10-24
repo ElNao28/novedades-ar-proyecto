@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
-    InicioComponent,
+    //InicioComponent,
     LayoutPageComponent,
     Error404Component,
     LoaderComponent,

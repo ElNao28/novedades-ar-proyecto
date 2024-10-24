@@ -10,7 +10,7 @@ import { MisionComponent } from './pages/mision/mision.component';
 import { VisionComponent } from './pages/vision/vision.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: LayoutPageComponent,
