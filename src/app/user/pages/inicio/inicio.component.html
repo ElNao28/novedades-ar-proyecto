@@ -15,7 +15,8 @@
       <ng-template let-product pTemplate="item">
         <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
           <div class="mb-3 novedades">
-            <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
+            <img *ngIf="product.imagen[0].url_imagen.length < 0" [src]="product.imagen[0].url_imagen" [alt]="product.nombre_producto" class="novedades h-40" />
+            <img *ngIf="product.imagen[0].url_imagen.length <= 0" src="../../../../assets/img/image-not-found.png" [alt]="product.nombre_producto" class="novedades h-40" />
           </div>
           <div>
             <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg capitalize text-gray-700 hover:text-black">{{
@@ -39,7 +40,8 @@
       <ng-template let-product pTemplate="item">
         <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
           <div class="mb-3 novedades">
-            <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
+            <img *ngIf="product.imagen[0].url_imagen.length > 0" [src]="product.imagen[0].url_imagen" [alt]="product.nombre_producto" class="novedades h-40" />
+            <img *ngIf="product.imagen[0].url_imagen.length <= 0" src="../../../../assets/img/image-not-found.png" [alt]="product.nombre_producto" class="novedades h-40" />
           </div>
           <div>
             <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg capitalize text-gray-700 hover:text-black">{{
@@ -64,7 +66,7 @@
         <ng-template let-product pTemplate="item">
           <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
             <div class="mb-3 novedades">
-              <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
+              <img [src]="product.imagen[0].url_imagen" [alt]="product.nombre_producto" class="novedades h-40" />
             </div>
             <div>
               <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg capitalize text-gray-700 hover:text-black">{{
@@ -90,7 +92,7 @@
         <ng-template let-product pTemplate="item">
           <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
             <div class="mb-3 novedades">
-              <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
+              <img [src]="product.imagen[0].url_imagen" [alt]="product.nombre_producto" class="novedades h-40" />
             </div>
             <div>
               <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg capitalize text-gray-700 hover:text-black">{{
@@ -116,7 +118,7 @@
         <ng-template let-product pTemplate="item">
           <div class="m-2 text-center py-5 px-3 bg-white rounded-md">
             <div class="mb-3 novedades">
-              <img [src]="product.imagen[0].url_imagen" [alt]="product.name" class="novedades h-40" />
+              <img [src]="product.imagen[0].url_imagen" [alt]="product.nombre_producto" class="novedades h-40" />
             </div>
             <div>
               <h4 routerLink="/view/{{product.id}}" class="mb-1 cursor-pointer text-sm md:text-lg capitalize text-gray-700 hover:text-black">{{
