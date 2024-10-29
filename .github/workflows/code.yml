@@ -1,40 +1,28 @@
-name: CI - Cypress Test
+name: CI - Cypress E2E Tests
 
-# Disparadores para el workflow
 on:
   push:
     branches:
-      - prueba3    # Ejecutar las pruebas en cualquier rama en cada push
+      - prueba3
   pull_request:
     branches:
-      - main   # Ejecutar las pruebas antes de fusionar a master
-
-  workflow_dispatch:
-
-# Permisos para GitHub Actions
-permissions:
-  contents: read
+      - main
 
 jobs:
-   e2e-test:
-    #name: Run Unit Tests
+  e2e-test:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout del repositorio
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Configurar Node.js (para Angular y Jest)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Versión de Node.js recomendada
-          cache: 'npm'  # Configura el caché para npm automáticamente
+          node-version: '20' # Configura la versión de Node.js (ajusta según sea necesario)
 
-      # 3. Instalar dependencias del proyecto
       - name: Install dependencies
-        run: npm i
+        run: npm install
 
       - name: Build the application
         run: npm run build --if-present # Construye la aplicación si es necesario para producción
@@ -45,10 +33,10 @@ jobs:
           CI: true
 
       - name: Wait for the app to be ready
-        run: npx wait-on http://localhost:4200 # Espera a que la aplicación esté lista
+        run: npx wait-on http://localhost:4200/ # Espera a que la aplicación esté lista
 
       - name: Run Cypress E2E tests
-        run: npx cypress run --config baseUrl=http://localhost:4200
+        run: npx cypress run --config baseUrl=http://localhost:4200/
 
       - name: Upload Cypress screenshots on failure
         if: failure()
@@ -63,5 +51,3 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
-
-
