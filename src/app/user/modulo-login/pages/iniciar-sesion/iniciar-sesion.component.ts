@@ -5,6 +5,7 @@ import { DataForm } from '../../interfaces/FormData.interface';
 import { MLoginService } from '../../services/m-login.service';
 import { MessageService } from 'primeng/api';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../../../app.component';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -13,6 +14,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   styleUrl: './iniciar-sesion.component.css'
 })
 export class IniciarSesionComponent implements OnInit{
+
+  enableCaptcha = environment.enableCaptcha;
+  validButton = environment.production;
 
   //Constructor en el cual se inyectan modulos o servicios que se ocuparan en el componente
   constructor(
@@ -51,7 +55,7 @@ export class IniciarSesionComponent implements OnInit{
   key:string="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u";
   keyProd:string="6Le_PFspAAAAAFjAJ6f-wHhiaqlLLnstow9Bup-Z";
   //variable que manjea el estado en que se encuentra el boton de inciar sesion(activo o desactivado)
-  public validButton: boolean = true;
+  // public validButton: boolean = true;
   //variable que contiene los datos con los que cuenta el formulario y que son enviados al componente "layaut-form"
   public myForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],

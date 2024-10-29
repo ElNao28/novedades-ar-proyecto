@@ -9,14 +9,27 @@
 
       <div class="mt-4">
         <!--Con este componente se hace la implementacion del  captcha en la propiedad [siteKey] se la pasa la variable que contiene la key-->
-        <ngx-recaptcha2 #captchaElem siteKey="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u"
+        <!-- <ngx-recaptcha2 #captchaElem siteKey="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u"
           (success)="handleSuccess($event)"
           [useGlobalDomain]="true"
           [hl]="'es'"
           [size]="'normal'"
           [theme]="'light'"
           [type]="'image'">
-        </ngx-recaptcha2>
+        </ngx-recaptcha2> -->
+
+          <!-- Solo muestra el reCAPTCHA si enableCaptcha es true -->
+          <ngx-recaptcha2 *ngIf="enableCaptcha"
+          #captchaElem
+          siteKey="6Le_PFspAAAAANjtS-GYPRh8xjiU46szehJjNz3u"
+          (success)="handleSuccess($event)"
+          [useGlobalDomain]="true"
+          [hl]="'es'"
+          [size]="'normal'"
+          [theme]="'light'"
+          [type]="'image'">
+          </ngx-recaptcha2>
+
       </div>
       <!---------------------------------------------------------------------------------------------------------->
       <div
@@ -29,13 +42,24 @@
           >
           Crear una cuenta
         </button>
-        <button
+
+
+        <!-- <button
           (click)="getData()"
           [disabled]="validButton"
           class="px-4 py-2 bg-pink-400 hover:bg-pink-500 border-none rounded-md cursor-pointer text-white text-sm"
           pButton
           >Ingresar
+        </button> -->
+
+        <button
+          (click)="getData()"
+          [disabled]="validButton"
+          class="px-4 py-2 bg-pink-400 hover:bg-pink-500 border-none rounded-md cursor-pointer text-white text-sm"
+          pButton>
+          Ingresar
         </button>
+
         <p-toast></p-toast>
       </div>
       <div class="">

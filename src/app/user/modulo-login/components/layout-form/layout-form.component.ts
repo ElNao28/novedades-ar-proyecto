@@ -1,3 +1,4 @@
+import { Email } from './../../interfaces/SendUser.interface';
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DataForm } from '../../interfaces/FormData.interface';
@@ -65,6 +66,10 @@ export class LayoutFormComponent {
   @Output()
   onChangeFile = new EventEmitter<Event>();
 
+
+  emitSubmit(){
+    console.log('Formulario enviado')
+  }
 
   emitEstado(estado:string){
     this.estadoSelect.emit(estado);
