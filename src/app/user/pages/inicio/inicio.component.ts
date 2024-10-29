@@ -27,7 +27,7 @@ export class InicioComponent implements OnInit{
   private jwt = new JwtHelperService()
   images = [
     'https://res.cloudinary.com/dy5jdb6tv/image/upload/fl_preserve_transparency/v1713151485/portada_ngupek.jpg?_s=public-apps',
-    'https://www.bombombom.mx/wp-content/uploads/2021/04/ropa-mayoreo-bombombom.mx_-1.jpg','https://fos.com.mx/cdn/shop/articles/negocio_de_ropa.webp?v=1690921572&width=2000','https://www.clikisalud.net/wp-content/uploads/2018/07/el-importante-beneficio-de-usar-ropa-holgada.jpg'
+    'https://fos.com.mx/cdn/shop/articles/negocio_de_ropa.webp?v=1690921572&width=2000',
   ];
 
   ngOnInit(): void {
