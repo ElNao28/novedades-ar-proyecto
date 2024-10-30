@@ -4,7 +4,7 @@
     <div class="">
       <h2 class="text-3xl mb-8">Iniciar sesion</h2>
       <!--Se llama al componente layout-form y se le pasa los parametos que esta esperando(Dataform y datosForm)-->
-      <app-layout-form [styles]="estilos" [dataForm]="myForm" [datosForm]="datosForm">
+      <app-layout-form (formSubmit)="getData()" [styles]="estilos" [dataForm]="myForm" [datosForm]="datosForm">
       </app-layout-form>
 
       <div class="mt-4">
@@ -29,13 +29,7 @@
           >
           Crear una cuenta
         </button>
-        <button
-          (click)="getData()"
-          [disabled]="validButton"
-          class="px-4 py-2 bg-pink-400 hover:bg-pink-500 border-none rounded-md cursor-pointer text-white text-sm"
-          pButton
-          >Ingresar
-        </button>
+
         <p-toast></p-toast>
       </div>
       <div class="">

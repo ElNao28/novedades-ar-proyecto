@@ -11,6 +11,10 @@ import { ColoniaData, CpData, EstadoData, MunicipioData } from '../../interfaces
 })
 export class LayoutFormComponent {
 
+
+  @Output()
+  formSubmit = new EventEmitter<boolean>();
+
   @Input()
   datosForm!:DataForm[];
   @Input()
@@ -102,5 +106,9 @@ export class LayoutFormComponent {
     }
 
     return null;
+  }
+
+  emitSubmit(){
+    this.formSubmit.emit(true);
   }
 }
