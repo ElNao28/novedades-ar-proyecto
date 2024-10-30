@@ -39,13 +39,13 @@ jobs:
 
       # 4. Levantar la aplicación (puede ser con Angular o cualquier otro framework)
       - name: Start App
-        run: npx ionic serve --port 4200 &
+        run: npx ionic serve --port 8100 &
         env:
           CI: true
 
       # 5. Esperar a que el servidor esté arriba
       - name: Wait for App to be available
-        run: npx wait-on http://localhost:4200
+        run: npx wait-on http://localhost:8100
 
       # 6. Ejecutar pruebas e2e con Cypress
       - name: Run Cypress tests
