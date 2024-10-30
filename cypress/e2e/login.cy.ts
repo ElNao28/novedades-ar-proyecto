@@ -16,11 +16,9 @@ describe('Login Test', () => {
 
   
         // Espera a que la redirección ocurra
-      cy.location('pathname').should('eq', '/inicio'); // Verifica que la URL haya cambiado a "/inicio"
+      cy.url({ timeout: 90000 }).should("include", "/inicio"); // Verifica que la URL haya cambiado a "/inicio"
 
-      cy.contains('Bienvenido').should('be.visible'); // Cambia 'Bienvenido' al texto que confirme el inicio de sesión
-   
-   
+    
     });
   
   

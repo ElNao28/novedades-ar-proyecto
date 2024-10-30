@@ -1,53 +1,56 @@
-name: CI - Cypress E2E Tests
+name: PWA CI/CD Cypress # Nombre del flujo de trabajo
 
+# Configuración de los desencadenadores
 on:
   push:
     branches:
-      - prueba3
+      - prueba3           # Ejecutar en cada push a las ramas especificadas
+      - luis-jair
+      - mabel       
   pull_request:
     branches:
       - main
+    
+  workflow_dispatch:
+
+# Permisos para GitHub Actions
+permissions:
+  contents: read
 
 jobs:
-  e2e-test:
+  CypressTests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      # 1. Checkout del repositorio
+      - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2. Configurar Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Configura la versión de Node.js (ajusta según sea necesario)
+          node-version: '20' # Versión de Node.js recomendada
+          cache: 'npm'  # Configura el caché para npm automáticamente
 
+      # 3. Instalar dependencias del proyecto
       - name: Install dependencies
         run: npm install
 
-      - name: Build the application
-        run: npm run build --if-present # Construye la aplicación si es necesario para producción
-
-      - name: Start the application
-        run: npm start &
+      # 4. Levantar la aplicación (puede ser con Angular o cualquier otro framework)
+      - name: Start App
+        run: npx ionic serve --port 4200 &
         env:
           CI: true
 
-      - name: Wait for the app to be ready
-        run: npx wait-on http://localhost:4200/ # Espera a que la aplicación esté lista
+      # 5. Esperar a que el servidor esté arriba
+      - name: Wait for App to be available
+        run: npx wait-on http://localhost:4200
 
-      - name: Run Cypress E2E tests
-        run: npx cypress run --config baseUrl=http://localhost:4200/
+      # 6. Ejecutar pruebas e2e con Cypress
+      - name: Run Cypress tests
+        run: npx cypress run
 
-      - name: Upload Cypress screenshots on failure
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-
-      - name: Upload Cypress videos on failure
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-videos
-          path: cypress/videos
+      # 7. Ejecutar pruebas de lint (opcional, recomendado)
+      - name: Run lint test
+        run: npm run lint
