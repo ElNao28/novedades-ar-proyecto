@@ -1,10 +1,10 @@
-name: PWA CI/CD Cypress # Nombre del flujo de trabajo
+name: WebApp CI/CD Cypress # Nombre del flujo de trabajo
 
 # Configuración de los desencadenadores
 on:
   push:
     branches:
-      - prueba3           # Ejecutar en cada push a las ramas especificadas
+      - prueba3             # Ejecutar en cada push a las ramas especificadas
       - luis-jair
       - mabel       
   pull_request:
@@ -37,17 +37,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # 4. Levantar la aplicación (puede ser con Angular o cualquier otro framework)
-      - name: Start App
-        run: npx ionic serve --port 4200 &
+      # 4. Levantar la aplicación de Angular en localhost con `ng serve`
+      - name: Start Angular App
+        run: ng serve --host 0.0.0.0 --disable-host-check --port 4200 &
         env:
           CI: true
 
-      # 5. Esperar a que el servidor esté arriba
-      - name: Wait for App to be available
+      # 5. Esperar a que el servidor esté disponible
+      - name: Wait for Angular App to be available
         run: npx wait-on http://localhost:4200
 
-      # 6. Ejecutar pruebas e2e con Cypress
+      # 6. Ejecutar pruebas E2E con Cypress
       - name: Run Cypress tests
         run: npx cypress run
 
