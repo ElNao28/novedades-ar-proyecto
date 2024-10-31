@@ -58,4 +58,8 @@ export class ProfileService {
   canceledVenta(id:number){
     return this.http.post<ResponseBack>(`${this.urlApi}ventas/canceled`, { id })
   }
+
+  saveTokenToNotification(token:any){
+    return this.http.post(`https://c175-187-249-108-38.ngrok-free.app/push-notifications/save`,token)
+  }
 }
