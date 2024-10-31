@@ -1,4 +1,4 @@
-name: WebApp CI/CD Cypress # Nombre del flujo de trabajo
+name: PWA CI/CD Workflow  # Nombre del flujo de trabajo
 
 # Disparadores para el workflow
 on:
@@ -19,7 +19,6 @@ permissions:
 
 jobs:
   Pruebas:
-    #name: Run Unit Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -31,8 +30,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Versión de Node.js recomendada
-          cache: 'npm'  # Configura el caché para npm automáticamente
+          node-version: '20' 
+          cache: 'npm'  
 
       # 3. Instalar dependencias del proyecto
       - name: Install dependencies
