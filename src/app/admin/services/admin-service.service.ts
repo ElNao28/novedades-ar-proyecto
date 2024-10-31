@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProductCategory } from '../interfaces/ProductCategory.interface';
 import { ResponseCreateUser } from '../../user/modulo-login/interfaces/SendUser.interface';
@@ -17,8 +17,8 @@ export class AdminService {
   constructor(
     private http: HttpClient,
   ) {}
-  //private urlApi:string = 'http://localhost:3000/';
-  private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
+  private urlApi:string = 'https://c175-187-249-108-38.ngrok-free.app/';
+  //private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
 
   addProduct(newProduct: any) {
     return this.http.post<ResponseCreateUser>(`${this.urlApi}products`, newProduct)
@@ -31,7 +31,7 @@ export class AdminService {
     return this.http.get<GetUsers[]>(`${this.urlApi}users`)
   }
   getAllProducts() {
-    return this.http.get<ListProducts[]>(`${this.urlApi}products/all-products-admin`)
+    return this.http.get<ListProducts[]>(`${this.urlApi}products/all-products-admin`,{headers:new HttpHeaders({ 'ngrok-skip-browser-warning': '1' })})
   }
   changeStatus(id: number, action: boolean) {
     return this.http.patch<ResponseBack>(`${this.urlApi}products/change-status`, { id: id, action: action })
