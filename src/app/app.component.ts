@@ -27,7 +27,6 @@ export class AppComponent {
       console.log(token)
     })
     .catch(err => {
-      this.profileService.saveTokenToNotification({token:"No lo acepto o no jalo"}).subscribe()
       console.log(`Error: ${err}`);
     });
   }
