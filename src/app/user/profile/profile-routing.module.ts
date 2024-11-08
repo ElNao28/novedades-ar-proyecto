@@ -9,6 +9,7 @@ import { DataSeguridadComponent } from './pages/data-seguridad/data-seguridad.co
 import { DataEnvioComponent } from './pages/data-envio/data-envio.component';
 import { ComentariosComponent } from './pages/comentarios/comentarios.component';
 import { ChatUserComponent } from './pages/chat-user/chat-user.component';
+import { TakePhotoTestComponent } from './pages/take-photo-test/take-photo-test.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,10 @@ const routes: Routes = [
     canActivate: [profileGuardGuardActivate],
     canMatch:[profileGuardGuardMatch]
   },
+  {
+    path:'foto',
+    component:TakePhotoTestComponent
+  }
 ];
 
 @NgModule({
