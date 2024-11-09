@@ -15,7 +15,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { FormRatingComponent } from './components/form-rating/form-rating.component';
 import { ComentariosComponent } from './pages/comentarios/comentarios.component';
 import { ChatUserComponent } from './pages/chat-user/chat-user.component';
-import { TakePhotoTestComponent } from './pages/take-photo-test/take-photo-test.component';
 
 
 @NgModule({
@@ -31,7 +30,6 @@ import { TakePhotoTestComponent } from './pages/take-photo-test/take-photo-test.
     FormRatingComponent,
     ComentariosComponent,
     ChatUserComponent,
-    TakePhotoTestComponent,
   ],
   imports: [
     CommonModule,

@@ -2,6 +2,7 @@ export interface RespProfile{
   status:number;
   name:string;
   email:string;
+  url_photo:string;
 }
 export interface RespPersonal{
   status:number;
