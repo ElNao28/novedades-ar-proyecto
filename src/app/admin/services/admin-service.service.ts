@@ -17,8 +17,8 @@ export class AdminService {
   constructor(
     private http: HttpClient,
   ) {}
-  private urlApi:string = 'https://c175-187-249-108-38.ngrok-free.app/';
-  //private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
+  //private urlApi:string = 'https://c175-187-249-108-38.ngrok-free.app/';
+  private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
 
   addProduct(newProduct: any) {
     return this.http.post<ResponseCreateUser>(`${this.urlApi}products`, newProduct)
