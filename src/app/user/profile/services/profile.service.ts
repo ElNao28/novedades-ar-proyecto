@@ -60,7 +60,7 @@ export class ProfileService {
   }
 
   saveTokenToNotification(token:any){
-    return this.http.post(`https://c175-187-249-108-38.ngrok-free.app/push-notifications/save`,token)
+    return this.http.post(`${this.urlApi}push-notifications/save`,token)
   }
 
   updatePhoto(id:string,base:string){
