@@ -19,7 +19,7 @@
   </div>
   <div class="bg-white md:w-4/5 mt-2 rounded-md px-8 py-4 shadow-md mb-5">
     <div class="flex gap-4 items-center">
-      <img [src]="urlPhoto" alt="perfil" class="h-16 w-16 cursor-pointer rounded-full" (click)="addNewToGallery()">
+      <img [src]="urlPhoto != '' ? urlPhoto: 'https://res.cloudinary.com/dy5jdb6tv/image/upload/v1731180802/photo/pwpupweqftszaalf7not.png'" alt="perfil" class="h-16 w-16 cursor-pointer rounded-full" (click)="addNewToGallery()">
       <div>
         <p class="text-md p-0 m-0 capitalize">{{name}}</p>
         <p class="p-0 m-0 text-md">{{email}}</p>
