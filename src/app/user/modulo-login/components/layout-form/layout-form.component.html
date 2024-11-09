@@ -1,11 +1,11 @@
-<form [formGroup]="dataForm" enctype="multipart/form-data" (submit)="emitSubmit()">
+<form [formGroup]="dataForm" enctype="multipart/form-data">
 
   <div *ngIf="formValue" class="grid {{styles}} gap-4">
     <div *ngFor="let data of datosForm">
       <label for="{{data.formControlName}}">{{data.label}}</label><br>
 
       <input *ngIf="data.type != 'select' && data.type != 'password'" formControlName="{{data.formControlName}}"
-        class="rounded-md w-full" accept="image/*" [name]="data.formControlName" (change)="emitChangeFile($event)" type="{{data.type}}">
+        class="rounded-md w-full" accept="image/*" (change)="emitChangeFile($event)" type="{{data.type}}">
 
       <p-password formControlName="{{data.formControlName}}" *ngIf="data.type === 'password' && data.styles !== 'login'"
         [toggleMask]="true" [promptLabel]="'Ingresa una contraseña'" [weakLabel]="'Debil'" [mediumLabel]="'Medio'"
@@ -27,9 +27,9 @@
         </ng-template>
       </p-password>
 
-      <input *ngIf="data.type === 'password' && data.styles === 'login'" formControlName="{{data.formControlName}}"
-        [name]="data.formControlName" />
-
+      <p-password formControlName="{{data.formControlName}}" *ngIf="data.type === 'password' && data.styles === 'login'"
+        [toggleMask]="true" [feedback]="false">
+      </p-password>
       <select
         *ngIf="data.type === 'select' && data.formControlName != 'estado' && data.formControlName != 'municipio' && data.formControlName != 'cp' && data.formControlName != 'colonia'"
         name="{{data.formControlName}}" id="{{data.formControlName}}" formControlName="{{data.formControlName}}"
@@ -74,8 +74,23 @@
       <label for="{{data.formControlName}}">{{data.label}}</label><br>
       <input *ngIf="data.type != 'select'  && data.type != 'password'" formControlName="{{data.formControlName}}"
         class="rounded-md w-full" type="{{data.type}}">
-      <input *ngIf="data.type === 'password'" formControlName="{{data.formControlName}}"
-        [name]="data.formControlName" />
+      <p-password *ngIf="data.type === 'password'" [toggleMask]="true" formControlName="{{data.formControlName}}"
+        [promptLabel]="'Ingresa una contraseña'" [weakLabel]="'Debil'" [mediumLabel]="'Medio'" [strongLabel]="'Fuerte'">
+        <ng-template pTemplate="header">
+          <h6>Crea una contraseña</h6>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <p-divider></p-divider>
+          <p class="mt-2">Sugerencias</p>
+          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+            <li>Una mayuscula</li>
+            <li>Una minuscula</li>
+            <li>Al menos un numero</li>
+            <li>Un caracter especial</li>
+            <li>Minimo 8 caracteres</li>
+          </ul>
+        </ng-template>
+      </p-password>
       <select *ngIf="data.type === 'select'" name="{{data.formControlName}}" id="{{data.formControlName}}"
         formControlName="{{data.formControlName}}" class="rounded-md w-full">
         <option value="" disabled selected>Seleccione una opcion</option>
@@ -86,12 +101,4 @@
     </div>
   </div>
 
-  <button
-
-
-          class="px-4 py-2 bg-pink-400 hover:bg-pink-500 border-none rounded-md cursor-pointer text-white text-sm"
-          type="submit"
-          pButton
-          >Ingresar
-        </button>
 </form>
