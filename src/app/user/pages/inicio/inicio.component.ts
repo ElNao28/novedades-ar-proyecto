@@ -5,6 +5,7 @@ import { ProductoIni } from '../../products/interfaces/DataInicio.interface';
 import { ProductsParaTi } from '../../products/interfaces/GetParaTi.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { TagTemplates } from 'primeng/tag';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -17,7 +18,17 @@ import { TagTemplates } from 'primeng/tag';
 export class InicioComponent implements OnInit{
   constructor(
     private productsService: ProductsService,
+    private fb:FormBuilder,
   ) { }
+  public visible: boolean = false;
+
+  public formCal:FormGroup = this.fb.group({
+    No1:[0,[Validators.required]],
+    No2:[0,[Validators.required]],
+    No3:[0,[Validators.required]],
+  });
+
+  public calif:number = 0;
   isLoader: boolean = true;
   novedades!: ProductoIni[];
   descuento!: ProductoIni[];
@@ -34,6 +45,13 @@ export class InicioComponent implements OnInit{
     let token = localStorage.getItem('token');
     if(token !== null){
       let tokenN = this.jwt.decodeToken(token);
+      this.productsService.checkCompras(tokenN.sub).subscribe(resp => {
+        if(resp.status === 200){
+          if(resp.isShopping === true){
+            this.visible = true;
+          }
+        }
+      })
       this.productsService.getProductsByType(tokenN.sub).subscribe(data =>{
         this.paraTi = data.data;
         setTimeout(() => {

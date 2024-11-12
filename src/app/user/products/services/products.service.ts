@@ -22,8 +22,8 @@ export class ProductsService {
     private http: HttpClient,
     private messageService: MessageService,
   ) { }
-  //private urlApi:string = 'http://localhost:3000/';
-  private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
+  private urlApi:string = 'http://localhost:3000/';
+  //private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
   private jwtHelper = new JwtHelperService();
 
   getProducts() {
@@ -105,5 +105,9 @@ export class ProductsService {
 
   getProductByPage(page:number){
     return this.http.get<ProductPagination>(`${this.urlApi}products/page/${page}`);
+  }
+
+  public checkCompras(id:string){
+    return this.http.get<{status:number,isShopping:boolean}>(`${this.urlApi}ventas/check-venta/${id}`)
   }
 }

@@ -7,6 +7,7 @@ import { LoaderComponent } from "./pages/loader/loader.component";
 import { CommonModule } from "@angular/common";
 import { PrimeNgModule } from "../prime-ng/prime-ng.module";
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   imports: [
     CommonModule,
     PrimeNgModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }
