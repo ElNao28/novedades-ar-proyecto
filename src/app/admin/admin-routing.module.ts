@@ -22,6 +22,7 @@ import { MisionComponent } from '../user/pages/mision/mision.component';
 import { EditVisionComponent } from './pages/edit-vision/edit-vision.component';
 import { EditMisionComponent } from './pages/edit-mision/edit-mision.component';
 import { ChatTestComponent } from './pages/chat-test/chat-test.component';
+import { GraficasComponent } from './pages/graficas/graficas.component';
 
 const routes: Routes = [
   {
@@ -107,6 +108,12 @@ const routes: Routes = [
       {
         path: 'mision',
         component: EditMisionComponent,
+        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard]
+      },
+      {
+        path: 'estadisticas',
+        component: GraficasComponent,
         canMatch: [canMatchGuard],
         canActivate: [canActivateGuard]
       },

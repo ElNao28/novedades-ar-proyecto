@@ -24,7 +24,8 @@ import { FormStockComponent } from './components/form-stock/form-stock.component
 import { EditMisionComponent } from './pages/edit-mision/edit-mision.component';
 import { EditVisionComponent } from './pages/edit-vision/edit-vision.component';
 import { ChatTestComponent } from './pages/chat-test/chat-test.component';
-
+import { GraficasComponent } from './pages/graficas/graficas.component';
+import { BaseChartDirective } from 'ng2-charts';
 
 
 @NgModule({
@@ -46,14 +47,16 @@ import { ChatTestComponent } from './pages/chat-test/chat-test.component';
     FormStockComponent,
     EditMisionComponent,
     EditVisionComponent,
-    ChatTestComponent
+    ChatTestComponent,
+    GraficasComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     ModuloLoginModule,
     PrimeNgModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BaseChartDirective
   ],
 })
 export class AdminModule { }
