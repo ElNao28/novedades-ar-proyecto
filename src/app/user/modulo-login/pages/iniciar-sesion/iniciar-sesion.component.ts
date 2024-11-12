@@ -60,7 +60,6 @@ export class IniciarSesionComponent implements OnInit{
 
   //funcion que mediante una peticion http valida que el usuario exista y si es así redirecciona a la pantalla de inicio
   public getData(){
-    console.log("ola")
     //this.limitAtems()
     if(this.myForm.invalid)
     {

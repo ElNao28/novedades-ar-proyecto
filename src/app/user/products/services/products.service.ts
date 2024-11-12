@@ -12,6 +12,7 @@ import { ResponseProduct } from '../interfaces/ProductsOne.interface';
 import { ProductPagination } from '../interfaces/ProductsPage.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { GetParaTI } from '../interfaces/GetParaTi.interface';
+import { ResponseBack } from '../../../admin/interfaces/ResponseBack.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -109,5 +110,8 @@ export class ProductsService {
 
   public checkCompras(id:string){
     return this.http.get<{status:number,isShopping:boolean}>(`${this.urlApi}ventas/check-venta/${id}`)
+  }
+  public rating(data:any,id:string){
+    return this.http.post<ResponseBack>(`${this.urlApi}rating/create/${id}`, data)
   }
 }

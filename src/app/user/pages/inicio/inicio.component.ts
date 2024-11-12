@@ -21,13 +21,16 @@ export class InicioComponent implements OnInit{
     private fb:FormBuilder,
   ) { }
   public visible: boolean = false;
+  private idUser:string = "";
 
   public formCal:FormGroup = this.fb.group({
-    No1:[0,[Validators.required]],
-    No2:[0,[Validators.required]],
-    No3:[0,[Validators.required]],
+    expCompra:[1,[Validators.required]],
+    detalles:[1,[Validators.required]],
+    satOptimizacion:[1,[Validators.required]],
+    fecha:[]
   });
 
+  public isSend:boolean = false;
   public calif:number = 0;
   isLoader: boolean = true;
   novedades!: ProductoIni[];
@@ -45,6 +48,7 @@ export class InicioComponent implements OnInit{
     let token = localStorage.getItem('token');
     if(token !== null){
       let tokenN = this.jwt.decodeToken(token);
+      this.idUser = tokenN.sub;
       this.productsService.checkCompras(tokenN.sub).subscribe(resp => {
         if(resp.status === 200){
           if(resp.isShopping === true){
@@ -78,5 +82,25 @@ export class InicioComponent implements OnInit{
 
   addCardProduct(idCard:number){
     this.productsService.addProductToCardSer(idCard.toString());
+  }
+
+  public rating(){
+    const fecha = new Date();
+    this.formCal.patchValue({
+      fecha
+    });
+    if(this.formCal.valid){
+      this.isSend = true;
+      this.productsService.rating(this.formCal.value,this.idUser).subscribe(resp => {
+        console.log(resp);
+        if(resp.status === 200){
+          this.visible = false;
+          this.isSend = false;
+        }
+      })
+    }
+    else{
+      alert('Todos los campos son obligatorios');
+    }
   }
 }
