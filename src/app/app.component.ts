@@ -1,16 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SwPush } from '@angular/service-worker';
 import { ProfileService } from './user/profile/services/profile.service';
+
+import { inject } from '@vercel/analytics';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
 
   constructor(private swPush:SwPush,private profileService:ProfileService){
     this.subscribeToNotifications();
+  }
+  ngOnInit(): void {
+    inject()
   }
 
   public subscribeToNotifications(){
