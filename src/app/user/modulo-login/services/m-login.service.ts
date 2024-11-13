@@ -13,8 +13,8 @@ export class MLoginService {
   constructor(private http: HttpClient) { }
 
   tokenApiCopomex: string = "pruebas";//pruebas 313f4530-9ec9-43d8-89c8-a55d9b43ca76
-  //private urlApi:string = 'http://localhost:3000/';
-  private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
+  private urlApi:string = 'http://localhost:3000/';
+  //private urlApi:string = 'https://back-novedadesar-production.up.railway.app/';
   validUser(data: ValidUser) {
     return this.http.post<ResponseLogin>(this.urlApi + 'login', data);
   }
