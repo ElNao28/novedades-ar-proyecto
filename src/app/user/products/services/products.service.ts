@@ -23,8 +23,8 @@ export class ProductsService {
     private http: HttpClient,
     private messageService: MessageService,
   ) { }
-  //private urlApi:string = 'http://localhost:3000/';
-  private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
+  private urlApi:string = 'http://localhost:3000/';
+  //private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
   private jwtHelper = new JwtHelperService();
 
   getProducts() {

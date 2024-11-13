@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartOptions } from 'chart.js';
+import { AdminService } from '../../services/admin-service.service';
 
+interface Grafica {
+  data:number[]
+}
 @Component({
   selector: 'app-graficas',
   templateUrl: './graficas.component.html',
   styleUrl: './graficas.component.css',
 })
-export class GraficasComponent {
+export class GraficasComponent implements OnInit{
+  constructor(private adminService:AdminService) {}
+
   public pieChartOptions: ChartOptions<'pie'> = {
     responsive: false,
   };
@@ -17,11 +23,21 @@ export class GraficasComponent {
     ['Insatisfecho'],
     ['Muy insatisfecho'],
   ];
-  public pieChartDatasets = [
-    {
-      data: [300, 500, 100,100,200],
-    },
+  public expCompra:Grafica[] = [{
+    data:[]
+  }
   ];
+  public detalles:Grafica[] = [];
+  public satOptimizacion:Grafica[] = [];
+  ngOnInit(): void {
+    this.getRating();
+  }
 
-  constructor() {}
+  private getRating(){
+    return this.adminService.getRating().subscribe(res => {
+      this.expCompra[0].data = res.data.cantidadExp;
+      console.log(this.expCompra)
+    })
+  }
+
 }

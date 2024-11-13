@@ -9,6 +9,7 @@ import { Promociones } from '../interfaces/GetPromociones.interface';
 import { VentasFenvio } from '../interfaces/GetVentasFenvio.interface';
 import { VentasPendientes } from '../interfaces/GetVentasPendientes.interface';
 import { GetMision, GetVision, Mision, Vision } from '../interfaces/GetMision.interface';
+import { RatingResponse } from '../interfaces/ResRating.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class AdminService {
   constructor(
     private http: HttpClient,
   ) {}
-  //private urlApi:string = 'https://c175-187-249-108-38.ngrok-free.app/';
-  private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
+  private urlApi:string = 'http://localhost:3000/';
+  //private urlApi: string = 'https://back-novedadesar-production.up.railway.app/';
 
   addProduct(newProduct: any) {
     return this.http.post<ResponseCreateUser>(`${this.urlApi}products`, newProduct)
@@ -74,5 +75,8 @@ export class AdminService {
   }
   updateVision(vision:Vision){
     return this.http.patch<ResponseBack>(`${this.urlApi}about-us/update-vision`, vision)
+  }
+  getRating(){
+    return this.http.get<RatingResponse>(`${this.urlApi}rating`)
   }
 }
