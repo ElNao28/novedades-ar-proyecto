@@ -39,6 +39,8 @@
       "name": "data-api",
       "urls": [
         "https://back-novedadesar-production.up.railway.app/products/data-inicio",
+        "https://back-novedadesar-production.up.railway.app/about-us/mision",
+        "https://back-novedadesar-production.up.railway.app/about-us/vision",
         "https://back-novedadesar-production.up.railway.app/products/page/0"
       ],
       "cacheConfig": {
