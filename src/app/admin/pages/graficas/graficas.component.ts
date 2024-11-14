@@ -3,19 +3,16 @@ import { ChartOptions } from 'chart.js';
 import { AdminService } from '../../services/admin-service.service';
 
 interface Grafica {
-  data:number[]
+  data: number[];
 }
 @Component({
   selector: 'app-graficas',
   templateUrl: './graficas.component.html',
   styleUrl: './graficas.component.css',
 })
-export class GraficasComponent implements OnInit{
-  constructor(private adminService:AdminService) {}
+export class GraficasComponent implements OnInit {
+  constructor(private adminService: AdminService) {}
 
-  public pieChartOptions: ChartOptions<'pie'> = {
-    responsive: false,
-  };
   public pieChartLabels = [
     ['Muy satisfecho'],
     ['Satisfecho'],
@@ -23,21 +20,32 @@ export class GraficasComponent implements OnInit{
     ['Insatisfecho'],
     ['Muy insatisfecho'],
   ];
-  public expCompra:Grafica[] = [{
-    data:[]
-  }
-  ];
-  public detalles:Grafica[] = [];
-  public satOptimizacion:Grafica[] = [];
+  public expCompra: Grafica[] = [];
+  public detalles: Grafica[] = [];
+  public satOptimizacion: Grafica[] = [];
   ngOnInit(): void {
     this.getRating();
   }
-
-  private getRating(){
-    return this.adminService.getRating().subscribe(res => {
-      this.expCompra[0].data = res.data.cantidadExp;
-      console.log(this.expCompra)
+  private getRating() {
+    this.adminService.getRating().subscribe(res => {
+      const exp = [
+        {
+          data:res.data.cantidadExp
+        }
+      ]
+      const detail = [
+        {
+          data:res.data.cantidadDetall
+        }
+      ]
+      const opt = [
+        {
+          data:res.data.cantidadOpt
+        }
+      ]
+      this.expCompra = exp;
+      this.detalles = detail;
+      this.satOptimizacion = opt;
     })
   }
-
 }
