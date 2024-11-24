@@ -41,7 +41,8 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        component: HomeAdminComponent,
+        component: GraficasComponent,
+        // component: HomeAdminComponent,
         canMatch: [canMatchGuard],
         canActivate: [canActivateGuard]
       },
