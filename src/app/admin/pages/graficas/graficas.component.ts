@@ -14,20 +14,24 @@ export class GraficasComponent implements OnInit {
   constructor(private adminService: AdminService) {}
 
   public pieChartLabels = [
-    ['Muy satisfecho'],
-    ['Satisfecho'],
+    ['Nada satisfecho'],
+    ['Poco satisfecho'],
     ['Neutral'],
-    ['Insatisfecho'],
-    ['Muy insatisfecho'],
+    ['Satisfecho'],
+    ['Muy satisfecho'],
   ];
   public expCompra: Grafica[] = [];
   public detalles: Grafica[] = [];
   public satOptimizacion: Grafica[] = [];
+  public totalEnc:number = 0;
   ngOnInit(): void {
     this.getRating();
   }
   private getRating() {
     this.adminService.getRating().subscribe(res => {
+      res.data.cantidadDetall.map(data => {
+        this.totalEnc += data
+      });
       const exp = [
         {
           data:res.data.cantidadExp

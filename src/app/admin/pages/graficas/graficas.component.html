@@ -1,9 +1,10 @@
 <div>
   <h1 class="text-center">Estadisticas de satisfaccion</h1>
 </div>
+<h3 class="mx-3">Total de encuestas respondidas: {{totalEnc}}</h3>
 <section class="flex justify-evenly gap-3 mx-3">
   <div class="bg-white rounded-md py-2 shadow-lg flex flex-col items-center">
-    <h3 class="text-center text-lg">Satisfaccion con la informacion de los productos</h3>
+    <h3 class="text-center text-lg">Proceso de compra</h3>
     <canvas
       baseChart
       [type]="'pie'"
@@ -13,7 +14,7 @@
     </canvas>
   </div>
   <div class="bg-white rounded-md py-2 shadow-lg flex flex-col items-center">
-    <h3 class="text-center text-lg">Satisfaccion con la informacion de los productos</h3>
+    <h3 class="text-center text-lg">Detalles de los productos</h3>
     <canvas
       baseChart
       [type]="'pie'"
@@ -23,7 +24,7 @@
     </canvas>
   </div>
   <div class="bg-white rounded-md py-2 shadow-lg flex flex-col items-center">
-    <h3 class="text-center text-lg">Satisfaccion con la informacion de los productos</h3>
+    <h3 class="text-center text-lg">Optimizacion de la pagina</h3>
     <canvas
       baseChart
       [type]="'pie'"
