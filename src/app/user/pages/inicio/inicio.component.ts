@@ -21,7 +21,7 @@ export class InicioComponent implements OnInit{
     private fb:FormBuilder,
   ) { }
   public visible: boolean = false;
-  private idUser:string = "";
+  public idUser:string = "";
 
   public formCal:FormGroup = this.fb.group({
     expCompra:[1,[Validators.required]],

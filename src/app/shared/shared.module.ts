@@ -8,6 +8,8 @@ import { CommonModule } from "@angular/common";
 import { PrimeNgModule } from "../prime-ng/prime-ng.module";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserModule } from '../user/user.module';
+import { FormRatingComponent } from '../user/components/form-rating/form-rating.component';
 
 @NgModule({
   declarations: [
@@ -15,15 +17,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     LayoutPageComponent,
     Error404Component,
     LoaderComponent,
-    NavBarComponent
+    NavBarComponent,
+    FormRatingComponent
   ],
   exports:[
     LoaderComponent,
+    FormRatingComponent
   ],
   imports: [
     CommonModule,
     PrimeNgModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class SharedModule { }

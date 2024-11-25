@@ -1,35 +1,6 @@
 <app-loader *ngIf="isLoader"></app-loader>
 <div *ngIf="!isLoader" class="mt-3">
-  <div class="">
-    <p-dialog
-    header="Encuenta de satisfaccion"
-    [(visible)]="visible"
-    [modal]="true"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-    [style]="{ width: '50vw' }"
-    [draggable]="false"
-    [resizable]="false">
-        <form class="flex flex-col gap-5" [formGroup]="formCal">
-          <div class="flex flex-col">
-            <label for="rating">¿Qué tan satisfecho estás con tu experiencia general de compra en la aplicación?</label>
-            <p-rating [cancel]="false" formControlName="expCompra"/>
-          </div>
-          <div class="flex flex-col">
-            <label for="rating">¿Qué tan satisfecho estas con la información presentada sobre los productos (descripciones, tallas, materiales, etc.)?</label>
-            <p-rating [cancel]="false" formControlName="detalles"/>
-          </div>
-          <div class="flex flex-col">
-            <label for="rating">¿Estás satisfecho con el tiempo de carga de las páginas y la velocidad de la aplicación?</label>
-            <p-rating [cancel]="false" formControlName="satOptimizacion"/>
-          </div>
-          <div class="flex justify-end">
-            <button [disabled]="isSend" (click)="rating()" class="bg-blue-600 rounded-md border-none text-white px-3 py-2 font-bold text-md cursor-pointer">
-              Enviar
-            </button>
-          </div>
-        </form>
-</p-dialog>
-  </div>
+<app-form-rating [idUser]="idUser" [visible]="visible"></app-form-rating>
  <div class="mx-5">
    <p-carousel [value]="images" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [showIndicators]="false" [showNavigators]="false">
      <ng-template let-product pTemplate="item">
