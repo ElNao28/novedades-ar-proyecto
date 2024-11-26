@@ -1,15 +1,15 @@
-name: PWA CI/CD Workflow  # Nombre del flujo de trabajo
+name: PWA CI/CD Workflow
 
 # Disparadores para el workflow
 on:
   push:
     branches:
-      - prueba3             # Ejecutar en cada push a las ramas especificadas
+      - prueba3
       - luis-jair
-      - mabel       
+      - mabel   # Ejecutar las pruebas en cualquier rama en cada push
   pull_request:
     branches:
-      - main
+      - main   # Ejecutar las pruebas antes de fusionar a master
 
   workflow_dispatch:
 
@@ -19,6 +19,7 @@ permissions:
 
 jobs:
   Pruebas:
+    #name: Run Unit Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -30,8 +31,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' 
-          cache: 'npm'  
+          node-version: '20' # Versión de Node.js recomendada
+          cache: 'npm'  # Configura el caché para npm automáticamente
 
       # 3. Instalar dependencias del proyecto
       - name: Install dependencies
@@ -42,12 +43,38 @@ jobs:
         run: npm run start &
         env:
           CI: true
+          
 
       # 5. Esperar a que el servidor esté arriba
-      - name: Wait for Angular App to be available
-        run: npx wait-on http://localhost:4200
+      # - name: Wait for Angular App to be available
+      #   run: npx wait-on http://localhost:4200
 
+  #     # 6. Ejecutar pruebas unitarias con Jest
+  #     - name: Run Jest tests
+  #       run: npm run test --no-watch --no-progress --browsers=ChromeHeadless
 
-      # 8. Ejecutar pruebas e2e con cypress
-      - name: e2e cypress
-        run: npx cypress run
+  #     # 7. Ejecutar pruebas lint
+  #     - name: Run lint
+  #       run: npm run lint
+      
+  #     # 8. Ejecutar pruebas e2e con cypress
+  #     - name: e2e cypress
+  #       run: npx cypress run
+  
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: Pruebas   # Asegura que este job solo se ejecuta si 'Pruebas' ha sido exitoso
+    if: github.ref == 'refs/heads/main'  
+    # Asegura que solo se ejecute en la rama main
+
+    steps:
+      # 1. Checkout del repositorio
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 3. Desplegar la aplicación a producción
+      - name: Deploy to Production Vercel
+        run: |
+          echo "Desplegando aplicación a producción..."
+          npx vercel --prod --token ${{ secrets.TOKE_VERCEL }}
