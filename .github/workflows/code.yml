@@ -65,7 +65,7 @@ jobs:
     name: Deploy to Production
     runs-on: ubuntu-latest
     needs: Pruebas   # Asegura que este job solo se ejecuta si 'Pruebas' ha sido exitoso
-    if: github.ref == 'refs/heads/main'  
+    if: github.ref == 'refs/heads/prueba3'  
     # Asegura que solo se ejecute en la rama main
 
     steps:
